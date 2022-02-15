@@ -1,0 +1,83 @@
+﻿<Window x:Class="SlipStream.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SlipStream"
+        xmlns:ViewModel="clr-namespace:SlipStream.ViewModels"
+        mc:Ignorable="d"
+        Title="ShellWindow" Height="625" Width="920">
+
+    <Window.DataContext>
+        <ViewModel:MainViewModel/>
+    </Window.DataContext>
+    
+    <Border Background="MidnightBlue">
+        <Grid Margin="10">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.RowSpan="4" HorizontalAlignment="Left" Width="150">
+
+                <Label 
+                    Content="SlipStream" 
+                    Foreground="White" 
+                    FontSize="20" 
+                    FontWeight="Bold"
+                    Padding="0,15,0,30"
+                    HorizontalAlignment="Center"/>
+
+                <RadioButton
+                    Content="Home"
+                    Foreground="White"
+                    Padding="0,15,0,15"
+                    Command="{Binding HomeViewCommand}"
+                    IsChecked="True"
+                    HorizontalAlignment="Center"/>
+
+                <RadioButton
+                    Content="Connection Status"
+                    Foreground="White"
+                    Padding="0,15,0,15"
+                    HorizontalAlignment="Center"/>
+
+                <GroupBox Header="Connection" DataContext="UDPConnection" Foreground="White" Margin="10">
+                    <TextBlock 
+                        Text="{Binding ConnectionStatus}" 
+                        Foreground="White"
+                        Padding="10"/>
+                </GroupBox>
+
+                <TextBlock/>
+                <TextBlock/>
+                <TextBlock/>
+                <TextBlock/>
+
+            </StackPanel>
+
+            <ContentControl
+                x:Name="ShellContent"
+                Content="{Binding CurrentView}"
+                Grid.Column="1"
+                Grid.RowSpan="4"
+                Grid.ColumnSpan="5"
+                Margin="10"/>
+
+
+        </Grid>
+    </Border>
+</Window>
