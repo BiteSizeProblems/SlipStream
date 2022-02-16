@@ -69,18 +69,31 @@ namespace SlipStream.ViewModels
             }
 
             UDPC.OnParticipantsDataReceive += UDPC_OnParticipantDataReceive;
+            UDPC.OnLapDataReceive += UDPC_OnLapDataReceive;
         }
 
+
+
+        private void UDPC_OnLapDataReceive(PacketLapData packet)
+        {
+            // Loop through the participants the game is giving us
+            for (int i = 0; i < packet.lapData.Length; i++)
+            {
+                var lapData = packet.lapData[i];
+                // Update it in the array
+                DriverArr[i].CurrentLapTime = lapData.currentLapTimeInMS;
+            }
+        }
 
         private void UDPC_OnParticipantDataReceive(PacketParticipantsData packet)
         {
             // Loop through the participants the game is giving us
             for(int i=0; i < packet.participants.Length; i++)
             {
+                var participant = packet.participants[i];
                 // Update them in the array
-                DriverData driver = new DriverData(packet.participants[i].driverId, packet.participants[i].teamId);
-                Trace.WriteLine(driver.TeamID);
-                DriverArr[i] = driver;
+                DriverArr[i].DriverID = participant.driverId;
+                DriverArr[i].TeamID = participant.teamId;
             }
         }
 
@@ -101,18 +114,20 @@ namespace SlipStream.ViewModels
                 set { SetField(ref _teamID, value, nameof(TeamID)); }
             }
 
-            // Args CTOR
-            public DriverData(Drivers d, Teams t)
+            private float _currentLapTime;
+            public float CurrentLapTime
             {
-                this.DriverID = d;
-                this.TeamID = t;
+                get { return _currentLapTime; }
+                set { SetField(ref _currentLapTime, value, nameof(CurrentLapTime)); }
             }
+
 
             // NoArgs CTOR
             public DriverData()
             {
                 this.DriverID = Drivers.Unknown;
                 this.TeamID = Teams.Unknown;
+                this.CurrentLapTime = 0;
             }
         }
 

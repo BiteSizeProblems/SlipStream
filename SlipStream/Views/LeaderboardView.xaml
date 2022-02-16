@@ -16,6 +16,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding DriverID}" Header="Driver ID"/>
                 <DataGridTextColumn Binding="{Binding TeamID}" Header="Team ID"/>
+                <DataGridTextColumn Binding="{Binding CurrentLapTime}" Header="Current Lap Time"/>
             </DataGrid.Columns>
         </DataGrid>
     </Border>
