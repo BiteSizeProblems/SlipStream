@@ -29,7 +29,7 @@ namespace SlipStream.ViewModels
         public MainViewModel()
         {
             HomeVM = new HomeViewModel();
-            LVM = new LeaderboardViewModel();
+            LVM = LeaderboardViewModel.GetInstance();
 
             CurrentView = HomeVM;
 
