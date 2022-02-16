@@ -11,7 +11,7 @@ namespace SlipStream.Core
         /// <summary>
         /// Type of the packet (In header's PocketID property).
         /// </summary>
-        public enum PacketTypes
+        public enum PacketTypes : byte
         {
             /// <summary>
             /// Contains all motion data for player’s car – only sent while player is in control
@@ -63,7 +63,7 @@ namespace SlipStream.Core
             SessionHistory
         }
 
-        public enum Teams
+        public enum Teams : byte
         {
             MyTeam = 255,
             Mercedes = 0,
@@ -109,7 +109,7 @@ namespace SlipStream.Core
             AlfaRomeo2020 = 94,
         }
 
-        public enum Tracks
+        public enum Tracks : sbyte
         {
             Unknown = -1,
             Melbourne = 0,
@@ -144,7 +144,7 @@ namespace SlipStream.Core
             Jeddah = 29,
         }
 
-        public enum Drivers
+        public enum Drivers : byte
         {
             CarlosSainz = 0,
             DaniilKvyat = 1,
@@ -328,7 +328,7 @@ namespace SlipStream.Core
             Sector3Valid = 0x08,
         }
 
-        public enum SurfaceTypes
+        public enum SurfaceTypes : byte
         {
             Tarmac = 0,
             Rumblestrip = 1,
@@ -344,7 +344,7 @@ namespace SlipStream.Core
             Ridged = 11,
         }
 
-        public enum Nationalities
+        public enum Nationalities : byte
         {
             Unknown = 0,
             American = 1,
@@ -436,7 +436,7 @@ namespace SlipStream.Core
             Vietnamese = 87,
         }
 
-        public enum PenalytyTypes
+        public enum PenalytyTypes : byte
         {
             DriveThrough,
             StopGo,
@@ -458,7 +458,7 @@ namespace SlipStream.Core
             BlackFlagTimer,
         }
 
-        public enum InfringementTypes
+        public enum InfringementTypes : byte
         {
             BlockingBySlowDriving,
             BlockingByWrongWayDriving,
@@ -528,7 +528,7 @@ namespace SlipStream.Core
             Gear_8 = 8,
         }
 
-        public enum Flags
+        public enum Flags : sbyte
         {
             InvalidOrUnknown = -1,
             None = 0,
@@ -538,7 +538,7 @@ namespace SlipStream.Core
             red = 4,
         }
 
-        public enum ResultSatuses
+        public enum ResultSatuses : sbyte
         {
             Unknown = -1,
             Invalid = 0,
@@ -552,7 +552,7 @@ namespace SlipStream.Core
         }
 
 
-        public enum TyreCompounds
+        public enum TyreCompounds : byte
         {
             HyperSoft,
             UltraSoft,
@@ -592,7 +592,7 @@ namespace SlipStream.Core
             Approximate,
         }
 
-        public enum WeatherTypes
+        public enum WeatherTypes : byte
         {
             Clear,
             LitghtCloud,
@@ -602,24 +602,24 @@ namespace SlipStream.Core
             Storm,
         }
 
-        public enum SessionTypes
+        public enum SessionTypes : byte
         {
             Unknown,
             Practice1,
             Practice2,
             Practice3,
             ShortPractice,
-            Quallifying1,
-            Quallifying2,
-            Quallifying3,
-            ShortQuallifying,
-            OneShotQuallifying,
+            Q1,
+            Q2,
+            Q3,
+            ShortQualifying,
+            OneShotQualifying,
             Race,
             Race2,
             TimeTrial,
         }
 
-        public enum Formulas
+        public enum Formulas : byte
         {
             F1Modern,
             F1Classic,
@@ -627,7 +627,7 @@ namespace SlipStream.Core
             F1Generic,
         }
 
-        public enum SafetyCarStatuses
+        public enum SafetyCarStatuses : byte
         {
             NoSafetyCar,
             FullSafetyCar,
@@ -656,7 +656,7 @@ namespace SlipStream.Core
             Line_3D
         }
 
-        public enum PitStatuses
+        public enum PitStatuses : sbyte
         {
             Unknown = -1,
             None = 0,
@@ -664,7 +664,7 @@ namespace SlipStream.Core
             InPitArea = 2,
         }
 
-        public enum Sectors
+        public enum Sectors : sbyte
         {
             Unknown = -1,
             Sector1 = 0,
@@ -672,7 +672,7 @@ namespace SlipStream.Core
             Sector3 = 2,
         }
 
-        public enum DriverSatuses
+        public enum DriverSatuses : sbyte
         {
             Unknown = -1,
             InGarage = 0,
@@ -682,7 +682,7 @@ namespace SlipStream.Core
             OnTrack = 4,
         }
 
-        public enum EventTypes
+        public enum EventTypes : byte
         {
             Unknown,
             SessionStarted,
@@ -710,7 +710,7 @@ namespace SlipStream.Core
             Public,
         }
 
-        public enum ERSModes
+        public enum ERSModes : byte
         {
             None,
             Low,
@@ -720,14 +720,14 @@ namespace SlipStream.Core
             Hotlap,
         }
 
-        public enum TractionControlSettings
+        public enum TractionControlSettings : byte
         {
             Off,
             Medium,
             Full,
         }
 
-        public enum FuelMixis
+        public enum FuelMixis : byte
         {
             Lean,
             Standard,
@@ -735,14 +735,14 @@ namespace SlipStream.Core
             Max,
         }
 
-        public enum DRSStatuses
+        public enum DRSStatuses : sbyte
         {
             Unknown = -1,
             NotAllowed = 0,
             Allowed = 1,
         }
 
-        public enum ReadyStatuses
+        public enum ReadyStatuses : byte
         {
             NotReady,
             Ready,

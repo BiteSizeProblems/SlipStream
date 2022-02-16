@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Timers;
 using SlipStream.Models;
 using static SlipStream.Core.Appendeces;
+using System.Diagnostics;
 
 namespace SlipStream.Core
 {
@@ -85,8 +86,11 @@ namespace SlipStream.Core
         /// <param name="port">The port to listen to. This should match the game setting.</param>
         private UDPConnection(int port)
         {
+
+            Trace.WriteLine("UDP CONNECTION CTOR");
+
             _client = new UdpClient(port);
-            _endPoint = new IPEndPoint(IPAddress.Any, port);
+            _endPoint = new IPEndPoint(IPAddress.Any, 0);
 
             _timeoutTimer = new Timer(TIMEOUT_IN_MS);
             _timeoutTimer.AutoReset = false;

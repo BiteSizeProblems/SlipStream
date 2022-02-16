@@ -50,17 +50,11 @@
                     HorizontalAlignment="Center"/>
 
                 <RadioButton
-                    Content="Connection Status"
+                    Content="Leaderboard"
                     Foreground="White"
                     Padding="0,15,0,15"
+                    Command="{Binding LeaderboardViewCommand}"
                     HorizontalAlignment="Center"/>
-
-                <GroupBox Header="Connection" DataContext="UDPConnection" Foreground="White" Margin="10">
-                    <TextBlock 
-                        Text="{Binding ConnectionStatus}" 
-                        Foreground="White"
-                        Padding="10"/>
-                </GroupBox>
 
                 <TextBlock/>
                 <TextBlock/>

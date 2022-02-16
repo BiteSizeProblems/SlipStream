@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SlipStream.Views" xmlns:viewmodels="clr-namespace:SlipStream.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
+             xmlns:local="clr-namespace:SlipStream.Views" xmlns:viewmodels="clr-namespace:SlipStream.ViewModels"
              mc:Ignorable="d" 
              Height="600" Width="875">
     
@@ -32,7 +32,28 @@
                     <TextBlock Text="{Binding ConnectionStatus}"
                                Padding="10"
                                Foreground="White"/>
-                    <TextBlock Text="{Binding Test1}"
+                </StackPanel>
+
+                <StackPanel >
+                    <Label Content="Current Event" 
+                           Foreground="White" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           VerticalAlignment="Center"
+                           Padding="10"/>
+                    <TextBlock Text="{Binding Circuit}"
+                               Padding="10"
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentSession}"
+                               Padding="10"
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentWeather}"
+                               Padding="10"
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding SessionDuration}"
+                               Padding="10"
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding SessionTimeRemaining}"
                                Padding="10"
                                Foreground="White"/>
                 </StackPanel>

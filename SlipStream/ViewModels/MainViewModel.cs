@@ -10,8 +10,10 @@ namespace SlipStream.ViewModels
     public class MainViewModel : BaseViewModel
     {
         public RelayCommand HomeViewCommand { get; set; }
-
         public HomeViewModel HomeVM { get; set; }
+
+        public RelayCommand LeaderboardViewCommand { get; set; }
+        public LeaderboardViewModel LVM { get; set; }
 
         private object _currentView;
         public object CurrentView
@@ -27,6 +29,8 @@ namespace SlipStream.ViewModels
         public MainViewModel()
         {
             HomeVM = new HomeViewModel();
+            LVM = new LeaderboardViewModel();
+
             CurrentView = HomeVM;
 
             HomeViewCommand = new RelayCommand(o =>
@@ -34,7 +38,10 @@ namespace SlipStream.ViewModels
                 CurrentView = HomeVM;
             });
 
-            //UDPConnection UDPC = UDPConnection.GetInstance();
+            LeaderboardViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = LVM;
+            });
         }
 
     }
