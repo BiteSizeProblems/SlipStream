@@ -7,56 +7,20 @@
              mc:Ignorable="d" 
              Height="600" Width="875">
 
-    <Border >
-        <StackPanel Margin="10">
-            <ListView x:Name="SLD" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" >
-                <ListView.View>
-                    <GridView>
-                        <GridView.ColumnHeaderContainerStyle>
-                            <Style TargetType="GridViewColumnHeader">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="GridViewColumnHeader">
-                                            <Border  BorderThickness="5" Padding="5">
-                                                <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" Foreground="White"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            </Style>
-                        </GridView.ColumnHeaderContainerStyle>
-                        <GridViewColumn Header="Pos" DisplayMemberBinding="{Binding CarPosition}" Width="40" />
-                        <GridViewColumn Header="Driver" DisplayMemberBinding="{Binding DriverID}" Width="100"/>
-                        <GridViewColumn Header="Car" DisplayMemberBinding="{Binding RaceNumber}" Width="40"/>
-                        <GridViewColumn Header="Team" DisplayMemberBinding="{Binding TeamID}" Width="100" />
-                        <GridViewColumn Header="Best" DisplayMemberBinding="{Binding BestLap}" Width="75"/>
-                        <GridViewColumn Header="Gap" DisplayMemberBinding="{Binding Weather}" Width="50"/>
-                        <GridViewColumn Header="Last" DisplayMemberBinding="{Binding LastLapTime2}" Width="75"/>
-                        <GridViewColumn Header="Sector 1" DisplayMemberBinding="{Binding WTF}" Width="75"/>
-                        <GridViewColumn Header="Sector 2" DisplayMemberBinding="{Binding Sector2Time}" Width="75"/>
-                        <GridViewColumn Header="Sector 3" DisplayMemberBinding="{Binding Sector3Time}" Width="75"/>
-                        <GridViewColumn Header="Tire" DisplayMemberBinding="{Binding TyreCompound}" Width="75"/>
-                        <GridViewColumn Header="Laps" DisplayMemberBinding="{Binding CurrentLap}" Width="50"/>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding DriverStatus}" Width="75"/>
-                    </GridView>
-                </ListView.View>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-
-
-        </StackPanel>
-
+    <Border>
+        <DataGrid Background="White" 
+                  Name="Leaderboard" 
+                  ItemsSource="{Binding Path=IntArr}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Driver Name"
+                    Binding="{Binding DriverName}"/>
+                <DataGridTextColumn 
+                    Header="Team"
+                    Binding="{Binding TeamName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Border>
 </UserControl>

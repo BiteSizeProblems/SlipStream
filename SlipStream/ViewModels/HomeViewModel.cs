@@ -78,7 +78,6 @@ namespace SlipStream.ViewModels
         {
             
             ConnectionStatus = "Connected";
-
             Circuit = $"Circuit: {packet.trackId}";
             CurrentSession = $"Session Type: {packet.sessionType}";
             CurrentWeather = $"Weather: {packet.weather}";

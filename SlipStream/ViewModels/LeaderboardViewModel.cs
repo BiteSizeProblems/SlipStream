@@ -15,6 +15,9 @@ using static SlipStream.Core.Appendeces;
 
 namespace SlipStream.ViewModels
 {
+
+
+
     public class LeaderboardViewModel : BaseViewModel
     {
         // === BEGINING OF MODULE SETUP ===
@@ -32,8 +35,6 @@ namespace SlipStream.ViewModels
         }
         // === END OF MODULE SETUP ===
 
-        //public LeaderboardView.SLD SLD = new LeaderboardView.SLD;
-
         private Drivers _DriverID;
         public Drivers DriverID
         {
@@ -41,38 +42,29 @@ namespace SlipStream.ViewModels
             set { SetField(ref _DriverID, value, nameof(DriverID)); }
         }
 
+        ObservableCollection<DriverData> DrArr = new ObservableCollection<DriverData>();
+
         public LeaderboardViewModel() : base()
         {
+
             UDPC.OnParticipantsDataReceive += UDPC_OnParticipantDataReceive;
-            
+
+            for(int i=0; i<20; i++)
+            {
+                DrArr.Add(0);
+            }
+
         }
+
+        // TODO: Create a listview for the leaderboard
+
+        
 
         private void UDPC_OnParticipantDataReceive(PacketParticipantsData packet)
         {
-            var participants = packet.participants;
-            //this.PlyerList(participants.Participants.Length);
-            //var items = SLD.ItemsSource?.Cast<LeaderboardModel>();
-
-
-
-            //if (items != null)
+            for(int i=0; i < packet.participants.Length; i++)
             {
-                //for (int i = 0; i < participants.Participants.Length; i++)
-                {
-                    //var current = participants.Participants[i];
-                    //var elem = items.Where(x => x.ArrayIndex == i).FirstOrDefault();
-                    //if (elem != null)
-                    {
-                        //elem.DriverID = current.DriverID;
-                        //elem.Name = current.Name;
-                        //elem.Nationality = current.Nationality;
-                        //elem.TeamID = current.TeamID;
-                        //elem.IsAI = current.IsAIControlled;
-                        //elem.IsMyTeam = current.IsMyTeam;
-                        //elem.IsHuman = !current.IsAIControlled;
-                        //elem.RaceNumber = current.RaceNumber;
-                    }
-                }
+                DrArr[i] = packet.participants[i].teamId;
             }
         }
 
@@ -105,6 +97,14 @@ namespace SlipStream.ViewModels
                     this.OnPropertyChanged("CarPosition");
                 }
             }
+        }
+
+
+
+        public class DriverData
+        {
+            Drivers DriverID;
+            Teams TeamID;
         }
 
     }
