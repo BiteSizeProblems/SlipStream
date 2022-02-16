@@ -12,6 +12,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using static SlipStream.Core.Appendeces;
+using SlipStream.Core;
+using System.Diagnostics;
+using System.Windows.Data;
 
 namespace SlipStream.ViewModels
 {
@@ -35,76 +38,82 @@ namespace SlipStream.ViewModels
         }
         // === END OF MODULE SETUP ===
 
-        private Drivers _DriverID;
-        public Drivers DriverID
+        // Create a observable collection of DriverData
+        public ObservableCollection<DriverData> DriverArr { get; set; }
+        private object _driverArrLock = new object();
+
+
+        // When constructing this model we want to...
+        // INIT driverArr
+        // Enable multithreading
+        // Fill it with default values
+        // "Subscribe" to OnParticipantsDataReceive
+
+        // NOTE:
+        // In order to following singleton design patern constructor should be private
+        // that way the only way to receive a LeaderboardViewModel instance is through getInstance();
+        private LeaderboardViewModel() : base()
         {
-            get { return _DriverID; }
-            set { SetField(ref _DriverID, value, nameof(DriverID)); }
-        }
 
-        ObservableCollection<DriverData> DrArr = new ObservableCollection<DriverData>();
+            DriverArr = new ObservableCollection<DriverData>();
 
-        public LeaderboardViewModel() : base()
-        {
+            // thread saftey
+            BindingOperations.EnableCollectionSynchronization(DriverArr, _driverArrLock);
 
-            UDPC.OnParticipantsDataReceive += UDPC_OnParticipantDataReceive;
-
-            for(int i=0; i<20; i++)
+            // Could be UPTO 22 participants
+            // Fill the Array up
+            for (int i = 0; i < 22; i++)
             {
-                DrArr.Add(0);
+                // Add a new Default Driver
+                DriverArr.Add(new DriverData());
             }
 
+            UDPC.OnParticipantsDataReceive += UDPC_OnParticipantDataReceive;
         }
 
-        // TODO: Create a listview for the leaderboard
-
-        
 
         private void UDPC_OnParticipantDataReceive(PacketParticipantsData packet)
         {
+            // Loop through the participants the game is giving us
             for(int i=0; i < packet.participants.Length; i++)
             {
-                DrArr[i] = packet.participants[i].teamId;
+                // Update them in the array
+                DriverData driver = new DriverData(packet.participants[i].driverId, packet.participants[i].teamId);
+                Trace.WriteLine(driver.TeamID);
+                DriverArr[i] = driver;
             }
         }
 
-        private void PlayerList(int numberOfPlayers)
+
+        // MODEL 
+        public class DriverData : ObservableObject
         {
-            //if (this..Items.Count == 0)
+            private Drivers _driverID;
+            public Drivers DriverID
             {
-                //var tmp = new ObservableCollection<LeaderboardModel>();
-
-                //for (int i = 0; i < numberOfPlayers; i++)
-                {
-                    //var data = new LeaderboardModel();
-                    //data.ArrayIndex = i;
-                    //tmp.Add(data);
-                }
-
-                //this.listBox_drivers.ItemsSource = tmp;
+                get { return _driverID; }
+                set { SetField(ref _driverID, value, nameof(DriverID)); }
             }
-        }
-
-        private int _arrayIndex;
-        public int ArrayIndex
-        {
-            get { return _arrayIndex; }
-            set
+            private Teams _teamID;
+            public Teams TeamID
             {
-                if (this.ArrayIndex != value)
-                {
-                    _arrayIndex = value;
-                    this.OnPropertyChanged("CarPosition");
-                }
+                get { return _teamID; }
+                set { SetField(ref _teamID, value, nameof(TeamID)); }
             }
-        }
 
+            // Args CTOR
+            public DriverData(Drivers d, Teams t)
+            {
+                this.DriverID = d;
+                this.TeamID = t;
+            }
 
-
-        public class DriverData
-        {
-            Drivers DriverID;
-            Teams TeamID;
+            // NoArgs CTOR
+            public DriverData()
+            {
+                this.DriverID = Drivers.Unknown;
+                this.TeamID = Teams.Unknown;
+            }
         }
 
     }

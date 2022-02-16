@@ -10,16 +10,12 @@
     <Border>
         <DataGrid Background="White" 
                   Name="Leaderboard" 
-                  ItemsSource="{Binding Path=IntArr}"
+                  ItemsSource="{Binding Path=DriverArr}"
                   IsReadOnly="True"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn
-                    Header="Driver Name"
-                    Binding="{Binding DriverName}"/>
-                <DataGridTextColumn 
-                    Header="Team"
-                    Binding="{Binding TeamName}"/>
+                <DataGridTextColumn Binding="{Binding DriverID}" Header="Driver ID"/>
+                <DataGridTextColumn Binding="{Binding TeamID}" Header="Team ID"/>
             </DataGrid.Columns>
         </DataGrid>
     </Border>

@@ -66,6 +66,7 @@ namespace SlipStream.Core
         public enum Teams : byte
         {
             MyTeam = 255,
+            Unknown = 254,
             Mercedes = 0,
             Ferrari = 1,
             RedBullRacing = 2,

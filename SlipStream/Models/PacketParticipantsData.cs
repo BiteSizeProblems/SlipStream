@@ -16,10 +16,15 @@ namespace SlipStream.Models
         /// </summary>
         public Drivers driverId;
 
+        public byte networkId;
+
         /// <summary>
         /// Team id - see appendix
         /// </summary>
-        public byte teamId;
+        public Teams teamId;
+
+
+        public byte myTeam;
 
         /// <summary>
         /// Race number of the car
