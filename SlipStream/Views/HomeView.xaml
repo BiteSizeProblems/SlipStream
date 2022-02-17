@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views" xmlns:viewmodels="clr-namespace:SlipStream.ViewModels"
              mc:Ignorable="d" 
-             Height="600" Width="875">
+             d:DesignHeight="450" d:DesignWidth="800">
     
     <Border Background="Transparent">
         <Grid>
@@ -15,15 +15,15 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Label Content="Discover" 
+            <Label Content="Session Overview" 
                    Foreground="White" 
                    FontSize="50" 
                    FontWeight="Bold" 
                    VerticalAlignment="Center"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,10,5,10">
-                <StackPanel >
-                    <Label Content="Connection Overview" 
+                <StackPanel Margin="10">
+                    <Label Content="Connection Details" 
                            Foreground="White" 
                            FontSize="24" 
                            FontWeight="Bold" 
@@ -34,13 +34,16 @@
                                Foreground="White"/>
                 </StackPanel>
 
-                <StackPanel >
-                    <Label Content="Current Event" 
+                <StackPanel Margin="10">
+                    <Label Content="Session Details" 
                            Foreground="White" 
                            FontSize="24" 
                            FontWeight="Bold" 
                            VerticalAlignment="Center"
                            Padding="10"/>
+                    <TextBlock Text="{Binding Formula}"
+                               Padding="10"
+                               Foreground="White"/>
                     <TextBlock Text="{Binding Circuit}"
                                Padding="10"
                                Foreground="White"/>
@@ -54,6 +57,21 @@
                                Padding="10"
                                Foreground="White"/>
                     <TextBlock Text="{Binding SessionTimeRemaining}"
+                               Padding="10"
+                               Foreground="White"/>
+                </StackPanel>
+
+                <StackPanel Margin="10">
+                    <Label Content="Participants" 
+                           Foreground="White" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           VerticalAlignment="Center"
+                           Padding="10"/>
+                    <TextBlock Text="{Binding NumOfActiveCars}"
+                               Padding="10"
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding NumOfParticipants}"
                                Padding="10"
                                Foreground="White"/>
                 </StackPanel>

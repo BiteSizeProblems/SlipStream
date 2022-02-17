@@ -32,6 +32,13 @@ namespace SlipStream.ViewModels
             set { SetField(ref _ConnectionStatus, value, nameof(ConnectionStatus)); }
         }
 
+        private string _Formula;
+        public string Formula
+        {
+            get { return _Formula; }
+            set { SetField(ref _Formula, value, nameof(Formula)); }
+        }
+
         private string _Circuit;
         public string Circuit
         {
@@ -67,6 +74,19 @@ namespace SlipStream.ViewModels
             set { SetField(ref _SessionTimeRemaining, value, nameof(SessionTimeRemaining)); }
         }
 
+        private string _NumOfActiveCars;
+        public string NumOfActiveCars
+        {
+            get { return _NumOfActiveCars; }
+            set { SetField(ref _NumOfActiveCars, value, nameof(NumOfActiveCars)); }
+        }
+
+        private string _NumOfParticipants;
+        public string NumOfParticipants
+        {
+            get { return _NumOfParticipants; }
+            set { SetField(ref _NumOfParticipants, value, nameof(NumOfParticipants)); }
+        }
 
         public HomeViewModel() : base()
         {
@@ -77,12 +97,21 @@ namespace SlipStream.ViewModels
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
         {
             
-            ConnectionStatus = "Connected";
+            ConnectionStatus = "Status: Connected";
+            Formula = $"Formula: {packet.formula}";
             Circuit = $"Circuit: {packet.trackId}";
             CurrentSession = $"Session Type: {packet.sessionType}";
             CurrentWeather = $"Weather: {packet.weather}";
             SessionDuration = $"Session Duration: {TimeSpan.FromSeconds(packet.sessionDuration)}";
             SessionTimeRemaining = $"Session Time Remaining: {TimeSpan.FromSeconds(packet.sessionTimeLeft)}";
+        }
+
+        private void UDPC_OnParticipantsDataReceive(PacketParticipantsData packet)
+        {
+
+            ConnectionStatus = "Status: Connected";
+            NumOfActiveCars = $"Active Cars: {packet.m_numOfActiveCars}";
+            NumOfParticipants = $"Session Participants: {packet.m_participants}";
         }
     }
 }

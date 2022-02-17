@@ -596,7 +596,7 @@ namespace SlipStream.Core
         public enum WeatherTypes : byte
         {
             Clear,
-            LitghtCloud,
+            LightCloud,
             Overcast,
             LightRain,
             HeavyRain,

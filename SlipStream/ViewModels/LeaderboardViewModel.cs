@@ -57,7 +57,7 @@ namespace SlipStream.ViewModels
 
             DriverArr = new ObservableCollection<DriverData>();
 
-            // thread saftey
+            // thread safety
             BindingOperations.EnableCollectionSynchronization(DriverArr, _driverArrLock);
 
             // Could be UPTO 22 participants
@@ -78,7 +78,10 @@ namespace SlipStream.ViewModels
             for(int i=0; i < packet.participants.Length; i++)
             {
                 // Update them in the array
-                DriverData driver = new DriverData(packet.participants[i].driverId, packet.participants[i].teamId);
+                DriverData driver = new DriverData(
+                    packet.participants[i].driverId,
+                    packet.participants[i].teamId,
+                    packet.participants[i].raceNumber);
                 Trace.WriteLine(driver.TeamID);
                 DriverArr[i] = driver;
             }
@@ -100,12 +103,19 @@ namespace SlipStream.ViewModels
                 get { return _teamID; }
                 set { SetField(ref _teamID, value, nameof(TeamID)); }
             }
+            private int _raceNumber;
+            public int raceNumber
+            {
+                get { return _raceNumber; }
+                set { SetField(ref _raceNumber, value, nameof(raceNumber)); }
+            }
 
             // Args CTOR
-            public DriverData(Drivers d, Teams t)
+            public DriverData(Drivers d, Teams t, int r)
             {
                 this.DriverID = d;
                 this.TeamID = t;
+                this.raceNumber = r;
             }
 
             // NoArgs CTOR

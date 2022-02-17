@@ -8,14 +8,25 @@
              Height="600" Width="875">
 
     <Border>
-        <DataGrid Background="White" 
+        <DataGrid Background="Transparent" 
                   Name="Leaderboard" 
                   ItemsSource="{Binding Path=DriverArr}"
                   IsReadOnly="True"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding DriverID}" Header="Driver ID"/>
-                <DataGridTextColumn Binding="{Binding TeamID}" Header="Team ID"/>
+                <DataGridTextColumn Binding="{Binding CarPosition}" Header="Pos"/>
+                <DataGridTextColumn Binding="{Binding DriverID}" Header="Driver"/>
+                <DataGridTextColumn Binding="{Binding raceNumber}" Header="Car #"/>
+                <DataGridTextColumn Binding="{Binding TeamID}" Header="Team"/>
+                <DataGridTextColumn Binding="{Binding BestLap}" Header="Best Lap"/>
+                <DataGridTextColumn Binding="{Binding BestLapGap}" Header="Gap"/>
+                <DataGridTextColumn Binding="{Binding LastLap}" Header="Last Lap"/>
+                <DataGridTextColumn Binding="{Binding BestSector1}" Header="Sector 1"/>
+                <DataGridTextColumn Binding="{Binding BestSector2}" Header="Sector 2"/>
+                <DataGridTextColumn Binding="{Binding BestSector3}" Header="Sector 3"/>
+                <DataGridTextColumn Binding="{Binding LapsCompleted}" Header="# of Laps"/>
+                <DataGridTextColumn Binding="{Binding CurrentTire}" Header="Tire"/>
+                <DataGridTextColumn Binding="{Binding CurrentStatus}" Header="Status"/>
             </DataGrid.Columns>
         </DataGrid>
     </Border>
