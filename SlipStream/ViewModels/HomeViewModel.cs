@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SlipStream.Models;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace SlipStream.ViewModels
 {
@@ -96,12 +97,11 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
         {
-            
             ConnectionStatus = "Status: Connected";
-            Formula = $"Formula: {packet.formula}";
-            Circuit = $"Circuit: {packet.trackId}";
-            CurrentSession = $"Session Type: {packet.sessionType}";
-            CurrentWeather = $"Weather: {packet.weather}";
+            Formula = ("Formula: " + Regex.Replace(packet.formula.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            Circuit = ("Circuit: " + Regex.Replace(packet.trackId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            CurrentSession = ("Session Type: " + Regex.Replace(packet.sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            CurrentWeather = ("Weather: " + Regex.Replace(packet.weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
             SessionDuration = $"Session Duration: {TimeSpan.FromSeconds(packet.sessionDuration)}";
             SessionTimeRemaining = $"Session Time Remaining: {TimeSpan.FromSeconds(packet.sessionTimeLeft)}";
         }
@@ -110,8 +110,8 @@ namespace SlipStream.ViewModels
         {
 
             ConnectionStatus = "Status: Connected";
-            NumOfActiveCars = $"Active Cars: {packet.m_numOfActiveCars}";
-            NumOfParticipants = $"Session Participants: {packet.m_participants}";
+            NumOfActiveCars = $"Active Cars: {packet.numActiveCars}";
+            NumOfParticipants = $"Session Participants: {packet.participants}";
         }
     }
 }

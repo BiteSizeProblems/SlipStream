@@ -5,28 +5,46 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views"
              mc:Ignorable="d" 
-             Height="600" Width="875">
+             Height="auto" Width="auto">
 
     <Border>
-        <DataGrid Background="Transparent" 
+        <DataGrid Background="Transparent"
+                  RowBackground="Transparent"
+                  Foreground="White"
                   Name="Leaderboard" 
                   ItemsSource="{Binding Path=DriverArr}"
                   IsReadOnly="True"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  Padding="10">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Width" Value="80"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CarPosition}" Header="Pos"/>
-                <DataGridTextColumn Binding="{Binding DriverID}" Header="Driver"/>
+                <DataGridTextColumn Binding="{Binding DriverName}" Header="Driver"/>
                 <DataGridTextColumn Binding="{Binding raceNumber}" Header="Car #"/>
-                <DataGridTextColumn Binding="{Binding TeamID}" Header="Team"/>
-                <DataGridTextColumn Binding="{Binding BestLap}" Header="Best Lap"/>
-                <DataGridTextColumn Binding="{Binding BestLapGap}" Header="Gap"/>
+                <DataGridTextColumn Binding="{Binding TeamName}" Header="Team"/>
+                <DataGridTextColumn Header="Best Lap"/>
+                <DataGridTextColumn Header="Gap"/>
                 <DataGridTextColumn Binding="{Binding LastLap}" Header="Last Lap"/>
-                <DataGridTextColumn Binding="{Binding BestSector1}" Header="Sector 1"/>
-                <DataGridTextColumn Binding="{Binding BestSector2}" Header="Sector 2"/>
-                <DataGridTextColumn Binding="{Binding BestSector3}" Header="Sector 3"/>
-                <DataGridTextColumn Binding="{Binding LapsCompleted}" Header="# of Laps"/>
-                <DataGridTextColumn Binding="{Binding CurrentTire}" Header="Tire"/>
-                <DataGridTextColumn Binding="{Binding CurrentStatus}" Header="Status"/>
+                <DataGridTextColumn Header="Sector 1"/>
+                <DataGridTextColumn Header="Sector 2"/>
+                <DataGridTextColumn Header="Sector 3"/>
+                <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="# of Laps"/>
+                <DataGridTextColumn Header="Tire"/>
+                <DataGridTextColumn Binding="{Binding DriverStatus}" Header="Status"/>
             </DataGrid.Columns>
         </DataGrid>
     </Border>

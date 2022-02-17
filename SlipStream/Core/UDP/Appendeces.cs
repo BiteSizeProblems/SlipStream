@@ -75,7 +75,7 @@ namespace SlipStream.Core
             Alpine = 5,
             AlphaTauri = 6,
             Haas = 7,
-            McLaren = 8,
+            Mclaren = 8,
             AlfaRomeo = 9,
             ArtGP19 = 42,
             Campos19 = 43,
@@ -515,7 +515,7 @@ namespace SlipStream.Core
             MandatoryPitstop,
         }
 
-        public enum Gears
+        public enum Gears : sbyte
         {
             Gear_R = -1,
             Gear_N = 0,
@@ -673,7 +673,7 @@ namespace SlipStream.Core
             Sector3 = 2,
         }
 
-        public enum DriverSatuses : sbyte
+        public enum DriverStatus : sbyte
         {
             Unknown = -1,
             InGarage = 0,
