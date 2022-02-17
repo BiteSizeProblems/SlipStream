@@ -110,8 +110,8 @@ namespace SlipStream.ViewModels
         {
 
             ConnectionStatus = "Status: Connected";
-            NumOfActiveCars = $"Active Cars: {packet.m_numOfActiveCars}";
-            NumOfParticipants = $"Session Participants: {packet.m_participants}";
+            NumOfActiveCars = $"Active Cars: {packet.numActiveCars}";
+            NumOfParticipants = $"Session Participants: {packet.participants}";
         }
     }
 }
