@@ -6,180 +6,48 @@ namespace SlipStream.Models
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CarStatusData
     {
-        /// <summary>
-        /// 0 (off) - 2 (high)
-        /// </summary>
-        public byte tractionControl;
+        public byte m_tractionControl;          // Traction control - 0 = off, 1 = medium, 2 = full
+        public byte m_antiLockBrakes;           // 0 (off) - 1 (on)
+        public byte m_fuelMix;                  // Fuel mix - 0 = lean, 1 = standard, 2 = rich, 3 = max
+        public byte m_frontBrakeBias;           // Front brake bias (percentage)
+        public byte m_pitLimiterStatus;         // Pit limiter status - 0 = off, 1 = on
+        public float m_fuelInTank;               // Current fuel mass
+        public float m_fuelCapacity;             // Fuel capacity
+        public float m_fuelRemainingLaps;        // Fuel remaining in terms of laps (value on MFD)
+        public ushort m_maxRPM;                   // Cars max RPM, point of rev limiter
+        public ushort m_idleRPM;                  // Cars idle RPM
+        public byte m_maxGears;                 // Maximum number of gears
+        public byte m_drsAllowed;               // 0 = not allowed, 1 = allowed
+        public ushort m_drsActivationDistance;    // 0 = DRS not available, non-zero - DRS will be available
+                                                  // in [X] metres
+        public byte m_actualTyreCompound;    // F1 Modern - 16 = C5, 17 = C4, 18 = C3, 19 = C2, 20 = C1
+                                             // 7 = inter, 8 = wet
+                                             // F1 Classic - 9 = dry, 10 = wet
+                                             // F2 – 11 = super soft, 12 = soft, 13 = medium, 14 = hard
+                                             // 15 = wet
+        public byte m_visualTyreCompound;       // F1 visual (can be different from actual compound)
+                                                // 16 = soft, 17 = medium, 18 = hard, 7 = inter, 8 = wet
+                                                // F1 Classic – same as above
+                                                // F2 ‘19, 15 = wet, 19 – super soft, 20 = soft
+                                                // 21 = medium , 22 = hard
+        public byte m_tyresAgeLaps;             // Age in laps of the current set of tyres
+        public sbyte m_vehicleFiaFlags;    // -1 = invalid/unknown, 0 = none, 1 = green
+                                           // 2 = blue, 3 = yellow, 4 = red
+        public float m_ersStoreEnergy;           // ERS energy store in Joules
+        public byte m_ersDeployMode;            // ERS deployment mode, 0 = none, 1 = medium
+                                                // 2 = hotlap, 3 = overtake
+        public float m_ersHarvestedThisLapMGUK;  // ERS energy harvested this lap by MGU-K
+        public float m_ersHarvestedThisLapMGUH;  // ERS energy harvested this lap by MGU-H
+        public float m_ersDeployedThisLap;       // ERS energy deployed this lap
+        public byte m_networkPaused;            // Whether the car is paused in a network game
 
-        /// <summary>
-        /// 0 (off) - 1 (on)
-        /// </summary>
-        public byte antiLockBrakes;
-
-        /// <summary>
-        /// Fuel mix - 0 = lean, 1 = standard, 2 = rich, 3 = max
-        /// </summary>
-        public byte fuelMix;
-
-        /// <summary>
-        /// Front brake bias (percentage)
-        /// </summary>
-        public byte frontBrakeBias;
-
-        /// <summary>
-        /// Pit limiter status - 0 = off, 1 = on
-        /// </summary>
-        public byte pitLimiterStatus;
-
-        /// <summary>
-        /// Current fuel mass
-        /// </summary>
-        public float fuelInTank;
-
-        /// <summary>
-        /// Fuel capacity
-        /// </summary>
-        public float fuelCapacity;
-
-        /// <summary>
-        /// Fuel remaining in terms of laps (value on MFD)
-        /// </summary>
-        public float fuelRemainingLaps;
-
-        /// <summary>
-        /// Cars max RPM, point of rev limiter
-        /// </summary>
-        public ushort maxRPM;
-
-        /// <summary>
-        /// Cars idle RPM
-        /// </summary>
-        public ushort idleRPM;
-
-        /// <summary>
-        /// Maximum number of gears
-        /// </summary>
-        public byte maxGears;
-
-        /// <summary>
-        /// 0 = not allowed, 1 = allowed, -1 = unknown
-        /// </summary>
-        public byte drsAllowed;
-
-
-        /// <summary>
-        /// 0 = DRS not available, non-zero - DRS will be available in [X] metres
-        /// </summary>
-        public ushort drsActivationDistance;
-
-        /// <summary>
-        /// Tyre wear percentage
-        /// </summary>
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] tyresWear;
-
-        /// <summary>
-        /// F1 Modern - 16 = C5, 17 = C4, 18 = C3, 19 = C2, 20 = C1 7 = inter, 8 = wet<br/>
-        /// F1 Classic - 9 = dry, 10 = wet<br/>
-        /// F2 – 11 = super soft, 12 = soft, 13 = medium, 14 = hard, 15 = wet<br/>
-        /// </summary>
-        public byte actualTyreCompound;
-
-        /// <summary>
-        /// F1 visual (can be different from actual compound)<br/>
-        /// 16 = soft, 17 = medium, 18 = hard, 7 = inter, 8 = wet<br/>
-        /// F1 Classic – same as above<br/>
-        /// F2 – same as above<br/>
-        /// </summary>
-        public byte visualTyreCompound;
-
-        /// <summary>
-        /// Age in laps of the current set of tyres
-        /// </summary>
-        public byte tyresAgeLaps;
-
-        /// <summary>
-        /// Tyre damage (percentage)
-        /// </summary>
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] tyresDamage;
-
-        /// <summary>
-        /// Front left wing damage (percentage)
-        /// </summary>
-        public byte frontLeftWingDamage;
-
-        /// <summary>
-        /// Front right wing damage (percentage)
-        /// </summary>
-        public byte frontRightWingDamage;
-
-        /// <summary>
-        /// Rear wing damage (percentage)
-        /// </summary>
-        public byte rearWingDamage;
-
-        /// <summary>
-        /// Indicator for DRS fault, 0 = OK, 1 = fault
-        /// </summary>
-        public byte drsFault;
-
-        /// <summary>
-        /// Engine damage (percentage)
-        /// </summary>
-        public byte engineDamage;
-
-        /// <summary>
-        /// Gear box damage (percentage)
-        /// </summary>
-        public byte gearBoxDamage;
-
-        /// <summary>
-        /// Vehicle flag
-        /// </summary>
-        public Flags vehicleFiaFlags;
-
-        /// <summary>
-        /// ERS energy store in Joules
-        /// </summary>
-        public float ersStoreEnergy;
-
-        /// <summary>
-        /// Current ERS deploy mode
-        /// </summary>
-        public ERSModes ERSModes;
-
-        /// <summary>
-        /// ERS energy harvested this lap by MGU-K
-        /// </summary>
-        public float ersHarvestedThisLapMGUK;
-
-        /// <summary>
-        /// ERS energy harvested this lap by MGU-H
-        /// </summary>
-        public float ersHarvestedThisLapMGUH;
-
-        /// <summary>
-        /// ERS energy deployed this lap
-        /// </summary>
-        public float ersDeployedThisLap;
     }
 
-    /// <summary>
-    /// This packet details car statuses for all the cars in the race
-    /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PacketCarStatusData
     {
-        /// <summary>
-        /// Header
-        /// </summary>
-        public PacketHeader header;
-
-        /// <summary>
-        /// Car statuses
-        /// </summary>
+        public PacketHeader m_header;        // Header
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 22)]
-        public CarStatusData[] carStatusData;
+        public CarStatusData[] m_carStatusData;
     }
 }

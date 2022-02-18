@@ -5,19 +5,112 @@
              xmlns:ViewModels="clr-namespace:SlipStream.ViewModels"
              xmlns:Views="clr-namespace:SlipStream.Views" 
              StartupUri="ShellWindow.xaml">
-    
+
     <Application.Resources>
+        
         <ResourceDictionary>
+
+            <FontFamily x:Key="Formula1 Display">/Core/Fonts/#Formula1 Display</FontFamily>
+
+            <Style TargetType="{x:Type Button}" x:Key="TopbarCloseButtonTheme">
+                <Style.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="Transparent">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="BorderThickness" Value="0"></Setter>
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                    <Setter Property="FontWeight" Value="Bold"></Setter>
+                    <Setter Property="Foreground" Value="black"></Setter>
+                    <Setter Property="Margin" Value="0,0,5,0"/>
+                </Style.Setters>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="#78202f"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MyButtonStyle" TargetType="Button">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            
+                            <Border Name="border" 
+                        BorderThickness="2"
+                        Padding="0,20" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="15" 
+                        Background="{TemplateBinding Background}">
+                                <Grid>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="15"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Rectangle Grid.RowSpan="2" Margin="-20"/>
+                                    <Image Source="{DynamicResource ResourceKey=ImageURI}" Height="30" Width="40" Margin="1" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                   
+
+                                    <ContentPresenter Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                    
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="crimson" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="9"/>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+            </Style>
+
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="30"/>
+            </Style>
+
+            <Style TargetType="GroupBox">
+                <Setter Property="BorderBrush" Value="Crimson"/>
+                <Setter Property="BorderThickness" Value="3"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
 
             <DataTemplate DataType="{x:Type ViewModels:HomeViewModel}">
                 <Views:HomeView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type ViewModels:LeaderboardViewModel}">
-                <Views:LeaderboardView/>
+            <DataTemplate DataType="{x:Type ViewModels:DriverViewModel}">
+                <Views:DriverView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:RaceControlViewModel}">
+                <Views:RaceControlView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:EngineerViewModel}">
+                <Views:EngineerView/>
             </DataTemplate>
 
         </ResourceDictionary>
+        
     </Application.Resources>
     
 </Application>

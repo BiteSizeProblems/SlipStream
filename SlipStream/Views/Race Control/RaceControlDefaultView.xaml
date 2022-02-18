@@ -1,0 +1,177 @@
+﻿<UserControl x:Class="SlipStream.Views.RaceControlDefaultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SlipStream.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="575" d:DesignWidth="800">
+    
+    <Border Background="white" 
+            CornerRadius="25"
+            BorderThickness="0"
+            BorderBrush="Transparent">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox
+                Header="Notifications"
+                BorderBrush="Crimson"
+                Foreground="Crimson"
+                BorderThickness="3"
+                Margin="5">
+                <StackPanel>
+                    <TextBlock 
+                        Text="{Binding SpeedTrap}"
+                        Margin="5"/>
+                    <TextBlock 
+                        Text="{Binding Flap}"
+                        Margin="5"/>
+                    <TextBlock 
+                        Text="{Binding EventStringCode}"
+                        Margin="5"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox
+                Header="Notes"
+                BorderBrush="Crimson"
+                Foreground="Crimson"
+                BorderThickness="3"
+                Margin="5"
+                Grid.Row="2">
+                <TextBox Margin="5"/>
+            </GroupBox>
+
+            <GroupBox
+                Header="Session Info"
+                BorderBrush="Crimson"
+                BorderThickness="3"
+                Margin="5"
+                
+                Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="{Binding NetworkGame}"
+                               Padding="10"
+                                   Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding Formula, FallbackValue=Formula: }"
+                               Padding="10"
+                                   Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding Circuit, FallbackValue=Circuit: }"
+                               Padding="10"
+                                   Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding CurrentSession, FallbackValue=Current Session: }"
+                               Padding="10"
+                                   Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding SessionDuration, FallbackValue=Session Duration: }"
+                               Padding="10"
+                                   Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding SessionTimeRemaining, FallbackValue=Time Remaining: }"
+                               Padding="10"
+                                   Foreground="DarkSlateGray"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1">
+                        <TextBlock Text="{Binding CurrentWeather}"
+                               Padding="10"/>
+                        <TextBlock Text="{Binding NumOfParticipants, FallbackValue=Participants: }"
+                               Padding="10"/>
+                    </StackPanel>
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox
+                Header="Penalties and Accidents"
+                BorderBrush="Crimson"
+                Foreground="Crimson"
+                BorderThickness="3"
+                Margin="5"
+                Grid.Row="2"
+                Grid.Column="1">
+                <ScrollViewer>
+                    <StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </GroupBox>
+
+            <GroupBox 
+                Header="Leaderboard"
+                Margin="5"
+                BorderBrush="Crimson"
+                Foreground="Crimson"
+                BorderThickness="3"
+                Grid.Column="2"
+                Grid.RowSpan="2">
+                <DataGrid Background="Transparent"
+                  RowBackground="Transparent"
+                  Name="CompressedLeaderboard" 
+                  ItemsSource="{Binding Path=DriverArr}"
+                  GridLinesVisibility="None"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  Padding="5" Sorting="CompressedLeaderboard_Sorting">
+
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CarPosition}"  Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="Padding" Value="15,0,15,0"/>
+                            <Setter Property="Foreground" Value="Crimson"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="DarkSlateGray"/>
+                            <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding CarPosition}" Header="Pos" Width="Auto" SortDirection="Ascending"/>
+                        <DataGridTextColumn Binding="{Binding DriverName}" Header="Driver" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding raceNumber}" Header="Car #" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="Laps" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding DriverStatus}" Header="Status" Width="Auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+        </Grid>
+    </Border>
+</UserControl>

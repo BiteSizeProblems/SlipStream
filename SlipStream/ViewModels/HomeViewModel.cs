@@ -91,7 +91,6 @@ namespace SlipStream.ViewModels
 
         public HomeViewModel() : base()
         {
-
             UDPC.OnSessionDataReceive += UDPC_OnSessionDataReceive;
         }
 
@@ -108,10 +107,9 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnParticipantsDataReceive(PacketParticipantsData packet)
         {
-
             ConnectionStatus = "Status: Connected";
-            NumOfActiveCars = $"Active Cars: {packet.numActiveCars}";
-            NumOfParticipants = $"Session Participants: {packet.participants}";
+            NumOfActiveCars = $"Active Cars: {packet.m_numActiveCars}";
+            NumOfParticipants = $"Session Participants: {packet.m_participants}";
         }
     }
 }

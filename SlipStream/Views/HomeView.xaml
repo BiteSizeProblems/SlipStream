@@ -5,79 +5,61 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views" xmlns:viewmodels="clr-namespace:SlipStream.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    
+             d:DesignHeight="600" d:DesignWidth="800">
+
     <Border Background="Transparent">
         <Grid>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Session Overview" 
-                   Foreground="White" 
-                   FontSize="50" 
-                   FontWeight="Bold" 
-                   VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,10,5,10">
-                <StackPanel Margin="10">
-                    <Label Content="Connection Details" 
-                           Foreground="White" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           VerticalAlignment="Center"
-                           Padding="10"/>
-                    <TextBlock Text="{Binding ConnectionStatus}"
-                               Padding="10"
-                               Foreground="White"/>
-                </StackPanel>
+                <Label Content="Racing, Made Simple." 
+                   Style="{StaticResource LabelStyle}"
+                   FontWeight="Bold"/>
 
-                <StackPanel Margin="10">
-                    <Label Content="Session Details" 
-                           Foreground="White" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           VerticalAlignment="Center"
-                           Padding="10"/>
-                    <TextBlock Text="{Binding Formula}"
-                               Padding="10"
-                               Foreground="White"/>
-                    <TextBlock Text="{Binding Circuit}"
-                               Padding="10"
-                               Foreground="White"/>
-                    <TextBlock Text="{Binding CurrentSession}"
-                               Padding="10"
-                               Foreground="White"/>
-                    <TextBlock Text="{Binding CurrentWeather}"
-                               Padding="10"
-                               Foreground="White"/>
-                    <TextBlock Text="{Binding SessionDuration}"
-                               Padding="10"
-                               Foreground="White"/>
-                    <TextBlock Text="{Binding SessionTimeRemaining}"
-                               Padding="10"
-                               Foreground="White"/>
-                </StackPanel>
-
-                <StackPanel Margin="10">
-                    <Label Content="Participants" 
-                           Foreground="White" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           VerticalAlignment="Center"
-                           Padding="10"/>
-                    <TextBlock Text="{Binding NumOfActiveCars}"
-                               Padding="10"
-                               Foreground="White"/>
-                    <TextBlock Text="{Binding NumOfParticipants}"
-                               Padding="10"
-                               Foreground="White"/>
-                </StackPanel>
             </StackPanel>
+            
+            
 
+            <Grid Grid.Row="1" Margin="5,10,5,10">
+
+                <GroupBox
+                    Header="Need Help?"
+                    FontWeight="Bold">
+                    <StackPanel Margin="5,10,5,5">
+
+                        <TextBlock
+                            Text="Welcome to SlipStream, an app designed to enhance your racing performance. Whether you race online or locally, SlipStream can help you develop your skillset."
+                            Padding="10" TextWrapping="Wrap"/>
+
+                        <TextBlock
+                            Text="Racing is hard, we get that. While driver's on circuits in the real-world have a team behind them to guide their progress, there often isn't the same support for members of the sim-racing community. That's why you'll find our app has designed four features to suit your needs."
+                            Padding="10" TextWrapping="Wrap"/>
+
+                        <TextBlock
+                            Text="For drivers, check out our 'Driver' tab. There, you'll find many features designed to improve your race performance. This feature is designed to be used while you race, so you'll find larger font, bold colors and a streamlined interface to ensure you stay on the track, instead of searching for the information you need."
+                            Padding="10" TextWrapping="Wrap"/>
+
+                        <TextBlock
+                            Text="For those of you who spend time engineering for a driver, managing a league or race, or simply spectating, you can also find useful resources in the tabs in our menu. For these features, you'll find a similar level of data relevance, meaning we have specifically chosen the data we believe will be most relevent, depending on your level of participation to improve your experience." 
+                            Padding="10" TextWrapping="Wrap"/>
+
+                        <TextBlock
+                            Text="Lastly, have fun. Kind of ironic, for an app built for dedicated, serious users, but we mean it. If you need any more help from us, check out the links on the left. Have fun, and let's go racing!"
+                            Padding="10" TextWrapping="Wrap"/>
+                        
+                        
+
+
+                    </StackPanel>
+                </GroupBox>
+                
+            </Grid>
+            
         </Grid>
     </Border>
-
 </UserControl>

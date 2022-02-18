@@ -53,6 +53,6 @@ namespace SlipStream.Models
         /// Lobby data
         /// </summary>
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 22)]
-        public LobbyInfoData[] lobbbyPlayers;
+        public LobbyInfoData[] lobbyPlayers;
     }
 }

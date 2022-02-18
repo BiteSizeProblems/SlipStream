@@ -6,95 +6,35 @@ namespace SlipStream.Models
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct FinalClassificationData
     {
-        /// <summary>
-        /// Finishing position
-        /// </summary>
-        public byte position;
+        public byte m_position;              // Finishing position
+        public byte m_numLaps;               // Number of laps completed
+        public byte m_gridPosition;          // Grid position of the car
+        public byte m_points;                // Number of points scored
+        public byte m_numPitStops;           // Number of pit stops made
+        public byte m_resultStatus;          // Result status - 0 = invalid, 1 = inactive, 2 = active
+                                             // 3 = finished, 4 = didnotfinish, 5 = disqualified
+                                             // 6 = not classified, 7 = retired
+        public uint m_bestLapTimeInMS;       // Best lap time of the session in milliseconds
+        public double m_totalRaceTime;         // Total race time in seconds without penalties
+        public byte m_penaltiesTime;         // Total penalties accumulated in seconds
+        public byte m_numPenalties;          // Number of penalties applied to this driver
+        public byte m_numTyreStints;         // Number of tyres stints up to maximum
 
-        /// <summary>
-        /// Number of laps completed
-        /// </summary>
-        public byte numLaps;
-
-        /// <summary>
-        /// Grid position of the car
-        /// </summary>
-        public byte gridPosition;
-
-        /// <summary>
-        ///  Number of points scored
-        /// </summary>
-        public byte points;
-
-        /// <summary>
-        /// Number of pit stops made
-        /// </summary>
-        public byte numPitStops;
-
-        /// <summary>
-        /// Result status
-        /// </summary>
-        public ResultSatuses resultStatus;
-
-        /// <summary>
-        /// Best lap time of the session in seconds
-        /// </summary>
-        public float bestLapTime;
-
-        /// <summary>
-        /// Total race time in seconds without penalties
-        /// </summary>
-        public double totalRaceTime;
-
-        /// <summary>
-        /// Total penalties accumulated in seconds
-        /// </summary>
-        public byte penaltiesTime;
-
-        /// <summary>
-        /// Number of penalties applied to this driver
-        /// </summary>
-        public byte numPenalties;
-
-        /// <summary>
-        /// Number of tyres stints up to maximum
-        /// </summary>
-        public byte numTyreStints;
-
-        /// <summary>
-        /// Actual tyres used by this driver
-        /// </summary>
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] tyreStintsActual;
+        public byte[] m_tyreStintsActual;   // Actual tyres used by this driver
 
-        /// <summary>
-        /// Visual tyres used by this driver
-        /// </summary>
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] tyreStintsVisual;
-    }
+        public byte[] m_tyreStintsVisual;   // Visual tyres used by this driver
+    };
 
-    /// <summary>
-    /// This packet details the final classification at the end of the race, 
-    /// and the data will match with the post race results screen.
-    /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PacketFinalClassificationData
     {
-        /// <summary>
-        /// Header
-        /// </summary>
-        public PacketHeader header;
+        public PacketHeader m_header;                      // Header
 
-        /// <summary>
-        /// Number of cars in the final classification
-        /// </summary>
-        public byte numCars;
+        public byte m_numCars;          // Number of cars in the final classification
 
-        /// <summary>
-        /// Classification data
-        /// </summary>
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 22)]
-        public FinalClassificationData classificationData;
-    }
+        public FinalClassificationData[] m_classificationData;
+    };
 }

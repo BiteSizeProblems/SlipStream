@@ -555,13 +555,13 @@ namespace SlipStream.Core
 
         public enum TyreCompounds : byte
         {
-            HyperSoft,
-            UltraSoft,
-            SuperSoft,
-            Soft,
-            Medium,
-            Hard,
-            SuperHard,
+            Hyper_Soft,
+            Ultra_Soft,
+            Super_Soft,
+            Soft_,
+            Medium_,
+            Hard_,
+            SuperHard_,
             Inter,
             Wet,
             ClassicDry,
@@ -573,9 +573,23 @@ namespace SlipStream.Core
             F2Wet,
             C5,
             C4,
-            C3,
-            C2,
-            C1,
+            Soft,
+            Medium,
+            Hard,
+        }
+
+        public enum VisualTireCompounds : byte
+        {                                    
+            Inter = 7,
+            Wet = 8,
+            Soft = 16,
+            Medium = 17,
+            Hard = 18,
+            F2_Wet = 15,
+            F2_SuperSoft = 19,
+            F2_Soft = 20,
+            F2_Medium = 21,
+            F2_Hard = 22
         }
 
         public enum BreakingAssistSettings
@@ -606,9 +620,9 @@ namespace SlipStream.Core
         public enum SessionTypes : byte
         {
             Unknown,
-            Practice1,
-            Practice2,
-            Practice3,
+            PracticeOne,
+            PracticeTwo,
+            PracticeThree,
             ShortPractice,
             Q1,
             Q2,
@@ -616,7 +630,7 @@ namespace SlipStream.Core
             ShortQualifying,
             OneShotQualifying,
             Race,
-            Race2,
+            RaceTwo,
             TimeTrial,
         }
 
@@ -630,8 +644,8 @@ namespace SlipStream.Core
 
         public enum SafetyCarStatuses : byte
         {
-            NoSafetyCar,
-            FullSafetyCar,
+            None,
+            SafetyCarActive,
             VirtualSafetyCar,
             FormationLap,
         }

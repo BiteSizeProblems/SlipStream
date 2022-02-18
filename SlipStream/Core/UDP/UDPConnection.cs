@@ -53,6 +53,8 @@ namespace SlipStream.Core
         public delegate void CarStatusDataReceiveDelegate(PacketCarStatusData packet);
         public delegate void FinalClassificationDataReceiveDelegate(PacketFinalClassificationData packet);
         public delegate void LobbyInfoDataReceiveDelegate(PacketLobbyInfoData packet);
+        public delegate void CarDamageDataReceiveDelegate(PacketCarDamageData packet);
+        public delegate void SessionHistoryDataReceiveDelegate(PacketSessionHistoryData packet);
 
         public PacketParticipantsData LastParticipantsPacket { get; private set; }
 
@@ -67,6 +69,8 @@ namespace SlipStream.Core
         public event CarStatusDataReceiveDelegate OnCarStatusDataReceive;
         public event FinalClassificationDataReceiveDelegate OnFinalClassificationDataReceive;
         public event LobbyInfoDataReceiveDelegate OnLobbyInfoDataReceive;
+        public event CarDamageDataReceiveDelegate OnCarDamageDataReceive;
+        public event SessionHistoryDataReceiveDelegate OnSessionHistoryDataReceive;
 
         // === Singleton Instance with Thread Saftey ===
         private static UDPConnection _instance = null;
@@ -173,6 +177,14 @@ namespace SlipStream.Core
                     case PacketTypes.LobbyInfo:
                         PacketLobbyInfoData lobbyInfoData = (PacketLobbyInfoData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketLobbyInfoData));
                         OnLobbyInfoDataReceive?.Invoke(lobbyInfoData);
+                        break;
+                    case PacketTypes.CarDamage:
+                        PacketCarDamageData carDamageData = (PacketCarDamageData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketCarDamageData));
+                        OnCarDamageDataReceive?.Invoke(carDamageData);
+                        break;
+                    case PacketTypes.SessionHistory:
+                        PacketSessionHistoryData sessionHistoryData = (PacketSessionHistoryData)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(PacketSessionHistoryData));
+                        OnSessionHistoryDataReceive?.Invoke(sessionHistoryData);
                         break;
                 }
             }

@@ -17,17 +17,17 @@ using System.Windows.Shapes;
 namespace SlipStream.Views
 {
     /// <summary>
-    /// Interaction logic for LeaderboardView.xaml
+    /// Interaction logic for DriverViewSummary.xaml
     /// </summary>
-    public partial class LeaderboardView : UserControl
+    public partial class DriverViewSummary : UserControl
     {
         // === ViewModel ===
-        public LeaderboardViewModel LVM { get => LeaderboardViewModel.GetInstance(); }
+        public DriverViewModel DVM { get => DriverViewModel.GetInstance(); }
 
-        public LeaderboardView()
+        public DriverViewSummary()
         {
             InitializeComponent();
-            this.DataContext = LVM;
+            this.DataContext = DVM;
         }
     }
 }
