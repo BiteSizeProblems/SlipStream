@@ -38,6 +38,13 @@ namespace SlipStream.ViewModels
         }
         // === END OF MODULE SETUP ===
 
+        private TimeSpan sessionFastestLap;
+        public TimeSpan SessionFastestLap
+        {
+            get { return sessionFastestLap; }
+            set { SetField(ref sessionFastestLap, value, nameof(SessionFastestLap)); }
+        }
+
         // Create a observable collection of DriverData
         public ObservableCollection<DriverData> DriverArr { get; set; }
         private object _driverArrLock = new object();
@@ -68,9 +75,13 @@ namespace SlipStream.ViewModels
                 DriverArr.Add(new DriverData());
             }
 
-            UDPC.OnParticipantsDataReceive += UDPC_OnParticipantDataReceive;
             UDPC.OnLapDataReceive += UDPC_OnLapDataReceive;
+            UDPC.OnParticipantsDataReceive += UDPC_OnParticipantDataReceive;
+            UDPC.OnEventDataReceive += UDPC_OnEventDataReceive;
+            
         }
+
+        
 
         private void UDPC_OnLapDataReceive(PacketLapData packet)
         {
@@ -83,8 +94,6 @@ namespace SlipStream.ViewModels
                 // Update it in the array
                 DriverArr[i].CurrentLapTime = lapData.currentLapTimeInMS;
                 DriverArr[i].CarPosition = lapData.carPosition;
-                //DriverArr[i].BestLapTime = $"{TimeSpan.FromSeconds(lapData.bestLapTime)}";
-                DriverArr[i].LastLap = TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS).ToString(@"mm\:ss\.fff");
                 DriverArr[i].LastLapTime = TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS);
                 DriverArr[i].BestLapSector1TimeInMS = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
                 DriverArr[i].BestSector1Time = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS).ToString(@"mm\:ss\.fff");
@@ -111,6 +120,11 @@ namespace SlipStream.ViewModels
                 
 
             }
+        }
+
+        private void UDPC_OnEventDataReceive(PacketEventData packet)
+        {
+            SessionFastestLap = TimeSpan.FromMilliseconds(packet.eventDataDetails.fastestLap.lapTime);
         }
 
 
@@ -155,77 +169,84 @@ namespace SlipStream.ViewModels
                 set { SetField(ref _currentLapTime, value, nameof(CurrentLapTime)); }
             }
 
-            public string lastLap;
-            public string LastLap
-            {
-                get { return lastLap; }
-                set { SetField(ref lastLap, value, nameof(LastLap)); }
-            }
-
-            public TimeSpan lastLapTime;
+            private TimeSpan lastLapTime;
             public TimeSpan LastLapTime
             {
                 get { return lastLapTime; }
-                set { SetField(ref lastLapTime, value, nameof(LastLapTime)); }
+                set 
+                {
+                    SetField(ref lastLapTime, value, nameof(LastLapTime));
+
+                    if (CurrentLapNum == 1)
+                    {
+                        bestLapTime = LastLapTime;
+                    }
+                    else if (CurrentLapNum > 1 && LastLapTime < BestLapTime)
+                    {
+                        bestLapTime = LastLapTime;
+                    }
+                    else
+                    {
+                        bestLapTime = LastLapTime;
+                    }
+                     
+                }
             }
 
-            public TimeSpan bestLapTime;
+            private TimeSpan bestLapTime;
             public TimeSpan BestLapTime
             {
                 get { return bestLapTime; }
-                set { SetField(ref bestLapTime, value, nameof(BestLapTime)); }
+                set { SetField(ref bestLapTime, value, nameof(BestLapTime));}
             }
 
-            public TimeSpan bestLapGap;
-            public TimeSpan BestLapGap
-            {
-                get { return bestLapGap; }
-                set { SetField(ref bestLapGap, value, nameof(BestLapGap)); }
-            }
+            
 
-            public string bestSector1Time;
+            public TimeSpan BestLapGap { get; set; }
+
+            private string bestSector1Time;
             public string BestSector1Time
             {
                 get { return bestSector1Time; }
                 set { SetField(ref bestSector1Time, value, nameof(BestSector1Time)); }
             }
 
-            public TimeSpan bestLapSector1TimeInMS;
+            private TimeSpan bestLapSector1TimeInMS;
             public TimeSpan BestLapSector1TimeInMS
             {
                 get { return bestLapSector1TimeInMS; }
                 set { SetField(ref bestLapSector1TimeInMS, value, nameof(BestLapSector1TimeInMS)); }
             }
 
-            public TimeSpan bestLapSector2TimeInMS;
+            private TimeSpan bestLapSector2TimeInMS;
             public TimeSpan BestLapSector2TimeInMS
             {
                 get { return bestLapSector2TimeInMS; }
                 set { SetField(ref bestLapSector2TimeInMS, value, nameof(BestLapSector2TimeInMS)); }
             }
 
-            public string bestLapSector3TimeInMS;
+            private string bestLapSector3TimeInMS;
             public string BestLapSector3TimeInMS
             {
                 get { return bestLapSector3TimeInMS; }
                 set { SetField(ref bestLapSector3TimeInMS, value, nameof(BestLapSector3TimeInMS)); }
             }
 
-            public byte carPosition;
+            private byte carPosition;
             public byte CarPosition
             {
                 get { return carPosition; }
                 set { SetField(ref carPosition, value, nameof(CarPosition)); }
             }
 
-            public int currentLapNum;
+            private int currentLapNum;
             public int CurrentLapNum
             {
                 get { return currentLapNum; }
                 set { SetField(ref currentLapNum, value, nameof(CurrentLapNum)); }
             }
 
-            public string driverStatus;
+            private string driverStatus;
             public string DriverStatus
             {
                 get { return driverStatus; }

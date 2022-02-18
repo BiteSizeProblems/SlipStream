@@ -1,6 +1,7 @@
 ﻿using SlipStream.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,9 @@ namespace SlipStream.Views
         {
             InitializeComponent();
             this.DataContext = LVM;
+
+            this.Leaderboard.Items.IsLiveSorting = true;
+            this.Leaderboard.Items.SortDescriptions.Add(new SortDescription("CarPosition", ListSortDirection.Ascending));
         }
     }
 }
