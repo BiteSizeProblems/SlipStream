@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
-using static SlipStream.Core.Appendeces;
+using static SlipStream.Structs.Appendeces;
 
 namespace SlipStream.Core
 {
