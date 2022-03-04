@@ -30,17 +30,38 @@
                 Foreground="Crimson"
                 BorderThickness="3"
                 Margin="5">
-                <StackPanel>
-                    <TextBlock 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock 
+                        Text="Speed Trap: "
+                        Margin="5"/>
+                        <TextBlock 
+                        Text="Fastest Lap: "
+                        Margin="5"/>
+                        <TextBlock 
+                        Text="Event String Code: "
+                        Margin="5"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock 
                         Text="{Binding SpeedTrap}"
                         Margin="5"/>
-                    <TextBlock 
+                        <TextBlock 
                         Text="{Binding Flap}"
                         Margin="5"/>
-                    <TextBlock 
+                        <TextBlock 
                         Text="{Binding model.EventStringCode}"
                         Margin="5"/>
-                </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+                
             </GroupBox>
 
             <GroupBox
@@ -50,7 +71,23 @@
                 BorderThickness="3"
                 Margin="5"
                 Grid.Row="2">
-                <TextBox Margin="5"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid
+                        Height="auto"
+                        BorderBrush="Transparent">
+
+                    </DataGrid>
+
+                    <TextBox Margin="5"
+                             BorderBrush="Black"
+                             Grid.Row="1"/>
+
+                </Grid>
             </GroupBox>
 
             <GroupBox
@@ -73,20 +110,12 @@
                                Padding="10"/>
                         <TextBlock Text="{Binding model.Circuit, FallbackValue=Circuit: }"
                                Padding="10"/>
-                        <TextBlock Text="{Binding model.CurrentSession, FallbackValue=Current Session: }"
-                               Padding="10"/>
-                        <TextBlock Text="{Binding model.SessionDuration, FallbackValue=Session Duration: }"
-                               Padding="10"/>
-                        <TextBlock Text="{Binding model.SessionTimeRemaining, FallbackValue=Time Remaining: }"
-                               Padding="10"/>
                     </StackPanel>
                     <StackPanel
                         Grid.Column="1">
                         <TextBlock Text="{Binding model.CurrentWeather}"
                                Padding="10"/>
-                        <TextBlock Text="{Binding model.NumOfParticipants, FallbackValue=Participants: }"
-                               Padding="10"/>
-                        <TextBlock Text="{Binding model.TotalLaps}"
+                        <TextBlock Text="{Binding model.NumOfActiveCars, FallbackValue=Participants: }"
                                Padding="10"/>
                     </StackPanel>
                 </Grid>
@@ -101,11 +130,7 @@
                 Margin="5"
                 Grid.Row="2"
                 Grid.Column="1">
-                <ScrollViewer>
-                    <StackPanel>
-
-                    </StackPanel>
-                </ScrollViewer>
+                
             </GroupBox>
 
             <GroupBox 
@@ -123,7 +148,8 @@
                   GridLinesVisibility="None"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
-                  Padding="5" Sorting="CompressedLeaderboard_Sorting">
+                  Padding="5" Sorting="CompressedLeaderboard_Sorting"
+                          BorderBrush="Transparent">
 
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="DataGridRow">
@@ -153,7 +179,6 @@
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center"/>
-                            <Setter Property="Foreground" Value="DarkSlateGray"/>
                             <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
                         </Style>
                     </DataGrid.CellStyle>
@@ -163,7 +188,13 @@
                         <DataGridTextColumn Binding="{Binding DriverName}" Header="Driver" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding raceNumber}" Header="Car #" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="Laps" Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding DriverStatus}" Header="Status" Width="Auto"/>
+                        <DataGridTemplateColumn Header="Status">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding DriverStatusSource}" Margin="5" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>

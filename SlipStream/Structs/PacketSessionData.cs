@@ -26,28 +26,42 @@ namespace SlipStream.Structs
         /// <summary>
         /// The current session type
         /// </summary>
-        public SessionTypes sessionType;
+        public SessionTypes m_sessionType;
 
         /// <summary>
         /// Time in minutes the forecast is for
         /// </summary>
-        public byte timeOffset;
+        public byte m_timeOffset;
 
         /// <summary>
         /// The weather for this sample
         /// </summary>
-        public WeatherTypes weather;
+        public WeatherTypes m_weather;
 
         /// <summary>
         /// Track temp. in degrees celsius
         /// </summary>
-        public sbyte trackTemperature;
+        public sbyte m_trackTemperature;
+
+        /// <summary>
+        /// Track temp. in degrees celsius
+        /// </summary>
+        public sbyte m_trackTemperatureChange;
 
         /// <summary>
         /// Air temp. in degrees celsius
         /// </summary>
-        public sbyte airTemperature;
+        public sbyte m_airTemperature;
 
+        /// <summary>
+        /// Air temp. in degrees celsius
+        /// </summary>
+        public sbyte m_airTemperatureChange;
+
+        /// <summary>
+        /// Rain percentage (0-100)
+        /// </summary>
+        public byte m_rainPercentage;
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]

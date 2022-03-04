@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views"
+             xmlns:Multi="clr-namespace:SlipStream.Views.Multi"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <Border 
@@ -17,9 +18,26 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Laps Left" FontSize="28" />
-            <TextBlock Text="{Binding IndexedDriverName}" FontSize="28" HorizontalAlignment="Center"/>
-            <TextBlock Text="{Binding Weather}" FontSize="28" HorizontalAlignment="Right"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Slider Value="{Binding SelectedIndex}" 
+                        Maximum="{Binding model.MaxIndex}"/>
+
+                <TextBlock Text="{Binding CurrentSelectedDriver.DriverName}" 
+                           Grid.Column="1"
+                           FontSize="28" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Laps Left" FontSize="28" 
+                           Grid.Column="2"/>
+                
+            </Grid>
+            
+            
 
             <Border Grid.Row="1" Background="White">
 
@@ -31,130 +49,57 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="300"/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
                     <Border
                     CornerRadius="10"
-                    Margin="2">
-                        <GroupBox Header="Driver Selection"
-                          
-                          FontWeight="Bold"
-                          Margin="5">
-                            <Grid>
-                                <ScrollViewer>
-                                    <StackPanel>
-
-
-                                        <Slider Value="{Binding SelectedIndex}" Maximum="{Binding TotalParticipants}"/>
-                                        <TextBox HorizontalContentAlignment="Center" Name="DriverSelectionTB" Text="{Binding SelectedIndex}"/>
-                                        <DataGrid 
-                                        Background="Transparent"
-                                        RowBackground="Transparent"
-                                        Name="DriverSelect" 
-                                        ItemsSource="{Binding Path=DriverArr}"
-                                        GridLinesVisibility="None"
-                                        AutoGenerateColumns="False"
-                                        Padding="5"
-                                    BorderBrush="Transparent">
-                                            <DataGrid.ItemContainerStyle>
-                                                <Style TargetType="DataGridRow">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding CarPosition}"  Value="0">
-                                                            <Setter Property="Visibility" Value="Collapsed" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </DataGrid.ItemContainerStyle>
-
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn x:Name="IndexValue" Header="Index" Binding="{Binding Index}" IsReadOnly="True"/>
-                                                <DataGridTextColumn Header="#" Binding="{Binding raceNumber}" IsReadOnly="True"/>
-                                                <DataGridTextColumn Header="Driver" Binding="{Binding DriverName}" IsReadOnly="True"/>
-                                                <DataGridCheckBoxColumn Header="Selection">
-                                                    <DataGridCheckBoxColumn.HeaderTemplate>
-                                                        <DataTemplate>
-                                                            <CheckBox Name="SelectCheckbox">
-                                                                <CheckBox.Style>
-                                                                    <Style TargetType="CheckBox">
-                                                                        <Style.Triggers>
-                                                                            <Trigger Property="IsChecked" Value="True">
-
-                                                                            </Trigger>
-                                                                        </Style.Triggers>
-                                                                    </Style>
-                                                                </CheckBox.Style>
-                                                            </CheckBox>
-                                                        </DataTemplate>
-                                                    </DataGridCheckBoxColumn.HeaderTemplate>
-                                                </DataGridCheckBoxColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-
-
-                                    </StackPanel>
-                                </ScrollViewer>
-                                
-                                
-                            </Grid>
-                        </GroupBox>
-                    </Border>
-
-                    <Border 
-                    CornerRadius="10"
                     Margin="2"
-                    Grid.Row="1">
-                        <GroupBox 
-                          Header="Tire Data"
-                          FontWeight="Bold"
-                          Margin="5">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                        Grid.RowSpan="2">
+                        <GroupBox Header="Driver Index"
+                          Margin="1">
+                            <DataGrid Background="Transparent"
+                  RowBackground="Transparent"
+                  Name="EngineerIndexView" 
+                  ItemsSource="{Binding Path=Driver}"
+                  GridLinesVisibility="None"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                          BorderBrush="Transparent">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
+                                <DataGrid.ItemContainerStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedIndex}"  Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.ItemContainerStyle>
 
-                                <Image Source="{Binding IndexedTireIconSource}" 
-                                           Margin="10" 
-                                           RenderOptions.BitmapScalingMode="HighQuality"
-                                           Grid.Column="1"/>
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Height" Value="30"/>
+                                        <Setter Property="Foreground" Value="Crimson"/>
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
 
-                                <StackPanel>
-                                    <TextBlock Text="{Binding IndexedTireAge}"
-                                           Grid.Row="2"
-                                           Grid.Column="1"
-                                               Padding="5"/>
-                                    <TextBlock Text="{Binding FuelMix}"
-                                           Grid.Row="1"
-                                           Grid.Column="1"
-                                               Padding="5"/>
-                                    <TextBlock Text="{Binding ErsRemaining}"
-                                           Grid.Row="1"
-                                           Grid.Column="1"
-                                               Padding="5"/>
-                                    <TextBlock Text="{Binding ErsDeployMode}"
-                                           Grid.Row="1"
-                                           Grid.Column="1"
-                                               Padding="5"/>
-                                    
-                                </StackPanel>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="Height" Value="30"/>
+                                        <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+                                    </Style>
+                                </DataGrid.CellStyle>
 
-                                <TextBlock Text="{Binding TireWear}"
-                                           Grid.Row="1"
-                                           Grid.Column="1"
-                                               Padding="5"/>
-
-
-
-                            </Grid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding DriverIndex}" Header="Index" Width="Auto" SortDirection="Ascending"/>
+                                    <DataGridTextColumn Binding="{Binding CarPosition}" Header="Pos" Width="Auto" SortDirection="Ascending"/>
+                                    <DataGridTextColumn Binding="{Binding DriverName}" Header="Driver" Width="Auto"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </GroupBox>
                     </Border>
 
@@ -163,7 +108,7 @@
                     Margin="2"
                     Grid.Column="1">
                         <GroupBox 
-                          Header="Lap Data"
+                          Header="Performance"
                       
                           FontWeight="Bold"
                           Margin="2">
@@ -175,24 +120,22 @@
                                 <StackPanel>
                                     <TextBlock Text="Last Lap Time: "
                                                Padding="5"/>
+                                    <TextBlock Text="Best Lap Time: "
+                                               Padding="5"/>
+                                    <TextBlock Text="# of Stops: "
+                                               Padding="5"/>
+                                    <TextBlock Text="Laps Since Last: "
+                                               Padding="5"/>
+                                    
                                     <TextBlock Name="IndexTB" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding DriverName}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding LastLapTime}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestLapTime}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestS1Time}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestS2Time}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestS3Time}" Foreground="White" Padding="10"/>
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.DriverName}" Foreground="White" Padding="10"/>
+                                    
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{Binding IndexedLastLap, StringFormat=m\\:ss\\.fff}"
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.IndexedLastLap, StringFormat=m\\:ss\\.fff}"
                                                Padding="5"/>
-                                    <TextBlock Text="{Binding TimeRemaining}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding DriverName}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding LastLapTime}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestLapTime}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestS1Time}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestS2Time}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding BestS3Time}" Foreground="White" Padding="10"/>
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.BestLapTime}" Foreground="White" Padding="10"/>
+                                    
                                 </StackPanel>
 
                             </Grid>
@@ -205,7 +148,7 @@
                     Grid.Row="1" 
                     Grid.Column="1">
                         <GroupBox 
-                          Header="Comparison"
+                          Header="Penalties"
                        
                           FontWeight="Bold"
                           Margin="2">
@@ -215,10 +158,20 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock Text="Speed Trap: "/>
+                                    <TextBlock Text="# of Warnings: "
+                                               Padding="5"/>
+                                    <TextBlock Text="Until Penalty: "
+                                               Padding="5"/>
+                                    <TextBlock Text="# of Penalties: "
+                                               Padding="5"/>
+                                    <TextBlock Text="Penalty Time: "
+                                               Padding="5"/>
+
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
-
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.Warnings}" Foreground="White" Padding="10"/>
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.Penalties}" Foreground="White" Padding="10"/>
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.VehicleFlag}" Foreground="White" Padding="10"/>
                                 </StackPanel>
 
                             </Grid>
@@ -230,16 +183,12 @@
                     Margin="2"
                     Grid.Column="2">
                         <GroupBox 
-                          Header="Updates"
-                     
+                          Header="Ranking"
                           FontWeight="Bold"
                           Margin="2">
 
                             <StackPanel>
-                                <TextBlock Text="{Binding SafetyCarStatus}"
-                                           Padding="5"/>
-                                <TextBlock Text="Weather"
-                                           Padding="5"/>
+                                
                             </StackPanel>
 
                         </GroupBox>
@@ -251,25 +200,13 @@
                     Grid.Row="1" 
                     Grid.Column="2">
                         <GroupBox 
-                          Header="Warnings and Penalties"
-                    
+                          Header="Updates"
                           FontWeight="Bold"
                           Margin="2">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding VehicleFlag}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding Warnings}" Foreground="White" Padding="10"/>
-                                    <TextBlock Text="{Binding Penalties}" Foreground="White" Padding="10"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-
-                                </StackPanel>
-
-                            </Grid>
+                            <StackPanel>
+                                <Multi:SafetyCarView Height="75" Width="Auto" Margin="10"/>
+                                <Multi:WeatherView Height="75" Width="Auto" Margin="10"/>
+                            </StackPanel>
                         </GroupBox>
                     </Border>
                 </Grid>

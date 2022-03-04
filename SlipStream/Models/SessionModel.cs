@@ -10,11 +10,43 @@ namespace SlipStream.Models
     // MODEL
     public class SessionModel : ObservableObject
     {
+        private int _totalParticipants;
+        public int TotalParticipants
+        {
+            get { return _totalParticipants; }
+            set 
+            { 
+                SetField(ref _totalParticipants, value, nameof(TotalParticipants));
+                MaxIndex = TotalParticipants - 1;
+            }
+        }
+
+        private int _maxIndex;
+        public int MaxIndex
+        {
+            get { return _maxIndex; }
+            set { SetField(ref _maxIndex, value, nameof(MaxIndex)); }
+        }
+
         private int _totalLaps;
         public int TotalLaps
         {
             get { return _totalLaps; }
             set { SetField(ref _totalLaps, value, nameof(TotalLaps)); }
+        }
+
+        private string _lapsRemaining;
+        public string LapsRemaining
+        {
+            get { return _lapsRemaining; }
+            set { SetField(ref _lapsRemaining, value, nameof(LapsRemaining)); }
+        }
+
+        private int _leadLap;
+        public int LeadLap
+        {
+            get { return _leadLap; }
+            set { SetField(ref _leadLap, value, nameof(LeadLap)); }
         }
 
         private TimeSpan sessionFastestLap;
@@ -73,6 +105,13 @@ namespace SlipStream.Models
             set { SetField(ref _CurrentWeather, value, nameof(CurrentWeather)); }
         }
 
+        private string _CurrentWeatherIcon;
+        public string CurrentWeatherIcon
+        {
+            get { return _CurrentWeatherIcon; }
+            set { SetField(ref _CurrentWeatherIcon, value, nameof(CurrentWeatherIcon)); }
+        }
+
         private string _SessionDuration;
         public string SessionDuration
         {
@@ -100,6 +139,22 @@ namespace SlipStream.Models
             get { return _eventStringCode; }
             set { SetField(ref _eventStringCode, value, nameof(EventStringCode)); }
         }
+
+        private string _safetyCarStatus;
+        public string SafetyCarStatus
+        {
+            get { return _safetyCarStatus; }
+            set { SetField(ref _safetyCarStatus, value, nameof(SafetyCarStatus)); }
+        }
+
+        private string _safetyCarColor;
+        public string SafetyCarColor
+        {
+            get { return _safetyCarColor; }
+            set { SetField(ref _safetyCarColor, value, nameof(SafetyCarColor)); }
+        }
+
+
 
     }
 }

@@ -642,7 +642,7 @@ namespace SlipStream.Structs
 
         public enum SafetyCarStatuses : byte
         {
-            None,
+            Clear,
             SafetyCarActive,
             VirtualSafetyCar,
             FormationLap,

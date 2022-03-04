@@ -20,6 +20,7 @@
     <None Remove="Core\Fonts\Formula1-Regular.ttf" />
     <None Remove="Core\Fonts\Formula1-Wide.ttf" />
     <None Remove="Core\Images\bossy_50px.png" />
+    <None Remove="Core\Images\clear.png" />
     <None Remove="Core\Images\CustomHard.png" />
     <None Remove="Core\Images\CustomMedium.png" />
     <None Remove="Core\Images\CustomSoft.png" />
@@ -28,12 +29,17 @@
     <None Remove="Core\Images\finish.png" />
     <None Remove="Core\Images\garage.png" />
     <None Remove="Core\Images\HardTire.png" />
+    <None Remove="Core\Images\heavy_rain.png" />
     <None Remove="Core\Images\home_32px.png" />
+    <None Remove="Core\Images\light_rain.png" />
     <None Remove="Core\Images\MediumTire.png" />
     <None Remove="Core\Images\out.png" />
+    <None Remove="Core\Images\overcast.png" />
     <None Remove="Core\Images\redbox.png" />
+    <None Remove="Core\Images\safety_car.png" />
     <None Remove="Core\Images\SoftTire.png" />
     <None Remove="Core\Images\steering_wheel.png" />
+    <None Remove="Core\Images\storm.png" />
     <None Remove="Core\Images\wrench_24px.png" />
   </ItemGroup>
 
@@ -65,6 +71,9 @@
     <Resource Include="Core\Images\bossy_50px.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\clear.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\CustomHard.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -89,7 +98,13 @@
     <Resource Include="Core\Images\HardTire.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\heavy_rain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\home_32px.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\light_rain.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\MediumTire.png">
@@ -98,13 +113,22 @@
     <Resource Include="Core\Images\out.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\overcast.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\redbox.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\safety_car.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\SoftTire.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\steering_wheel.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\storm.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\wrench_24px.png">
@@ -115,6 +139,10 @@
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="5.8.7" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -41,12 +41,41 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Margin="50,5,5,5"/>
-                
-                <TextBlock Text="{Binding model.SessionTimeRemaining}"
+                <Button
+                    Content="Weather"
+                    FontSize="10"
+                    FontWeight="Bold"
+                    FontFamily="Fonts/#Formula1 Display"
+                    Foreground="White"
+                    Command="{Binding WeatherSubViewCommand}"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Margin="50,5,5,5"/>
+                <Button
+                    Content="Detail"
+                    FontSize="10"
+                    FontWeight="Bold"
+                    FontFamily="Fonts/#Formula1 Display"
+                    Foreground="White"
+                    Command="{Binding DetailSubViewCommand}"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Margin="50,5,5,5"/>
+
+                <TextBlock Text="{Binding model.CurrentSession}"
                            Padding="10"
                            Foreground="Yellow"
                            VerticalAlignment="Center"
                            Margin="250,5,5,5"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="{Binding model.SessionTimeRemaining}"
+                           Padding="10"
+                           Foreground="Yellow"
+                           VerticalAlignment="Center"
+                           Margin="5,5,5,5"
                            FontWeight="Bold"/>
             </StackPanel>
 

@@ -1,6 +1,7 @@
 ﻿using SlipStream.Core;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,44 @@ namespace SlipStream.Models
     // MODEL 
     public class DriverModel : ObservableObject
     {
+        // Args CTOR
+        public DriverModel(int c, Drivers d, Teams t, int r)
+        {
+            this.CarPosition = c;
+            this.DriverID = d;
+            this.TeamID = t;
+            this.raceNumber = r;
+        }
+
+        // Create a observable collection of DriverModel
+        public ObservableCollection<DriverModel> Driver { get; set; }
+        private object _driverLock = new object();
+
+        // NoArgs CTOR
+        public DriverModel()
+        {
+            this.DriverID = Drivers.Unknown;
+            this.TeamID = Teams.Unknown;
+        }
+
+        // Driver Index
+
+        private int _driverIndex;
+        public int DriverIndex
+        {
+            get { return _driverIndex; }
+            set { SetField(ref _driverIndex, value, nameof(DriverIndex)); }
+        }
+
+        private int _maxIndex;
+        public int MaxIndex
+        {
+            get { return _maxIndex; }
+            set { SetField(ref _maxIndex, value, nameof(MaxIndex)); }
+        }
+
+        // Driver Participant Data
+
         private Drivers _driverID;
         public Drivers DriverID
         {
@@ -149,13 +188,50 @@ namespace SlipStream.Models
             set { SetField(ref _raceNumber, value, nameof(raceNumber)); }
         }
 
-        private float _currentLapTime;
-        public float CurrentLapTime
+        private TimeSpan _currentLapTime;
+        public TimeSpan CurrentLapTime
         {
             get { return _currentLapTime; }
             set { SetField(ref _currentLapTime, value, nameof(CurrentLapTime)); }
         }
 
+        // Driver Car Data
+
+        private int _tireAge;
+        public int TireAge
+        {
+            get { return _tireAge; }
+            set { SetField(ref _tireAge, value, nameof(TireAge)); }
+        }
+
+        private string _fuelMix;
+        public string FuelMix
+        {
+            get { return _fuelMix; }
+            set { SetField(ref _fuelMix, value, nameof(FuelMix)); }
+        }
+
+        private string _ersDeployMode;
+        public string ErsDeployMode
+        {
+            get { return _ersDeployMode; }
+            set { SetField(ref _ersDeployMode, value, nameof(ErsDeployMode)); }
+        }
+
+        private string _vehicleFlag;
+        public string VehicleFlag
+        {
+            get { return _vehicleFlag; }
+            set { SetField(ref _vehicleFlag, value, nameof(VehicleFlag)); }
+        }
+
+        private string _ersRemaining;
+        public string ErsRemaining
+        {
+            get { return _ersRemaining; }
+            set { SetField(ref _ersRemaining, value, nameof(ErsRemaining)); }
+        }
+            
         private string _tireIconSource;
         public string TireIconSource
         {
@@ -214,21 +290,78 @@ namespace SlipStream.Models
         public TimeSpan Sector1Time
         {
             get { return sector1Time; }
-            set { SetField(ref sector1Time, value, nameof(Sector1Time)); }
+            set 
+            { 
+                SetField(ref sector1Time, value, nameof(Sector1Time));
+                
+                if (CurrentLapNum < 1)
+                {
+                    BestS1 = value;
+                }
+                else if (Sector1Time < BestS1)
+                {
+                    BestS1 = value;
+                }
+            }
         }
 
         private TimeSpan sector2Time;
         public TimeSpan Sector2Time
         {
             get { return sector2Time; }
-            set { SetField(ref sector2Time, value, nameof(Sector2Time)); }
+            set
+            {
+                SetField(ref sector2Time, value, nameof(Sector2Time));
+
+                if (CurrentLapNum < 1)
+                {
+                    BestS2 = value;
+                }
+                else if (Sector2Time < BestS2)
+                {
+                    BestS2 = value;
+                }
+            }
         }
 
         private TimeSpan sector3Time;
         public TimeSpan Sector3Time
         {
             get { return sector3Time; }
-            set { SetField(ref sector3Time, value, nameof(Sector3Time)); }
+            set
+            {
+                SetField(ref sector3Time, value, nameof(Sector3Time));
+
+                if (CurrentLapNum < 1)
+                {
+                    BestS3 = value;
+                }
+                else if (Sector3Time < BestS3)
+                {
+                    BestS3 = value;
+                }
+            }
+        }
+
+        private TimeSpan bestS1;
+        public TimeSpan BestS1
+        {
+            get { return bestS1; }
+            set { SetField(ref bestS1, value, nameof(BestS1)); }
+        }
+
+        private TimeSpan bestS2;
+        public TimeSpan BestS2
+        {
+            get { return bestS2; }
+            set { SetField(ref bestS2, value, nameof(BestS2)); }
+        }
+
+        private TimeSpan bestS3;
+        public TimeSpan BestS3
+        {
+            get { return bestS3; }
+            set { SetField(ref bestS3, value, nameof(BestS3)); }
         }
 
         private int carPosition;
@@ -259,11 +392,11 @@ namespace SlipStream.Models
             set { SetField(ref visualTireCompound, value, nameof(VisualTireCompound)); }
         }
 
-        private string numTireStints;
-        public string NumTireStints
+        private int _gridPosition;
+        public int GridPosition
         {
-            get { return numTireStints; }
-            set { SetField(ref numTireStints, value, nameof(NumTireStints)); }
+            get { return _gridPosition; }
+            set { SetField(ref _gridPosition, value, nameof(GridPosition)); }
         }
 
         private sbyte _positionChange;
@@ -273,21 +406,131 @@ namespace SlipStream.Models
             set { SetField(ref _positionChange, value, nameof(PositionChange)); }
         }
 
-        // Args CTOR
-        public DriverModel(int c, Drivers d, Teams t, int r)
+        private string _positionChangeIcon;
+        public string PositionChangeIcon
         {
-            this.CarPosition = c;
-            this.DriverID = d;
-            this.TeamID = t;
-            this.raceNumber = r;
+            get { return _positionChangeIcon; }
+            set { SetField(ref _positionChangeIcon, value, nameof(PositionChangeIcon)); }
         }
 
-        // NoArgs CTOR
-        public DriverModel()
+        // Packet Session History Data
+
+        private int _lapNum;
+        public int lapNum
         {
-            this.DriverID = Drivers.Unknown;
-            this.TeamID = Teams.Unknown;
-            this.CurrentLapTime = 0;
+            get { return _lapNum; }
+            set { SetField(ref _lapNum, value, nameof(lapNum)); }
         }
+
+        private uint _carIdx;
+        public uint CarIdx
+        {
+            get { return _carIdx; }
+            set { SetField(ref _carIdx, value, nameof(CarIdx)); }
+        }
+
+        private uint _numLaps;
+        public uint NumLaps
+        {
+            get { return _numLaps; }
+            set { SetField(ref _numLaps, value, nameof(NumLaps)); }
+        }
+
+        private uint _numTireStints;
+        public uint NumTireStints
+        {
+            get { return _numTireStints; }
+            set { SetField(ref _numTireStints, value, nameof(NumTireStints)); }
+        }
+
+        private uint _bestLapNum;
+        public uint BestLapNum
+        {
+            get { return _bestLapNum; }
+            set { SetField(ref _bestLapNum, value, nameof(BestLapNum)); }
+        }
+
+        private uint _bestS1Num;
+        public uint BestS1Num
+        {
+            get { return _bestS1Num; }
+            set { SetField(ref _bestS1Num, value, nameof(BestS1Num)); }
+        }
+
+        private uint _bestS2Num;
+        public uint BestS2Num
+        {
+            get { return _bestS2Num; }
+            set { SetField(ref _bestS2Num, value, nameof(BestS2Num)); }
+        }
+
+        private uint _bestS3Num;
+        public uint BestS3Num
+        {
+            get { return _bestS3Num; }
+            set { SetField(ref _bestS3Num, value, nameof(BestS3Num)); }
+        }
+
+        // Lap History Data
+
+        private uint _lapTime;
+        public uint LapTime
+        {
+            get { return _lapTime; }
+            set { SetField(ref _lapTime, value, nameof(LapTime)); }
+        }
+
+        private TimeSpan _s1Time;
+        public TimeSpan S1Time
+        {
+            get { return _s1Time; }
+            set { SetField(ref _s1Time, value, nameof(S1Time)); }
+        }
+
+        private TimeSpan _s2Time;
+        public TimeSpan S2Time
+        {
+            get { return _s2Time; }
+            set { SetField(ref _s2Time, value, nameof(S2Time)); }
+        }
+
+        private TimeSpan _s3Time;
+        public TimeSpan S3Time
+        {
+            get { return _s3Time; }
+            set { SetField(ref _s3Time, value, nameof(S3Time)); }
+        }
+
+        private uint _lapValid;
+        public uint LapValid
+        {
+            get { return _lapValid; }
+            set { SetField(ref _lapValid, value, nameof(LapValid)); }
+        }
+
+        // Tire History Data
+
+        private uint _endLap;
+        public uint EndLap
+        {
+            get { return _endLap; }
+            set { SetField(ref _endLap, value, nameof(EndLap)); }
+        }
+
+        private TyreCompounds _tireActualCompound;
+        public TyreCompounds TireActualCompound
+        {
+            get { return _tireActualCompound; }
+            set { SetField(ref _tireActualCompound, value, nameof(TireActualCompound)); }
+        }
+
+        private TyreCompounds _tireVisualCompound;
+        public TyreCompounds TireVisualCompound
+        {
+            get { return _tireVisualCompound; }
+            set { SetField(ref _tireVisualCompound, value, nameof(TireVisualCompound)); }
+        }
+
+        
     }
 }
