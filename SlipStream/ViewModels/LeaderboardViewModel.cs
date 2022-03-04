@@ -109,14 +109,14 @@ namespace SlipStream.ViewModels
             
 
             // Loop through the participants the game is giving us
-            for (int i=0; i < packet.participants.Length; i++)
+            for (int i=0; i < packet.m_participants.Length; i++)
             {
-                var participant = packet.participants[i];
+                var participant = packet.m_participants[i];
                 // Update them in the array
                 //DriverArr[i].DriverID = participant.driverId;
-                DriverArr[i].DriverName = Regex.Replace(participant.driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-                DriverArr[i].TeamName = Regex.Replace(participant.teamId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-                DriverArr[i].raceNumber = participant.raceNumber;
+                DriverArr[i].DriverName = Regex.Replace(participant.m_driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+                DriverArr[i].TeamName = Regex.Replace(participant.m_teamId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+                DriverArr[i].raceNumber = participant.m_raceNumber;
                 
 
             }
@@ -124,7 +124,7 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnEventDataReceive(PacketEventData packet)
         {
-            SessionFastestLap = TimeSpan.FromMilliseconds(packet.eventDataDetails.fastestLap.lapTime);
+            SessionFastestLap = TimeSpan.FromMilliseconds(packet.m_eventDetails.fastestLap.lapTime);
         }
 
 
