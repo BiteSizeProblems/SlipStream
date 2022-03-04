@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace SlipStream.Models
+namespace SlipStream.Structs
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct LobbyInfoData

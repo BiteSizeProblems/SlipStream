@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Spectator\**" />
+    <EmbeddedResource Remove="Views\Spectator\**" />
+    <None Remove="Views\Spectator\**" />
+    <Page Remove="Views\Spectator\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Core\Fonts\Formula1-Black.ttf" />
     <None Remove="Core\Fonts\Formula1-Bold.ttf" />
     <None Remove="Core\Fonts\Formula1-Regular.ttf" />
@@ -103,10 +110,6 @@
     <Resource Include="Core\Images\wrench_24px.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Spectator\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -38,7 +38,7 @@
                         Text="{Binding Flap}"
                         Margin="5"/>
                     <TextBlock 
-                        Text="{Binding EventStringCode}"
+                        Text="{Binding model.EventStringCode}"
                         Margin="5"/>
                 </StackPanel>
             </GroupBox>
@@ -67,30 +67,26 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="{Binding NetworkGame}"
-                               Padding="10"
-                                   Foreground="DarkSlateGray"/>
-                        <TextBlock Text="{Binding Formula, FallbackValue=Formula: }"
-                               Padding="10"
-                                   Foreground="DarkSlateGray"/>
-                        <TextBlock Text="{Binding Circuit, FallbackValue=Circuit: }"
-                               Padding="10"
-                                   Foreground="DarkSlateGray"/>
-                        <TextBlock Text="{Binding CurrentSession, FallbackValue=Current Session: }"
-                               Padding="10"
-                                   Foreground="DarkSlateGray"/>
-                        <TextBlock Text="{Binding SessionDuration, FallbackValue=Session Duration: }"
-                               Padding="10"
-                                   Foreground="DarkSlateGray"/>
-                        <TextBlock Text="{Binding SessionTimeRemaining, FallbackValue=Time Remaining: }"
-                               Padding="10"
-                                   Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding model.NetworkGame}"
+                               Padding="10"/>
+                        <TextBlock Text="{Binding model.Formula, FallbackValue=Formula: }"
+                               Padding="10"/>
+                        <TextBlock Text="{Binding model.Circuit, FallbackValue=Circuit: }"
+                               Padding="10"/>
+                        <TextBlock Text="{Binding model.CurrentSession, FallbackValue=Current Session: }"
+                               Padding="10"/>
+                        <TextBlock Text="{Binding model.SessionDuration, FallbackValue=Session Duration: }"
+                               Padding="10"/>
+                        <TextBlock Text="{Binding model.SessionTimeRemaining, FallbackValue=Time Remaining: }"
+                               Padding="10"/>
                     </StackPanel>
                     <StackPanel
                         Grid.Column="1">
-                        <TextBlock Text="{Binding CurrentWeather}"
+                        <TextBlock Text="{Binding model.CurrentWeather}"
                                Padding="10"/>
-                        <TextBlock Text="{Binding NumOfParticipants, FallbackValue=Participants: }"
+                        <TextBlock Text="{Binding model.NumOfParticipants, FallbackValue=Participants: }"
+                               Padding="10"/>
+                        <TextBlock Text="{Binding model.TotalLaps}"
                                Padding="10"/>
                     </StackPanel>
                 </Grid>
@@ -123,7 +119,7 @@
                 <DataGrid Background="Transparent"
                   RowBackground="Transparent"
                   Name="CompressedLeaderboard" 
-                  ItemsSource="{Binding Path=DriverArr}"
+                  ItemsSource="{Binding Path=Driver}"
                   GridLinesVisibility="None"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"

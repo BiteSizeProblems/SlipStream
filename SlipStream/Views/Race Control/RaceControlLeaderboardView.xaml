@@ -30,15 +30,16 @@
 
 
             <Border Grid.Row="1">
-                <DataGrid Background="White"
-                          BorderBrush="Transparent"
-                  RowBackground="White"
-                  Name="Leaderboard" 
-                  ItemsSource="{Binding Path=DriverArr}"
-                  GridLinesVisibility="None"
-                          
-                  AutoGenerateColumns="False"
-                  Padding="5,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontStyle="Normal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionUnit="CellOrRowHeader">
+                <DataGrid 
+                    Background="White" BorderBrush="Transparent"
+                    RowBackground="White" Name="Leaderboard" 
+                    ItemsSource="{Binding Path=Driver}" GridLinesVisibility="None"
+                  AutoGenerateColumns="False" Padding="5,5,5,5" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                    FontStyle="Normal" CanUserAddRows="False" 
+                    CanUserDeleteRows="False" CanUserResizeRows="False" 
+                    SelectionUnit="CellOrRowHeader">
 
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="DataGridRow">
@@ -78,13 +79,14 @@
                     </DataGrid.CellStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding CarPosition}" IsReadOnly="True" Header="Pos" SortDirection="Ascending"/>
+                        <DataGridTextColumn Binding="{Binding CarPosition}" IsReadOnly="True" Header="Pos"/>
+                        <DataGridTextColumn Binding="{Binding PositionChange}" IsReadOnly="True" Header="+/-"/>
                         <DataGridTextColumn Binding="{Binding DriverName}" Header="Driver"/>
                         <DataGridTextColumn Binding="{Binding raceNumber}" Header="Car #" IsReadOnly="True"/>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Rectangle Width="5" Margin="1,3" Fill="{Binding TeamRect, FallbackValue=#ff00ff}"/>
+                                    <Rectangle Width="10" Margin="0,8" Fill="{Binding TeamRect, FallbackValue=#ff00ff}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -113,15 +115,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
-
-            <TextBlock 
-            Grid.Row="2" 
-            Text="{Binding SessionFastestLap}"             
-            Foreground="White" 
-            FontSize="20" 
-            FontWeight="Bold" 
-            VerticalAlignment="Center"/>
-
         </Grid>
     </Border>
     

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace SlipStream.Models
+namespace SlipStream.Structs
 {
     /// <summary>
     /// Motion data for each car.

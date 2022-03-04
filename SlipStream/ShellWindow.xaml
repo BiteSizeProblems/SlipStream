@@ -32,7 +32,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.ColumnSpan="2" Background="Crimson" CornerRadius="10,10,0,0">
+            <Border Grid.ColumnSpan="2" Background="Crimson" CornerRadius="10,10,0,0" MouseDown="Border_MouseDown">
                 <Grid  HorizontalAlignment="Stretch">
                     <Label 
                        VerticalAlignment="Center" HorizontalAlignment="Left" 
@@ -69,7 +69,7 @@
                     HorizontalAlignment="Center"/>
 
                 <Button
-                            Style="{StaticResource MyButtonStyle}"
+                            Style="{StaticResource HomeButtonTheme}"
                             Content="Home"
                             Command="{Binding HomeViewCommand}" 
                         HorizontalContentAlignment="Stretch" 
@@ -81,7 +81,7 @@
                 </Button>
 
                 <Button
-                            Style="{StaticResource MyButtonStyle}"
+                            Style="{StaticResource HomeButtonTheme}"
                             Content="Driver"
                             Command="{Binding DriverViewCommand}">
                     <Button.Resources>
@@ -90,7 +90,7 @@
                 </Button>
 
                 <Button
-                            Style="{StaticResource MyButtonStyle}"
+                            Style="{StaticResource HomeButtonTheme}"
                             Content="Race Control"
                             Command="{Binding RaceControlViewCommand}">
                     <Button.Resources>
@@ -99,7 +99,7 @@
                 </Button>
 
                 <Button
-                            Style="{StaticResource MyButtonStyle}"
+                            Style="{StaticResource HomeButtonTheme}"
                             Content="Engineer"
                             Command="{Binding EngineerViewCommand}">
                     <Button.Resources>

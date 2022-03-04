@@ -21,6 +21,7 @@ namespace SlipStream.Views
     /// </summary>
     public partial class RaceControlDefaultView : UserControl
     {
+
         public RaceControlDefaultView()
         {
             InitializeComponent();

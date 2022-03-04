@@ -31,6 +31,10 @@ namespace SlipStream.Views
         public RaceControlLeaderboardView()
         {
             InitializeComponent();
+
+
+            this.Leaderboard.Items.IsLiveSorting = true;
+            this.Leaderboard.Items.SortDescriptions.Add(new SortDescription("CarPosition", ListSortDirection.Ascending));
         }
 
         private void LeaderboardExportClick(object sender, RoutedEventArgs e)
