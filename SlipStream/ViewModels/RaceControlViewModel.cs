@@ -288,6 +288,7 @@ namespace SlipStream.ViewModels
             if (s == "SEND")
             {
                 EventStringCode = "Session End";
+                SessionTimeRemaining = "Session Complete";
 
                 // Loop through the participants the game is giving us
                 for (int i = 0; i < NumOfParticipants; i++)

@@ -77,6 +77,7 @@ namespace SlipStream.Core
             Haas = 7,
             Mclaren = 8,
             AlfaRomeo = 9,
+            CustomTeam = 41,
             ArtGP19 = 42,
             Campos19 = 43,
             Carlin19 = 44,
