@@ -1,7 +1,6 @@
 ﻿using System.Runtime.InteropServices;
-using static SlipStream.Core.Appendeces;
 
-namespace SlipStream.Models
+namespace SlipStream.Structs
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct EventFastestLap

@@ -28,6 +28,10 @@ namespace SlipStream.Views
         public DriverView()
         {
             InitializeComponent();
+            this.DataContext = DVM;
+
+            //this.Leaderboard.Items.IsLiveSorting = true;
+            //this.Leaderboard.Items.SortDescriptions.Add(new SortDescription("CarPosition", ListSortDirection.Ascending));
         }
     }
 }

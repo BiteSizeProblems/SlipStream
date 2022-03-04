@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using static SlipStream.Core.Appendeces;
+using static SlipStream.Structs.Appendeces;
 
-namespace SlipStream.Models
+namespace SlipStream.Structs
 {
     /// <summary>
     /// Session data

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Timers;
-using SlipStream.Models;
-using static SlipStream.Core.Appendeces;
 using System.Diagnostics;
+using SlipStream.Structs;
+using static SlipStream.Structs.Appendeces;
 
 namespace SlipStream.Core
 {
@@ -90,9 +86,6 @@ namespace SlipStream.Core
         /// <param name="port">The port to listen to. This should match the game setting.</param>
         private UDPConnection(int port)
         {
-
-            Trace.WriteLine("UDP CONNECTION CTOR");
-
             _client = new UdpClient(port);
             _endPoint = new IPEndPoint(IPAddress.Any, 0);
 

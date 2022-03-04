@@ -66,5 +66,11 @@ namespace SlipStream
                 UseShellExecute = true
             });
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
     }
 }
