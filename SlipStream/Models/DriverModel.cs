@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using static SlipStream.Structs.Appendeces;
+using static SlipStream.Structs.Enums;
 
 namespace SlipStream.Models
 {
@@ -83,61 +86,7 @@ namespace SlipStream.Models
         public Teams TeamID
         {
             get { return _teamID; }
-            set
-            {
-                SetField(ref _teamID, value, nameof(TeamID));
-
-                if (this.TeamID != value)
-                {
-                    this._teamID = value;
-                    switch (this._teamID)
-                    {
-                        default:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(255, 0, 255));
-                            break;
-                        case Teams.Mercedes:
-                        case Teams.Mercedes2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(0, 210, 90));
-                            break;
-                        case Teams.Ferrari:
-                        case Teams.Ferrari2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(220, 0, 0));
-                            break;
-                        case Teams.RedBullRacing:
-                        case Teams.RedBull2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(6, 0, 239));
-                            break;
-                        case Teams.Alpine:
-                        case Teams.Renault2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(0, 144, 255));
-                            break;
-                        case Teams.Haas:
-                        case Teams.Haas2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                            break;
-                        case Teams.AstonMartin:
-                        case Teams.RacingPoint2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(0, 111, 98));
-                            break;
-                        case Teams.AlphaTauri:
-                        case Teams.AlphaTauri2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(43, 69, 98));
-                            break;
-                        case Teams.Mclaren:
-                        case Teams.McLaren2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(255, 135, 0));
-                            break;
-                        case Teams.AlfaRomeo:
-                        case Teams.AlfaRomeo2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(144, 0, 0));
-                            break;
-                        case Teams.Williams:
-                        case Teams.Williams2020:
-                            this.TeamColor = new SolidColorBrush(Color.FromRgb(0, 90, 255));
-                            break;
-                    }
-                }
-            }
+            set { SetField(ref _teamID, value, nameof(TeamID)); }
         }
 
         private string _teamName;
@@ -188,11 +137,29 @@ namespace SlipStream.Models
             set { SetField(ref _raceNumber, value, nameof(raceNumber)); }
         }
 
+        // TIMING
+
         private TimeSpan _currentLapTime;
         public TimeSpan CurrentLapTime
         {
             get { return _currentLapTime; }
             set { SetField(ref _currentLapTime, value, nameof(CurrentLapTime)); }
+        }
+
+        //PENALTIES & WARNINGS
+
+        private int _warnings;
+        public int Warnings
+        {
+            get { return _warnings; }
+            set { SetField(ref _warnings, value, nameof(Warnings)); }
+        }
+
+        private int _penalties;
+        public int Penalties
+        {
+            get { return _penalties; }
+            set { SetField(ref _penalties, value, nameof(Penalties)); }
         }
 
         // Driver Car Data
@@ -211,8 +178,8 @@ namespace SlipStream.Models
             set { SetField(ref _fuelMix, value, nameof(FuelMix)); }
         }
 
-        private string _ersDeployMode;
-        public string ErsDeployMode
+        private ErsDeployMode _ersDeployMode;
+        public ErsDeployMode ErsDeployMode
         {
             get { return _ersDeployMode; }
             set { SetField(ref _ersDeployMode, value, nameof(ErsDeployMode)); }
@@ -225,13 +192,20 @@ namespace SlipStream.Models
             set { SetField(ref _vehicleFlag, value, nameof(VehicleFlag)); }
         }
 
-        private string _ersRemaining;
-        public string ErsRemaining
+        private int _ersRemaining;
+        public int ErsRemaining
         {
             get { return _ersRemaining; }
             set { SetField(ref _ersRemaining, value, nameof(ErsRemaining)); }
         }
-            
+
+        private float _ersUsed;
+        public float ErsUsed
+        {
+            get { return _ersUsed; }
+            set { SetField(ref _ersUsed, value, nameof(ErsUsed)); }
+        }
+
         private string _tireIconSource;
         public string TireIconSource
         {
@@ -473,8 +447,8 @@ namespace SlipStream.Models
 
         // Lap History Data
 
-        private uint _lapTime;
-        public uint LapTime
+        private TimeSpan _lapTime;
+        public TimeSpan LapTime
         {
             get { return _lapTime; }
             set { SetField(ref _lapTime, value, nameof(LapTime)); }
@@ -508,6 +482,29 @@ namespace SlipStream.Models
             set { SetField(ref _lapValid, value, nameof(LapValid)); }
         }
 
+        // PIT STOP DATA
+
+        private uint _pitWindowIdeal;
+        public uint PitWindowIdeal
+        {
+            get { return _pitWindowIdeal; }
+            set { SetField(ref _pitWindowIdeal, value, nameof(PitWindowIdeal)); }
+        }
+
+        private uint _pitWindowLate;
+        public uint PitWindowLate
+        {
+            get { return _pitWindowLate; }
+            set { SetField(ref _pitWindowLate, value, nameof(PitWindowLate)); }
+        }
+
+        private uint _pitRejoin;
+        public uint PitRejoin
+        {
+            get { return _pitRejoin; }
+            set { SetField(ref _pitRejoin, value, nameof(PitRejoin)); }
+        }
+
         // Tire History Data
 
         private uint _endLap;
@@ -531,6 +528,62 @@ namespace SlipStream.Models
             set { SetField(ref _tireVisualCompound, value, nameof(TireVisualCompound)); }
         }
 
-        
+        // Car Damage Data
+
+        private float _flTireWear;
+        public float FLTireWear
+        {
+            get { return _flTireWear; }
+            set { SetField(ref _flTireWear, value, nameof(FLTireWear)); }
+        }
+        private float _frTireWear;
+        public float FRTireWear
+        {
+            get { return _frTireWear; }
+            set { SetField(ref _frTireWear, value, nameof(FRTireWear)); }
+        }
+        private float _rlTireWear;
+        public float RLTireWear
+        {
+            get { return _rlTireWear; }
+            set { SetField(ref _rlTireWear, value, nameof(RLTireWear)); }
+        }
+        private float _rrTireWear;
+        public float RRTireWear
+        {
+            get { return _rrTireWear; }
+            set { SetField(ref _rrTireWear, value, nameof(RRTireWear)); }
+        }
+        private float _tireWear;
+        public float TireWear
+        {
+            get { return _tireWear; }
+            set { SetField(ref _tireWear, value, nameof(TireWear)); }
+        }
+
+        private string _rlTireWearColor;
+        public string RLTireWearColor
+        {
+            get { return _rlTireWearColor; }
+            set { SetField(ref _rlTireWearColor, value, nameof(RLTireWearColor)); }
+        }
+        private string _rrTireWearColor;
+        public string RRTireWearColor
+        {
+            get { return _rrTireWearColor; }
+            set { SetField(ref _rrTireWearColor, value, nameof(RRTireWearColor)); }
+        }
+        private string _flTireWearColor;
+        public string FLTireWearColor
+        {
+            get { return _flTireWearColor; }
+            set { SetField(ref _flTireWearColor, value, nameof(FLTireWearColor)); }
+        }
+        private string _frTireWearColor;
+        public string FRTireWearColor
+        {
+            get { return _frTireWearColor; }
+            set { SetField(ref _frTireWearColor, value, nameof(FRTireWearColor)); }
+        }
     }
 }

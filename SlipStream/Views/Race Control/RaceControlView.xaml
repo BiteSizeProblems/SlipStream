@@ -6,10 +6,9 @@
              xmlns:local="clr-namespace:SlipStream.Views"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    
-    <Border Background="black" 
-            CornerRadius="25"
-            Margin="5">
+
+    <Border Background="Transparent" 
+            CornerRadius="25" Margin="5">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -52,36 +51,19 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Margin="50,5,5,5"/>
-                <Button
-                    Content="Detail"
-                    FontSize="10"
-                    FontWeight="Bold"
-                    FontFamily="Fonts/#Formula1 Display"
-                    Foreground="White"
-                    Command="{Binding DetailSubViewCommand}"
-                    HorizontalAlignment="Center"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Margin="50,5,5,5"/>
-
-                <TextBlock Text="{Binding model.CurrentSession}"
-                           Padding="10"
-                           Foreground="Yellow"
-                           VerticalAlignment="Center"
-                           Margin="250,5,5,5"
-                           FontWeight="Bold"/>
+                
 
                 <TextBlock Text="{Binding model.SessionTimeRemaining}"
                            Padding="10"
-                           Foreground="Yellow"
+                           Foreground="MediumAquamarine"
                            VerticalAlignment="Center"
-                           Margin="5,5,5,5"
+                           Margin="600,5,5,5"
                            FontWeight="Bold"/>
             </StackPanel>
 
             <ContentControl 
                 Content="{Binding CurrentSubView}"
-                Grid.Row="1"/>
+                Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Top"/>
 
         </Grid>
     </Border>

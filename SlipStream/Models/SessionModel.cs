@@ -154,6 +154,13 @@ namespace SlipStream.Models
             set { SetField(ref _safetyCarColor, value, nameof(SafetyCarColor)); }
         }
 
+        private string _safetyCarIcon;
+        public string SafetyCarIcon
+        {
+            get { return _safetyCarIcon; }
+            set { SetField(ref _safetyCarIcon, value, nameof(SafetyCarIcon)); }
+        }
+
 
 
     }

@@ -36,6 +36,7 @@ namespace SlipStream.ViewModels
         public SessionModel model { get; set; }
         public DriverModel driver { get; set; }
         public WeatherModel w_model { get; set; }
+        public SessionHistoryModel s_history { get; set; }
 
         public RelayCommand RaceControlHomeSubViewCommand { get; set; }
         public RaceControlDefaultView RCDV { get; set; }
@@ -45,9 +46,6 @@ namespace SlipStream.ViewModels
 
         public RelayCommand WeatherSubViewCommand { get; set; }
         public RaceControlWeatherView RCWV { get; set; }
-
-        public RelayCommand DetailSubViewCommand { get; set; }
-        public RaceControlDetailView RCDetV { get; set; }
 
         public RelayCommand ExportLeaderboardCommand { get; set; }
 
@@ -100,7 +98,9 @@ namespace SlipStream.ViewModels
             set { SetField(ref _currSelectedDriver, value, nameof(CurrentSelectedDriver)); }
         }
 
-        public TimeSpan SectorMin = TimeSpan.FromSeconds(0);
+        public TimeSpan SectorMin = TimeSpan.FromMilliseconds(0);
+
+        public TimeSpan SectorMin2 = TimeSpan.FromSeconds(15);
 
         // Create a observable collection of DriverModel
         public ObservableCollection<DriverModel> Driver { get; set; }
@@ -116,8 +116,6 @@ namespace SlipStream.ViewModels
             RCDV = new RaceControlDefaultView();
             RCLV = new RaceControlLeaderboardView();
             RCWV = new RaceControlWeatherView();
-            RCDetV = new RaceControlDetailView();
-
 
             CurrentSubView = RCDV;
 
@@ -136,37 +134,13 @@ namespace SlipStream.ViewModels
                 CurrentSubView = RCWV;
             });
 
-            DetailSubViewCommand = new RelayCommand(o =>
-            {
-                CurrentSubView = RCDetV;
-            });
-
             this.model = new SessionModel();
-
-            ExportLeaderboardCommand = new RelayCommand(o =>
-            {
-                RCLV.Leaderboard.SelectAllCells();
-                RCLV.Leaderboard.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-                ApplicationCommands.Copy.Execute(null, RCLV.Leaderboard);
-                RCLV.Leaderboard.UnselectAllCells();
-
-                String result = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
-                try
-                {
-                    StreamWriter sw = new StreamWriter("slipstream_leaderboard.csv");
-                    sw.WriteLine(result);
-                    sw.Close();
-                    Process.Start("slipstream_leaderboard.csv");
-                }
-                catch (Exception ex)
-                { }
-            });
 
             // Set New Observable Collection
             Driver = new ObservableCollection<DriverModel>();
-
-            // thread safety
             BindingOperations.EnableCollectionSynchronization(Driver, _driverLock);
+            W_Model = new ObservableCollection<WeatherModel>();
+            BindingOperations.EnableCollectionSynchronization(W_Model, _w_modelLock);
 
             for (int i = 0; i < 22; i++)
             {
@@ -175,10 +149,6 @@ namespace SlipStream.ViewModels
                 Driver[i].DriverName = "Placeholder";
                 Driver[i].DriverIndex = i + 1;
             }
-
-            // Set New Observable Collection
-            W_Model = new ObservableCollection<WeatherModel>();
-            BindingOperations.EnableCollectionSynchronization(W_Model, _w_modelLock);
 
             for (int i = 0; i < 56; i++)
             {
@@ -203,90 +173,111 @@ namespace SlipStream.ViewModels
 
                 Driver[i].lapNum = Driver[i].lapNum + 1;
                 Driver[i].CarIdx = packet.m_carIdx;
-                Driver[i].LapTime = lapHistory.m_lapTimeInMS;
-
-                if(Driver[i].CurrentLapTime > SectorMin)
-                {
-                    //Driver[i].S1Time = TimeSpan.FromMilliseconds(lapHistory.m_sector1TimeInMS);
-                    //Driver[i].S2Time = TimeSpan.FromMilliseconds(lapHistory.m_sector2TimeInMS);
-                    //Driver[i].S3Time = TimeSpan.FromMilliseconds(lapHistory.m_sector3TimeInMS);
-                }
-
-                if(Driver[i].S1Time < SectorMin)
-                {
-
-                }
-                
+                Driver[i].LapTime = TimeSpan.FromMilliseconds(lapHistory.m_lapTimeInMS);
             }
         }
 
         private void UDPC_OnCarStatusDataReceive(PacketCarStatusData packet)
         {
-            // Loop through the participants the game is giving us
             for (int i = 0; i < packet.m_carStatusData.Length; i++)
             {
                 var carStatusData = packet.m_carStatusData[i];
-                // Update it in the array
+
                 Driver[i].VisualTireCompound = (VisualTireCompounds)carStatusData.m_visualTyreCompound;
-               
-                if(Driver[i].VisualTireCompound == VisualTireCompounds.Soft)
+
+                switch (Driver[i].VisualTireCompound)
                 {
-                    Driver[i].TireIconSource = "/Core/Images/CustomSoft.png";
-                }
-                if (Driver[i].VisualTireCompound == VisualTireCompounds.Medium)
-                {
-                    Driver[i].TireIconSource = "/Core/Images/CustomMedium.png";
-                }
-                if (Driver[i].VisualTireCompound == VisualTireCompounds.Hard)
-                {
-                    Driver[i].TireIconSource = "/Core/Images/CustomHard.png";
+                    case VisualTireCompounds.Soft:
+                        Driver[i].TireIconSource = "/Core/Images/CustomSoft.png";
+                        break;
+                    case VisualTireCompounds.Medium:
+                        Driver[i].TireIconSource = "/Core/Images/CustomMedium.png";
+                        break;
+                    case VisualTireCompounds.Hard:
+                        Driver[i].TireIconSource = "/Core/Images/CustomHard.png";
+                        break;
+                    case VisualTireCompounds.Inter:
+                        Driver[i].TireIconSource = "/Core/Images/CustomInt.png";
+                        break;
+                    case VisualTireCompounds.Wet:
+                        Driver[i].TireIconSource = "/Core/Images/CustomWet.png";
+                        break;
                 }
             }
         }
 
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
         {
-            model.Formula = ("Formula: " + Regex.Replace(packet.formula.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
-            model.Circuit = ("Circuit: " + Regex.Replace(packet.trackId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
-            model.CurrentSession = ("Session Type: " + Regex.Replace(packet.sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
-            model.CurrentWeather = ("Weather: " + Regex.Replace(packet.weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            model.Formula = Regex.Replace(packet.m_formula.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.Circuit = Regex.Replace(packet.m_trackId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.CurrentSession = Regex.Replace(packet.m_sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.CurrentWeather = Regex.Replace(packet.m_weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.SafetyCarStatus = Regex.Replace(packet.m_safetyCarStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.NetworkGame = packet.m_networkGame.ToString();
 
-            for (int i = 0; i < packet.weatherForecastSamples.Length; i++)
+            // NETWORK STATUS
+            if (packet.m_networkGame == 0)
             {
-                var forecast = packet.weatherForecastSamples[i];
+                //model.NetworkGame = "Offline";
+            }
+            //else { model.NetworkGame = "Online"; }
 
-                W_Model[i].SessionType = forecast.m_sessionType;
+            // SAFETY CAR STATUS
+            if (model.SafetyCarStatus == "Clear")
+            {
+                model.SafetyCarIcon = "/Core/Images/check.png";
+            }
+            else if (model.SafetyCarStatus != "Clear")
+            {
+                model.SafetyCarIcon = "/Core/Images/warning.png";
+            }
+
+            // WEATHER ICON
+            switch (model.CurrentWeather)
+            {
+                case "Clear":
+                    model.CurrentWeatherIcon = "/Core/Images/clear.png";
+                    break;
+                case "Overcast":
+                    model.CurrentWeatherIcon = "/Core/Images/overcast.png";
+                    break;
+                case "Light Rain":
+                    model.CurrentWeatherIcon = "/Core/Images/light_rain.png";
+                    break;
+                case "Heavy Rain":
+                    model.CurrentWeatherIcon = "/Core/Images/heavy_rain.png";
+                    break;
+                case "Storm":
+                    model.CurrentWeatherIcon = "/Core/Images/storm.png";
+                    break;
+            }
+
+            for (int i = 0; i < packet.m_numWeatherForecastSamples; i++)
+            {
+                var forecast = packet.m_weatherForecastSamples[i];
+
+                W_Model[i].SessionType = (SessionTypes)forecast.m_sessionType;
                 W_Model[i].TimeOffset = forecast.m_timeOffset;
-                W_Model[i].Weather = forecast.m_weather;
+                W_Model[i].Weather = (WeatherTypes)forecast.m_weather;
                 W_Model[i].TrackTemperature = $"{(sbyte)((forecast.m_trackTemperature * 1.8) + 32)} F";
                 W_Model[i].AirTemperature = $"{(sbyte)((forecast.m_airTemperature * 1.8) + 32)} F";
                 W_Model[i].RainPercentage = $"{forecast.m_rainPercentage}%";
             }
-            
-            if (packet.networkGame == 0)
-            {
-                model.NetworkGame = "Network Type: Offline";
-            }
-            else
-            {
-                model.NetworkGame = "Network Type: Online";
-            }
 
-            if(packet.sessionType != SessionTypes.Race)
+            if(packet.m_sessionType != SessionTypes.Race)
             {
-                model.SessionTimeRemaining = $"Time Remaining: {TimeSpan.FromSeconds(packet.sessionTimeLeft)}";
-                model.SessionDuration = $"Session Duration: {TimeSpan.FromSeconds(packet.sessionDuration)}";
+                model.SessionTimeRemaining = $"Time Remaining: {TimeSpan.FromSeconds(packet.m_sessionTimeLeft)}";
+                model.SessionDuration = $"Session Duration: {TimeSpan.FromSeconds(packet.m_sessionDuration)}";
             }
             else
             {
-                model.SessionTimeRemaining = $"{model.LeadLap} / {packet.totalLaps}";
-                model.SessionDuration = $"# of Laps: {packet.totalLaps.ToString()}";
+                model.SessionTimeRemaining = $"{model.LeadLap} / {packet.m_totalLaps}";
+                model.SessionDuration = $"# of Laps: {packet.m_totalLaps.ToString()}";
             }
         }
 
         private void UDPC_OnFinalClassificationDataReceive(PacketFinalClassificationData packet)
         {
-            // Loop through the participants the game is giving us
             for (int i = 0; i < packet.m_classificationData.Length; i++)
             {
                 var finalData = packet.m_classificationData[i];
@@ -294,7 +285,6 @@ namespace SlipStream.ViewModels
                 Driver[i].CarPosition = (byte)finalData.m_position;
                 Driver[i].CurrentLapNum = (int)finalData.m_numLaps;
                 Driver[i].BestLapTime = TimeSpan.FromMilliseconds(finalData.m_bestLapTimeInMS);
-                //Driver[i].NumTireStints = finalData.m_numTyreStints.ToString();
             }
         }
 
@@ -302,45 +292,42 @@ namespace SlipStream.ViewModels
         {
             string s = new string(packet.m_eventStringCode);
 
-            if (s == "FTLP")
+            // EVENT STRING CODES
+            switch (s)
             {
-                model.EventStringCode = "New Fastest Lap";
-                Flap = TimeSpan.FromSeconds(packet.m_eventDetails.fastestLap.lapTime);
-            }
-            if (s == "SPTP")
-            {
-                model.EventStringCode = "New Speed Trap Speed Set";
-                SpeedTrap = packet.m_eventDetails.speedTrap.speed;
-            }
-            if (s == "SEND")
-            {
-                model.EventStringCode = "Session End";
-                model.SessionTimeRemaining = "Session Complete";
-                // Loop through the participants the game is giving us
-                for (int i = 0; i < model.NumOfParticipants; i++)
-                {
-                    if (Driver[i].CarPosition == 1)
+                case "FTLP":
+                    model.EventStringCode = "New Fastest Lap";
+                    Flap = TimeSpan.FromSeconds(packet.m_eventDetails.fastestLap.lapTime);
+                    break;
+                case "SPTP":
+                    model.EventStringCode = "New Speed Trap Speed Set";
+                    SpeedTrap = packet.m_eventDetails.speedTrap.speed;
+                    break;
+                case "SEND":
+                    model.EventStringCode = "Session End";
+                    model.SessionTimeRemaining = "Session Complete";
+                    for (int i = 0; i < model.NumOfParticipants; i++)
                     {
-                        model.SessionFastestLap = Driver[i].BestLapTime;
+                        if (Driver[i].CarPosition == 1)
+                        {
+                            model.SessionFastestLap = Driver[i].BestLapTime;
+                        }
+                        Driver[i].DriverStatus = "";
+                        Driver[i].BestLapGap = model.SessionFastestLap - Driver[i].BestLapTime;
                     }
-
-                    Driver[i].DriverStatus = "";
-                    Driver[i].BestLapGap = model.SessionFastestLap - Driver[i].BestLapTime;
-                }
-            }
-            if (s == "PENA")
-            {
-                model.EventStringCode = "Penalty Issued";
+                    break;
+                case "PENA":
+                    model.EventStringCode = "Penalty Issued";
+                    break;
             }
         }
 
         private void UDPC_OnLapDataReceive(PacketLapData packet)
         {
-            // Loop through the participants the game is giving us
             for (int i = 0; i < packet.lapData.Length; i++)
             {
                 var lapData = packet.lapData[i];
-                // Update it in the array
+
                 Driver[i].CurrentLapTime = TimeSpan.FromMilliseconds(lapData.currentLapTimeInMS);
                 Driver[i].CarPosition = lapData.carPosition;
                 Driver[i].GridPosition = lapData.gridPosition;
@@ -359,14 +346,17 @@ namespace SlipStream.ViewModels
 
                     if(Driver[i].PositionChange > 0)
                     {
-                        Driver[i].PositionChangeIcon = "/Core/Images/up_arrow.png";
+                        Driver[i].PositionChangeIcon = "/Core/Images/down_arrow.png";
                     }
                     else if(Driver[i].PositionChange < 0)
                     {
-                        Driver[i].PositionChangeIcon = "/Core/Images/down_arrow.png";
+                        Driver[i].PositionChangeIcon = "/Core/Images/up_arrow.png";
                     }
                 }
-                
+
+                // PENALTIES & WARNINGS
+                Driver[i].Warnings = lapData.warnings;
+                Driver[i].Penalties = lapData.penalties;
 
                 // BEST LAP GAP
                 if(model.CurrentSession != "Race")
@@ -395,90 +385,93 @@ namespace SlipStream.ViewModels
                 }
                 else Driver[i].S3Time = SectorMin;
 
-                
-                
-                // DRIVER STATUS ICON & BEST SECTOR TIMES
-                if (Driver[i].DriverStatusUpdate == DriverStatus.InGarage)
+                if(Driver[i].S1Time != SectorMin2)
                 {
-                    Driver[i].DriverStatusSource = "/Core/Images/Garage.png";
+                    if(Driver[i].S1Time < Driver[i].S1Time)
+                    {
+                        Driver[i].BestS1 = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
+                    }
+                    if (Driver[i].S2Time < Driver[i].S2Time)
+                    {
+                        Driver[i].BestS2 = TimeSpan.FromMilliseconds(lapData.sector2TimeInMS);
+                    }
+                    if (Driver[i].S3Time < Driver[i].S3Time)
+                    {
+                        Driver[i].BestS3 = Driver[i].S3Time;
+                    }
                 }
-                if (Driver[i].DriverStatusUpdate == DriverStatus.OutLap)
+
+                // DRIVER STATUS ICONS
+                switch (Driver[i].DriverStatusUpdate)
                 {
-                    Driver[i].DriverStatusSource = "/Core/Images/out.png";
-                }
-                if (Driver[i].DriverStatusUpdate == DriverStatus.InLap)
-                {
-                    Driver[i].DriverStatusSource = "/Core/Images/redbox.png";
-                }
-                if (Driver[i].DriverStatusUpdate == DriverStatus.FlyingLap)
-                {
-                    Driver[i].DriverStatusSource = "/Core/Images/fast.png";
+                    case DriverStatus.InGarage:
+                        Driver[i].DriverStatusSource = "/Core/Images/Garage.png";
+                        break;
+                    case DriverStatus.OutLap:
+                        Driver[i].DriverStatusSource = "/Core/Images/out-lap.png";
+                        break;
+                    case DriverStatus.InLap:
+                        Driver[i].DriverStatusSource = "/Core/Images/in-lap.png";
+                        break;
+                    case DriverStatus.FlyingLap:
+                        Driver[i].DriverStatusSource = "/Core/Images/fast.png";
+                        break;
                 }
             }
         }
 
         private void UDPC_OnParticipantDataReceive(PacketParticipantsData packet)
         {
-
-            model.NumOfActiveCars = $"Active Cars: {packet.m_numActiveCars.ToString()}";
+            model.NumOfActiveCars = packet.m_numActiveCars.ToString();
             model.TotalParticipants = packet.m_participants.Length;
 
-            // Loop through the participants the game is giving us
             for (int i = 0; i < packet.m_participants.Length; i++)
             {
                 var participant = packet.m_participants[i];
-                string s = new string(participant.m_name);
 
-                // Update them in the array
                 Driver[i].TeamID = participant.m_teamId;
                 Driver[i].TeamName = Regex.Replace(participant.m_teamId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 Driver[i].raceNumber = participant.m_raceNumber;
                 Driver[i].AI = participant.m_aiControlled;
 
-                if(model.NetworkGame == "Network Type: Offline")
+                if(model.NetworkGame == "Offline")
                 {
                     Driver[i].DriverName = Regex.Replace(participant.m_driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 }
-                
-                if (Driver[i].TeamID == Teams.Mercedes)
+
+                // TEAM COLORS
+                switch (Driver[i].TeamID)
                 {
-                    Driver[i].TeamRect = "#00D2BE";
-                }
-                if (Driver[i].TeamID == Teams.RedBullRacing)
-                {
-                    Driver[i].TeamRect = "#0600EF";
-                }
-                if (Driver[i].TeamID == Teams.Ferrari)
-                {
-                    Driver[i].TeamRect = "#C00000";
-                }
-                if (Driver[i].TeamID == Teams.Mclaren)
-                {
-                    Driver[i].TeamRect = "#FF8700";
-                }
-                if (Driver[i].TeamID == Teams.Haas)
-                {
-                    Driver[i].TeamRect = "#0600EF";
-                }
-                if (Driver[i].TeamID == Teams.Williams)
-                {
-                    Driver[i].TeamRect = "#0082FA";
-                }
-                if (Driver[i].TeamID == Teams.AlphaTauri)
-                {
-                    Driver[i].TeamRect = "#C8C8C8";
-                }
-                if (Driver[i].TeamID == Teams.Alpine)
-                {
-                    Driver[i].TeamRect = "#FF2F4F4F";
-                }
-                if (Driver[i].TeamID == Teams.AlfaRomeo)
-                {
-                    Driver[i].TeamRect = "#960000";
-                }
-                if (Driver[i].TeamID == Teams.AstonMartin)
-                {
-                    Driver[i].TeamRect = "#FF2F4F4F";
+                    case Teams.Mercedes:
+                        Driver[i].TeamRect = "#00D2BE";
+                        break;
+                    case Teams.RedBullRacing:
+                        Driver[i].TeamRect = "#0600EF";
+                        break;
+                    case Teams.Ferrari:
+                        Driver[i].TeamRect = "#C00000";
+                        break;
+                    case Teams.Mclaren:
+                        Driver[i].TeamRect = "#FF8700";
+                        break;
+                    case Teams.Haas:
+                        Driver[i].TeamRect = "#FFFFFFFF";
+                        break;
+                    case Teams.Williams:
+                        Driver[i].TeamRect = "#0082FA";
+                        break;
+                    case Teams.AlphaTauri:
+                        Driver[i].TeamRect = "#C8C8C8";
+                        break;
+                    case Teams.Alpine:
+                        Driver[i].TeamRect = "#FF00D1FF";
+                        break;
+                    case Teams.AlfaRomeo:
+                        Driver[i].TeamRect = "#FF870000";
+                        break;
+                    case Teams.AstonMartin:
+                        Driver[i].TeamRect = "#FF2F4F4F";
+                        break;
                 }
             }
         }

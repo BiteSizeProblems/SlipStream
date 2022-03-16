@@ -73,18 +73,16 @@ namespace SlipStream.ViewModels
             set { SetField(ref _currSelectedDriver, value, nameof(CurrentSelectedDriver)); }
         }
 
-        // Create a observable collection of DriverModel
+        public TimeSpan SectorMin = TimeSpan.FromSeconds(0);
+
+        // Create a observable collection of Models
         public ObservableCollection<DriverModel> Driver { get; set; }
         private object _driverLock = new object();
-
-        // Create a observable collection of WeatherModel
         public ObservableCollection<WeatherModel> W_Model { get; set; }
         private object _w_modelLock = new object();
 
         private EngineerViewModel() : base()
         {
-            // Set Views
-
             EDV = new EngineerDefaultView();
             ESV = new EngineerStrategyView();
 
@@ -104,21 +102,19 @@ namespace SlipStream.ViewModels
 
             // Set New Observable Collection
             Driver = new ObservableCollection<DriverModel>();
-
-            // thread safety
             BindingOperations.EnableCollectionSynchronization(Driver, _driverLock);
+            W_Model = new ObservableCollection<WeatherModel>();
+            BindingOperations.EnableCollectionSynchronization(W_Model, _w_modelLock);
 
-            for (int i = 0; i < 22; i++)
+            NumActiveCars = 22;
+
+            for (int i = 0; i < NumActiveCars; i++)
             {
                 // Add a new Default Driver
                 Driver.Add(new DriverModel());
                 Driver[i].DriverName = "Placeholder";
                 Driver[i].DriverIndex = i + 1;
             }
-
-            // Set New Observable Collection
-            W_Model = new ObservableCollection<WeatherModel>();
-            BindingOperations.EnableCollectionSynchronization(W_Model, _w_modelLock);
 
             for (int i = 0; i < 56; i++)
             {
@@ -135,10 +131,13 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnSessionHistoryDataReceive(PacketSessionHistoryData packet)
         {
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < NumActiveCars; i++)
             {
                 var lapHistoryData = packet.m_lapHistoryData[i];
 
+                Driver[i].lapNum = Driver[i].lapNum + 1;
+                Driver[i].CarIdx = packet.m_carIdx;
+                Driver[i].LapTime = TimeSpan.FromMilliseconds(lapHistoryData.m_lapTimeInMS);
                 Driver[i].BestLapTime = TimeSpan.FromMilliseconds(lapHistoryData.m_lapTimeInMS);
                 Driver[i].S1Time = TimeSpan.FromMilliseconds(lapHistoryData.m_sector1TimeInMS);
                 Driver[i].S2Time = TimeSpan.FromMilliseconds(lapHistoryData.m_sector2TimeInMS);
@@ -148,70 +147,89 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnCarDamageDataReceive(PacketCarDamageData packet)
         {
+            for (int i = 0; i < NumActiveCars; i++)
+            {
+                var carDamageData = packet.m_carDamageData[i];
 
+                for (int a = 0; a < carDamageData.m_tyresWear.Length; a++)
+                {
+                    Driver[i].FLTireWear = carDamageData.m_tyresWear[1];
+                    Driver[i].FRTireWear = carDamageData.m_tyresWear[1];
+                    Driver[i].RLTireWear = carDamageData.m_tyresWear[1];
+                    Driver[i].RRTireWear = carDamageData.m_tyresWear[1];
+                }   
+            }   
         }
 
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
         {
-            if (packet.networkGame == 0)
+            model.Formula = Regex.Replace(packet.m_formula.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.Circuit = Regex.Replace(packet.m_trackId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.CurrentSession = Regex.Replace(packet.m_sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.SafetyCarStatus = Regex.Replace(packet.m_safetyCarStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.CurrentWeather = Regex.Replace(packet.m_weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+
+            for (int i = 0; i < NumActiveCars; i++)
             {
-                model.NetworkGame = "Network Type: Offline";
-            }
-            else
-            {
-                model.NetworkGame = "Network Type: Online";
+                Driver[i].PitWindowIdeal = packet.m_pitStopWindowIdealLap;
+                Driver[i].PitWindowLate = packet.m_pitStopWindowLatestLap;
+                Driver[i].PitRejoin = packet.m_pitStopRejoinPosition;
             }
 
-            model.SafetyCarStatus = Regex.Replace(packet.safetyCarStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            // NETWORK STATUS
+            if (packet.m_networkGame == 0)
+            {
+                model.NetworkGame = "Offline";
+            }
+            else { model.NetworkGame = "Online";}
 
-            if(model.SafetyCarStatus == "Clear")
+            // SAFETY CAR STATUS
+            if (model.SafetyCarStatus == "Clear")
             {
-                model.SafetyCarColor = "Green";
+                model.SafetyCarIcon = "/Core/Images/check.png";
             }
-            else model.SafetyCarColor = "Yellow";
+            else if(model.SafetyCarStatus != "Clear")
+            {
+                model.SafetyCarIcon = "/Core/Images/warning.png";
+            }
 
-            model.CurrentWeather = Regex.Replace(packet.weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-
-            if(model.CurrentWeather == "Clear")
+            // WEATHER ICON
+            switch (model.CurrentWeather)
             {
-                model.CurrentWeatherIcon = "/Core/Images/clear.png";
-            }
-            else if (model.CurrentWeather == "Overcast")
-            {
-                model.CurrentWeatherIcon = "/Core/Images/overcast.png";
-            }
-            else if (model.CurrentWeather == "Light Rain")
-            {
-                model.CurrentWeatherIcon = "/Core/Images/light_rain.png";
-            }
-            else if (model.CurrentWeather == "Heavy Rain")
-            {
-                model.CurrentWeatherIcon = "/Core/Images/heavy_rain.png";
-            }
-            else if (model.CurrentWeather == "Storm")
-            {
-                model.CurrentWeatherIcon = "/Core/Images/storm.png";
+                case "Clear":
+                    model.CurrentWeatherIcon = "/Core/Images/clear.png";
+                    break;
+                case "Overcast":
+                    model.CurrentWeatherIcon = "/Core/Images/overcast.png";
+                    break;
+                case "Light Rain":
+                    model.CurrentWeatherIcon = "/Core/Images/light_rain.png";
+                    break;
+                case "Heavy Rain":
+                    model.CurrentWeatherIcon = "/Core/Images/heavy_rain.png";
+                    break;
+                case "Storm":
+                    model.CurrentWeatherIcon = "/Core/Images/storm.png";
+                    break;
             }
         }
 
         private void UDPC_OnParticipantsDataReceive(PacketParticipantsData packet)
         {
-            model.NumOfActiveCars = $"Active Cars: {packet.m_numActiveCars.ToString()}";
+            model.NumOfActiveCars = packet.m_numActiveCars.ToString();
+            NumActiveCars = packet.m_numActiveCars;
             model.TotalParticipants = packet.m_participants.Length;
 
-            // Loop through the participants the game is giving us
             for (int i = 0; i < packet.m_participants.Length; i++)
             {
                 var participant = packet.m_participants[i];
-                string s = new string(participant.m_name);
 
-                // Update them in the array
                 Driver[i].TeamID = participant.m_teamId;
                 Driver[i].TeamName = Regex.Replace(participant.m_teamId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 Driver[i].raceNumber = participant.m_raceNumber;
                 Driver[i].AI = participant.m_aiControlled;
 
-                if (model.NetworkGame == "Network Type: Offline")
+                if (model.NetworkGame == "Offline")
                 {
                     Driver[i].DriverName = Regex.Replace(participant.m_driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 }
@@ -220,91 +238,129 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnCarStatusDataReceive(PacketCarStatusData packet)
         {
-            // Loop through the participants the game is giving us
             for (int i = 0; i < packet.m_carStatusData.Length; i++)
             {
                 var carStatusData = packet.m_carStatusData[i];
 
-                // Update it in the array
                 Driver[i].VisualTireCompound = (VisualTireCompounds)carStatusData.m_visualTyreCompound;
-
                 Driver[i].TireAge = carStatusData.m_tyresAgeLaps;
-
                 Driver[i].VisualTireCompound = (VisualTireCompounds)carStatusData.m_visualTyreCompound;
-
-                //if(IndexDriverStatus != InGarage)
-
-                if (carStatusData.m_fuelMix == 0)
-                {
-                    Driver[i].FuelMix = $"Current Fuel Mix: Lean";
-                }
-                if (carStatusData.m_fuelMix == 0)
-                {
-                    Driver[i].FuelMix = $"Current Fuel Mix: Standard";
-                }
-                if (carStatusData.m_fuelMix == 0)
-                {
-                    Driver[i].FuelMix = $"Current Fuel Mix: Rich";
-                }
-                if (carStatusData.m_fuelMix == 0)
-                {
-                    Driver[i].FuelMix = $"Current Fuel Mix: Max";
-                }
-
-
-
                 Driver[i].VehicleFlag = $"Zone Flags: {carStatusData.m_vehicleFiaFlags}";
+                Driver[i].ErsRemaining = ((int)(carStatusData.m_ersStoreEnergy / 40000));
+                Driver[i].ErsDeployMode = (Enums.ErsDeployMode)carStatusData.m_ersDeployMode;
 
-                Driver[i].ErsRemaining = $"ERS Remaining: {(carStatusData.m_ersStoreEnergy / 40000)}%";
-
-                if (carStatusData.m_ersDeployMode == 0)
+                switch (carStatusData.m_fuelMix)
                 {
-                    Driver[i].ErsDeployMode = $"ERS Mode: None";
-                }
-                if (carStatusData.m_ersDeployMode == 1)
-                {
-                    Driver[i].ErsDeployMode = $"ERS Mode: Medium";
-                }
-                if (carStatusData.m_ersDeployMode == 2)
-                {
-                    Driver[i].ErsDeployMode = $"ERS Mode: Hotlap";
-                }
-                if (carStatusData.m_ersDeployMode == 3)
-                {
-                    Driver[i].ErsDeployMode = $"ERS Mode: Overtake";
-                }
-
-
-
-
-                if (Driver[i].VisualTireCompound == VisualTireCompounds.Soft)
-                {
-                    Driver[i].TireIconSource = "/Core/Images/CustomSoft.png";
-                }
-                if (Driver[i].VisualTireCompound == VisualTireCompounds.Medium)
-                {
-                    Driver[i].TireIconSource = "/Core/Images/CustomMedium.png";
-                }
-                if (Driver[i].VisualTireCompound == VisualTireCompounds.Hard)
-                {
-                    Driver[i].TireIconSource = "/Core/Images/CustomHard.png";
+                    case 0:
+                        Driver[i].FuelMix = $"Lean";
+                        break;
+                    case 1:
+                        Driver[i].FuelMix = $"Standard";
+                        break;
+                    case 2:
+                        Driver[i].FuelMix = $"Rich";
+                        break;
+                    case 3:
+                        Driver[i].FuelMix = $"Max";
+                        break;
                 }
 
+                switch (Driver[i].VisualTireCompound)
+                {
+                    case VisualTireCompounds.Soft:
+                        Driver[i].TireIconSource = "/Core/Images/CustomSoft.png";
+                        break;
+                    case VisualTireCompounds.Medium:
+                        Driver[i].TireIconSource = "/Core/Images/CustomMedium.png";
+                        break;
+                    case VisualTireCompounds.Hard:
+                        Driver[i].TireIconSource = "/Core/Images/CustomHard.png";
+                        break;
+                    case VisualTireCompounds.Inter:
+                        Driver[i].TireIconSource = "/Core/Images/CustomInt.png";
+                        break;
+                    case VisualTireCompounds.Wet:
+                        Driver[i].TireIconSource = "/Core/Images/CustomWet.png";
+                        break;
+                }
             }
         }
 
         private void UDPC_OnLapDataReceive(PacketLapData packet)
         {
-            
-            
             for (int i = 0; i < packet.lapData.Length; i++)
             {
                 var lapData = packet.lapData[i];
 
+                Driver[i].CurrentLapTime = TimeSpan.FromMilliseconds(lapData.currentLapTimeInMS);
+                Driver[i].CarPosition = lapData.carPosition;
+                Driver[i].GridPosition = lapData.gridPosition;
                 Driver[i].LastLapTime = TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS);
-            }
+                Driver[i].Sector1Time = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
+                Driver[i].Sector2Time = TimeSpan.FromMilliseconds(lapData.sector2TimeInMS);
+                Driver[i].Sector3Time = (TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS - lapData.sector2TimeInMS - lapData.lastLapTimeInMS));
+                Driver[i].CurrentLapNum = lapData.currentLapNum - 1;
+                Driver[i].DriverStatus = Regex.Replace(lapData.driverStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+                Driver[i].DriverStatusUpdate = lapData.driverStatus;
 
-                
+                // POSITION CHANGE
+                if (model.CurrentSession == "Race")
+                {
+                    Driver[i].PositionChange = (sbyte)(Driver[i].CarPosition - Driver[i].GridPosition);
+
+                    if (Driver[i].PositionChange > 0)
+                    {
+                        Driver[i].PositionChangeIcon = "/Core/Images/up_arrow.png";
+                    }
+                    else if (Driver[i].PositionChange < 0)
+                    {
+                        Driver[i].PositionChangeIcon = "/Core/Images/down_arrow.png";
+                    }
+                }
+
+                // BEST LAP GAP
+                if (model.CurrentSession != "Race")
+                {
+                    if (Driver[i].CurrentLapNum > 0)
+                    {
+                        Driver[i].BestLapGap = TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS) - model.SessionFastestLap;
+                    }
+                }
+
+                // SESSION FASTEST LAP & LEAD LAP NUM
+                if (Driver[i].CarPosition == 1)
+                {
+                    model.SessionFastestLap = Driver[i].BestLapTime;
+                    model.LeadLap = Driver[i].CurrentLapNum + 1;
+                }
+
+                // SECTOR TIMES
+                Driver[i].S1Time = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
+                Driver[i].S2Time = TimeSpan.FromMilliseconds(lapData.sector2TimeInMS);
+
+                if (Driver[i].DriverStatusUpdate != DriverStatus.InGarage && Driver[i].S1Time != SectorMin && Driver[i].S2Time != SectorMin)
+                {
+                    Driver[i].S3Time = TimeSpan.FromMilliseconds(lapData.currentLapTimeInMS - lapData.sector1TimeInMS - lapData.sector2TimeInMS);
+                }
+                else Driver[i].S3Time = SectorMin;
+
+                // DRIVER STATUS ICONS
+                switch (Driver[i].DriverStatusUpdate)
+                {
+                    case DriverStatus.InGarage:
+                        Driver[i].DriverStatusSource = "/Core/Images/Garage.png";
+                        break;
+                    case DriverStatus.OutLap:
+                        Driver[i].DriverStatusSource = "/Core/Images/out-lap.png";
+                        break;
+                    case DriverStatus.InLap:
+                        Driver[i].DriverStatusSource = "/Core/Images/in-lap.png";
+                        break;
+                    case DriverStatus.FlyingLap:
+                        Driver[i].DriverStatusSource = "/Core/Images/fast.png";
+                        break;
+                }
+            }
         }
     }
 }

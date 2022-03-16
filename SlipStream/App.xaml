@@ -13,7 +13,14 @@
                 <ResourceDictionary Source="./Core/Themes/TopbarButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Core/Themes/TopbarCloseButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Core/Themes/HomeButtonTheme.xaml"></ResourceDictionary>
-
+                <ResourceDictionary Source="./Core/Themes/DisplayBoxTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/DisplayBoxLabelTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/MultiViewBorderTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/DataGridTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/ScrollBarTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/SliderTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/LeaderboardTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/ColorTheme.xaml"/>
 
 
                 <!-- 
@@ -28,6 +35,8 @@
 
                     <Style TargetType="TextBlock">
                         <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+                        <Setter Property="TextBlock.Foreground" Value="#F9F871"/>
+                        <Setter Property="Foreground" Value="#F9F871"/>
                     </Style>
 
                     <Style x:Key="LabelStyle" TargetType="Label">
@@ -35,8 +44,9 @@
                     </Style>
 
                     <Style TargetType="GroupBox">
-                        <Setter Property="BorderBrush" Value="Crimson"/>
-                        <Setter Property="BorderThickness" Value="3"/>
+                        <Setter Property="BorderBrush" Value="#F9F871"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0.5"/>
                         <Setter Property="Padding" Value="10"/>
                     </Style>
 

@@ -5,113 +5,82 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Border 
-        Background="Transparent">
+             d:DesignHeight="600" d:DesignWidth="800">
+    
+    <Border Background="Transparent" 
+            CornerRadius="25" Margin="5">
         <Grid>
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition/>
+
             </Grid.RowDefinitions>
 
-            <Label Content="Strategy"
-                   FontSize="30"
-                   FontWeight="Bold"/>
+            <DockPanel Grid.Row="0">
+                <Button
+                    Content="Overview"
+                    FontSize="10"
+                    FontWeight="Bold"
+                    FontFamily="Fonts/#Formula1 Display"
+                    Foreground="White"
+                    Command="{Binding DriverDefaultViewCommand}"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Margin="50,5,5,5"/>
+                <Button
+                    Content="Leaderboard"
+                    FontSize="10"
+                    FontWeight="Bold"
+                    FontFamily="Fonts/#Formula1 Display"
+                    Foreground="White"
+                    Command="{Binding DriverLeaderboardViewCommand}"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Margin="50,5,5,5"/>
+                <Button
+                    Content="Strategy"
+                    FontSize="10"
+                    FontWeight="Bold"
+                    FontFamily="Fonts/#Formula1 Display"
+                    Foreground="White"
+                    Command="{Binding DriverStrategyViewCommand}"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Margin="50,5,5,5"/>
 
-            <Grid Grid.Row="1">
+                <TextBlock Text="{Binding model.SessionTimeRemaining}"
+                           Padding="10"
+                           Foreground="MediumAquamarine"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="50,5,5,5"
+                           FontWeight="Bold"/>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <TextBlock Text="Session: "
+                           Padding="10"
+                           Foreground="MediumAquamarine"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="2"
+                           FontWeight="Bold"/>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                    <Border x:Name="circularBorder" Height="15" CornerRadius="{Binding Path=ActualHeight, ElementName=circularBorder}" 
+                        Width="{Binding Path=ActualHeight, ElementName=circularBorder}" 
+                        HorizontalAlignment="Right" Background="Green">
+                    </Border>
+                </StackPanel>
+                
 
-                <GroupBox Header="Lap Data"
-                          FontWeight="Bold"
-                          Margin="2">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
+            </DockPanel>
 
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-
-                        </StackPanel>
-
-                    </Grid>
-                </GroupBox>
-
-                <GroupBox Grid.Row="1"
-                          Header="Tire Data"
-                          FontWeight="Bold"
-                          Margin="2">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            
-                        </StackPanel>
-
-                    </Grid>
-                </GroupBox>
-
-                <GroupBox Grid.Column="1"
-                          Header="Other"
-                          FontWeight="Bold"
-                          Margin="2">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
-
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-
-                        </StackPanel>
-
-                    </Grid>
-                </GroupBox>
-
-                <GroupBox Grid.Row="1" 
-                          Grid.Column="1"
-                          Header="Comparison"
-                          FontWeight="Bold"
-                          Margin="2">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
-
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-
-                        </StackPanel>
-
-                    </Grid>
-                </GroupBox>
-
-
-
-
-
-
-            </Grid>
+            <ContentControl 
+                Content="{Binding CurrentSubView}"
+                Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Top"/>
 
         </Grid>
     </Border>

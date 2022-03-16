@@ -92,12 +92,12 @@ namespace SlipStream.ViewModels
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
         {
             ConnectionStatus = "Status: Connected";
-            Formula = ("Formula: " + Regex.Replace(packet.formula.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
-            Circuit = ("Circuit: " + Regex.Replace(packet.trackId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
-            CurrentSession = ("Session Type: " + Regex.Replace(packet.sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
-            CurrentWeather = ("Weather: " + Regex.Replace(packet.weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
-            SessionDuration = $"Session Duration: {TimeSpan.FromSeconds(packet.sessionDuration)}";
-            SessionTimeRemaining = $"Session Time Remaining: {TimeSpan.FromSeconds(packet.sessionTimeLeft)}";
+            Formula = ("Formula: " + Regex.Replace(packet.m_formula.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            Circuit = ("Circuit: " + Regex.Replace(packet.m_trackId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            CurrentSession = ("Session Type: " + Regex.Replace(packet.m_sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            CurrentWeather = ("Weather: " + Regex.Replace(packet.m_weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim());
+            SessionDuration = $"Session Duration: {TimeSpan.FromSeconds(packet.m_sessionDuration)}";
+            SessionTimeRemaining = $"Session Time Remaining: {TimeSpan.FromSeconds(packet.m_sessionTimeLeft)}";
         }
 
         private void UDPC_OnParticipantsDataReceive(PacketParticipantsData packet)

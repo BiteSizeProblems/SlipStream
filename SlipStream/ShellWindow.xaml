@@ -6,19 +6,18 @@
         xmlns:local="clr-namespace:SlipStream"
         xmlns:ViewModel="clr-namespace:SlipStream.ViewModels"
         mc:Ignorable="d"
-        WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
-        AllowsTransparency="True"
-        ResizeMode="CanResizeWithGrip"
-        Background="Transparent"
-        Title="ShellWindow" Height="625" Width="920">
+        WindowStyle="None" WindowState="Maximized"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True" Background="Transparent"
+        Title="ShellWindow" Width="1920" Height="1080">
 
     <Window.DataContext>
         <ViewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="White"
-            Margin="5">
+    <Border Background="#2F4858"
+            Margin="5"
+            CornerRadius="25,25,0,0">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -32,7 +31,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.ColumnSpan="2" Background="Crimson" CornerRadius="10,10,0,0" MouseDown="Border_MouseDown">
+            <Image Source="/Core/Images/background_stock.jpg" RenderOptions.BitmapScalingMode="HighQuality"
+                   Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
+
+            <Border Grid.ColumnSpan="2" CornerRadius="10,10,0,0" MouseDown="Border_MouseDown">
                 <Grid  HorizontalAlignment="Stretch">
                     <Label 
                        VerticalAlignment="Center" HorizontalAlignment="Left" 
@@ -40,7 +42,7 @@
                        Margin="10,0,0,0"
                         FontSize="6"/>
 
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,3,0,0">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,3,10,0">
                         <Button Click="MinimizeButton_Click" Width="30" Style="{StaticResource TopbarCloseButtonTheme}">
                             <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
                         </Button>
@@ -54,69 +56,68 @@
                 </Grid>
             </Border>
 
+            <Border Grid.RowSpan="3" CornerRadius="25,0,0,0">
+                
+                <StackPanel Margin="5,15,5,0">
 
-            <StackPanel 
-                    Grid.Row="1" 
-                    Grid.RowSpan="2"
-                    Margin="5">
-
-                <Label 
+                    <Label 
                     Content="SlipStream" 
-                    Foreground="Crimson" 
-                    FontSize="14" 
+                    FontSize="12" 
                     FontWeight="Bold"
-                    Padding="0,15,0,15"
+                    Padding="0,25,0,15"
                     HorizontalAlignment="Center"/>
 
-                <Button
+                    <Button
                             Style="{StaticResource HomeButtonTheme}"
                             Content="Home"
                             Command="{Binding HomeViewCommand}" 
                         HorizontalContentAlignment="Stretch" 
                         VerticalContentAlignment="Stretch" 
                         BorderThickness="5,5,5,5">
-                    <Button.Resources>
-                        <ImageSource x:Key="ImageURI">/Core/Images/home_32px.png</ImageSource>
-                    </Button.Resources>
-                </Button>
+                        <Button.Resources>
+                            <ImageSource x:Key="ImageURI">/Core/Images/home_32px.png</ImageSource>
+                        </Button.Resources>
+                    </Button>
 
-                <Button
+                    <Button
                             Style="{StaticResource HomeButtonTheme}"
                             Content="Driver"
                             Command="{Binding DriverViewCommand}">
-                    <Button.Resources>
-                        <ImageSource x:Key="ImageURI">/Core/Images/steering_wheel.png</ImageSource>
-                    </Button.Resources>
-                </Button>
+                        <Button.Resources>
+                            <ImageSource x:Key="ImageURI">/Core/Images/steering_wheel.png</ImageSource>
+                        </Button.Resources>
+                    </Button>
 
-                <Button
+                    <Button
                             Style="{StaticResource HomeButtonTheme}"
                             Content="Race Control"
                             Command="{Binding RaceControlViewCommand}">
-                    <Button.Resources>
-                        <ImageSource x:Key="ImageURI">/Core/Images/bossy_50px.png</ImageSource>
-                    </Button.Resources>
-                </Button>
+                        <Button.Resources>
+                            <ImageSource x:Key="ImageURI">/Core/Images/bossy_50px.png</ImageSource>
+                        </Button.Resources>
+                    </Button>
 
-                <Button
+                    <Button
                             Style="{StaticResource HomeButtonTheme}"
                             Content="Engineer"
                             Command="{Binding EngineerViewCommand}">
-                    <Button.Resources>
-                        <ImageSource x:Key="ImageURI">/Core/Images/wrench_24px.png</ImageSource>
-                    </Button.Resources>
-                </Button>
+                        <Button.Resources>
+                            <ImageSource x:Key="ImageURI">/Core/Images/wrench_24px.png</ImageSource>
+                        </Button.Resources>
+                    </Button>
 
-                <Button BorderThickness="0" 
+                    <Button BorderThickness="0" 
                         Background="Transparent" 
                         Width="45"
                         Margin="0,25,0,0" Click="DiscordButton_Click"
                         >
-                    <Image Source="/Core/Images/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                </Button>
+                        <Image Source="/Core/Images/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
 
 
-            </StackPanel>
+                </StackPanel>
+            </Border>
+            
 
             <ContentControl
                 x:Name="ShellContent"

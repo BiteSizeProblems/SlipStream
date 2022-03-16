@@ -5,60 +5,74 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views"
              mc:Ignorable="d" 
-             Height="auto" Width="auto">
+             Height="750" Width="1400">
 
-    <Border Background="white" 
-            CornerRadius="25"
-            BorderThickness="0"
-            BorderBrush="Transparent">
-        <DataGrid Background="Transparent"
+    <Border Style="{StaticResource DisplayBoxTheme}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <DataGrid Background="Transparent"
                   RowBackground="Transparent"
+                  BorderBrush="Transparent"
                   Name="W_ForecastDataGrid" 
                   ItemsSource="{Binding Path=W_Model}"
                   GridLinesVisibility="None"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
-                  Padding="100,15,5,15">
+                  Padding="5" HeadersVisibility="Column"
+                    CanUserAddRows="False" CanUserDeleteRows="False" 
+                    CanUserResizeRows="False" SelectionUnit="CellOrRowHeader" CanUserResizeColumns="False"
+                      Grid.Row="1" HorizontalAlignment="Center">
 
-            <DataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SessionType}"  Value="Unknown">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.ItemContainerStyle>
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SessionType}"  Value="Unknown">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
 
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="Height" Value="30"/>
-                    <Setter Property="Padding" Value="20,0,20,0"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="Padding" Value="10,0,10,0"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="16"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
 
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Height" Value="30"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                    <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
-                </Style>
-            </DataGrid.CellStyle>
-
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding SessionType}" Header="Session" Width="Auto" SortDirection="Ascending"/>
-                <DataGridTextColumn Binding="{Binding TimeOffset}" Header="+/-" Width="Auto"/>
-                <DataGridTextColumn Binding="{Binding Weather}" Header="Weather" Width="Auto"/>
-                <DataGridTextColumn Binding="{Binding TrackTemperature}" Header="Track Temp" Width="Auto"/>
-                <DataGridTextColumn Binding="{Binding AirTemperature}" Header="Air Temp" Width="Auto"/>
-                <DataGridTextColumn Binding="{Binding RainPercentage}" Header="Precip" Width="Auto"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource LeaderboardTheme}">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.CellStyle>
+                
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding SessionType}" Header="Session" Width="200" SortDirection="Ascending"/>
+                    <DataGridTextColumn Binding="{Binding TimeOffset}" Header="+/-" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding Weather}" Header="Weather" Width="200"/>
+                    <DataGridTemplateColumn Width="125">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding WeatherHistoryIcon}" Margin="10" Height="25" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding TrackTemperature}" Header="Track Temp" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding AirTemperature}" Header="Air Temp" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding RainPercentage}" Header="Precip" Width="200"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Border>
 </UserControl>

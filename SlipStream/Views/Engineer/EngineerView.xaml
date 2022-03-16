@@ -7,9 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
 
-    <Border Background="Black" 
-            CornerRadius="25"
-            Margin="5">
+    <Border Background="Transparent" 
+            CornerRadius="25" Margin="5">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -37,17 +36,6 @@
                     FontFamily="Fonts/#Formula1 Display"
                     Foreground="White"
                     Command="{Binding EngineerStrategySubViewCommand}"
-                    HorizontalAlignment="Center"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Margin="50,5,5,5"/>
-                <Button
-                    Content="Detailed Data"
-                    FontSize="10"
-                    FontWeight="Bold"
-                    FontFamily="Fonts/#Formula1 Display"
-                    Foreground="White"
-                    Command="{Binding EngineerDetailSubViewCommand}"
                     HorizontalAlignment="Center"
                     Background="Transparent"
                     BorderThickness="0"
