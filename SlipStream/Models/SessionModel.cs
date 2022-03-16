@@ -42,11 +42,20 @@ namespace SlipStream.Models
             set { SetField(ref _lapsRemaining, value, nameof(LapsRemaining)); }
         }
 
+        // LEADER DATA
+
         private int _leadLap;
         public int LeadLap
         {
             get { return _leadLap; }
             set { SetField(ref _leadLap, value, nameof(LeadLap)); }
+        }
+
+        private TimeSpan _leadLapTime;
+        public TimeSpan LeadLapTime
+        {
+            get { return _leadLapTime; }
+            set { SetField(ref _leadLapTime, value, nameof(LeadLapTime)); }
         }
 
         private TimeSpan sessionFastestLap;
@@ -62,6 +71,8 @@ namespace SlipStream.Models
             get { return sessionFastestLapID; }
             set { SetField(ref sessionFastestLapID, value, nameof(SessionFastestLapID)); }
         }
+
+        // TIME
 
         private string _SessionTimeRemaining;
         public string SessionTimeRemaining
@@ -152,6 +163,13 @@ namespace SlipStream.Models
         {
             get { return _safetyCarColor; }
             set { SetField(ref _safetyCarColor, value, nameof(SafetyCarColor)); }
+        }
+
+        private string _safetyCarIcon;
+        public string SafetyCarIcon
+        {
+            get { return _safetyCarIcon; }
+            set { SetField(ref _safetyCarIcon, value, nameof(SafetyCarIcon)); }
         }
 
 

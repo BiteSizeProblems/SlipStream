@@ -10,7 +10,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Name="ButtonBorder" BorderThickness="2" Padding="0,20"  BorderBrush="DarkGray"  CornerRadius="15"   Background="{TemplateBinding Background}">
+                    <Border Name="ButtonBorder" BorderThickness="2" Padding="5,5"  BorderBrush="DarkGray"  CornerRadius="15"   Background="{TemplateBinding Background}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -26,7 +26,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="Crimson"/>
+                            <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#FF4C70"/>
                             <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent"/>
                         </Trigger>
                     </ControlTemplate.Triggers>

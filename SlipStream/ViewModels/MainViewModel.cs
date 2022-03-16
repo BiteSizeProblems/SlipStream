@@ -1,5 +1,6 @@
 ﻿using SlipStream.Core;
 using SlipStream.Views;
+using SlipStream.Views.Multi;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,17 +12,39 @@ namespace SlipStream.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        // MAIN WINDOW BUTTON COMMANDS
+
+        public RelayCommand DataViewCommand { get; set; }
+        public DataViewModel DataVM { get; set; }
+
+            // HOME VIEW
         public RelayCommand HomeViewCommand { get; set; }
-        public HomeViewModel HomeVM { get; set; }
+        public HomeView HV { get; set; }
 
-        public RelayCommand DriverViewCommand { get; set; }
-        public DriverViewModel DVM { get; set; }
+            // LEADERBOARD VIEW
+        public RelayCommand LeaderboardViewCommand { get; set; }
+        public LeaderboardView LV { get; set; }
 
-        public RelayCommand RaceControlViewCommand { get; set; }
-        public RaceControlViewModel RCVM { get; set; }
+            // DRIVER VIEWS
+        public RelayCommand DriverDefaultViewCommand { get; set; }
+        public DriverDefaultView DDV { get; set; }
 
-        public RelayCommand EngineerViewCommand { get; set; }
-        public EngineerViewModel EVM { get; set; }
+        public RelayCommand DriverStrategyViewCommand { get; set; }
+        public DriverStrategyView DSV { get; set; }
+
+            // ENGINEER VIEWS
+        public RelayCommand EngineerDefaultViewCommand { get; set; }
+        public EngineerDefaultView EDV { get; set; }
+
+        public RelayCommand EngineerStrategyViewCommand { get; set; }
+        public EngineerStrategyView ESV { get; set; }
+
+            // RACE CONTROL VIEWS
+        public RelayCommand RaceControlDefaultViewCommand { get; set; }
+        public RaceControlDefaultView RCDV { get; set; }
+
+        public RelayCommand RaceControlWeatherViewCommand { get; set; }
+        public RaceControlWeatherView RCWV { get; set; }
 
         private object _currentView;
         public object CurrentView
@@ -34,44 +57,78 @@ namespace SlipStream.ViewModels
             }
         }
 
-        private object _menuView;
-        public object MenuView
-        {
-            get { return _menuView; }
-            set
-            {
-                _menuView = value;
-                OnPropertyChanged("MenuView");
-            }
-        }
-
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel();
-            DVM = DriverViewModel.GetInstance();
-            RCVM = RaceControlViewModel.GetInstance();
-            EVM = EngineerViewModel.GetInstance();
+            DataVM = DataViewModel.GetInstance();
 
-            CurrentView = HomeVM;
+            HV = new HomeView();
+
+            LV = new LeaderboardView();
+
+            DDV = new DriverDefaultView();
+            DSV = new DriverStrategyView();
+
+            EDV = new EngineerDefaultView();
+            ESV = new EngineerStrategyView();
+
+            RCDV = new RaceControlDefaultView();
+            RCWV = new RaceControlWeatherView();
+
+            // SET CURRENT VIEW
+
+            CurrentView = HV;
+
+            // MENU SINGLE-VIEW COMMANDS
 
             HomeViewCommand = new RelayCommand(o =>
             {
-                CurrentView = HomeVM;
+                CurrentView = HV;
             });
 
-            DriverViewCommand = new RelayCommand(o =>
+            LeaderboardViewCommand = new RelayCommand(o =>
             {
-                CurrentView = DVM;
+                CurrentView = LV;
+                LV.DataContext = DataVM;
             });
 
-            RaceControlViewCommand = new RelayCommand(o =>
+            // MENU MULTI-VIEW COMMANDS
+
+            DriverDefaultViewCommand = new RelayCommand(o =>
             {
-                CurrentView = RCVM;
+                CurrentView = DDV;
+                DDV.DataContext = DataVM;
             });
 
-            EngineerViewCommand = new RelayCommand(o =>
+            DriverStrategyViewCommand = new RelayCommand(o =>
             {
-                CurrentView = EVM;
+                CurrentView = DSV;
+                DSV.DataContext = DataVM;
+            });
+
+
+            EngineerDefaultViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = EDV;
+                EDV.DataContext = DataVM;
+            });
+
+            EngineerStrategyViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ESV;
+                ESV.DataContext = DataVM;
+            });
+
+
+            RaceControlDefaultViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = RCDV;
+                RCDV.DataContext = DataVM;
+            });
+
+            RaceControlWeatherViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = RCWV;
+                RCWV.DataContext = DataVM;
             });
 
         }

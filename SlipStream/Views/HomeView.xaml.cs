@@ -21,13 +21,10 @@ namespace SlipStream.Views
     /// </summary>
     public partial class HomeView : UserControl
     {
-        // === ViewModel ===
-        public HomeViewModel HVM { get => HomeViewModel.GetInstance(); }
 
         public HomeView()
         {
             InitializeComponent();
-            this.DataContext = HVM;
         }
     }
 }

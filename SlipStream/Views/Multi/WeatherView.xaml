@@ -5,24 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="600">
-    <Border Background="LightBlue"
-            CornerRadius="15">
+             Height="100" Width="400">
+    <Border Style="{StaticResource MultiViewBorderTheme}">
 
-        <Grid>
+        <Grid Margin="10">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{Binding model.CurrentWeather}"
+            <TextBlock Text="Weather: "
                        VerticalAlignment="Center"
-                       FontSize="36"
-                       Margin="10,0,0,0"/>
+                       FontSize="14" HorizontalAlignment="Right"/>
+            
+            <TextBlock Text="{Binding model.CurrentWeather}"
+                       VerticalAlignment="Center" Grid.Column="1"
+                       FontSize="14" HorizontalAlignment="Left"
+                       Margin="12,0,0,0" Foreground="MediumAquamarine"/>
 
             <Image Source="{Binding model.CurrentWeatherIcon}" 
-                   Margin="15" RenderOptions.BitmapScalingMode="HighQuality"
-                   Grid.Column="1"/>
+                   Margin="2" Grid.Column="2"
+                   RenderOptions.BitmapScalingMode="HighQuality"/>
 
         </Grid>
 

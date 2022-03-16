@@ -4,201 +4,203 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views"
+             xmlns:multi="clr-namespace:SlipStream.Views.Multi"
              mc:Ignorable="d" 
-             d:DesignHeight="575" d:DesignWidth="800">
+             d:DesignHeight="750" d:DesignWidth="1400">
     
-    <Border Background="white" 
-            CornerRadius="25"
-            BorderThickness="0"
-            BorderBrush="Transparent">
+    <Border Background="Transparent" CornerRadius="25"
+            BorderThickness="0" BorderBrush="Transparent">
         <Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="450"/>
             </Grid.ColumnDefinitions>
 
-            <GroupBox
-                Header="Notifications"
-                BorderBrush="Crimson"
-                Foreground="Crimson"
-                BorderThickness="3"
-                Margin="5">
+            <Border Style="{StaticResource DisplayBoxTheme}" Grid.Column="1" Margin="10,0,10,0">
+
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
 
-                    <StackPanel>
-                        <TextBlock 
-                        Text="Speed Trap: "
-                        Margin="5"/>
-                        <TextBlock 
-                        Text="Fastest Lap: "
-                        Margin="5"/>
-                        <TextBlock 
-                        Text="Event String Code: "
-                        Margin="5"/>
-                    </StackPanel>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Column="1">
-                        <TextBlock 
-                        Text="{Binding SpeedTrap}"
-                        Margin="5"/>
-                        <TextBlock 
-                        Text="{Binding Flap}"
-                        Margin="5"/>
-                        <TextBlock 
-                        Text="{Binding model.EventStringCode}"
-                        Margin="5"/>
+                    <Border Background="#2F4858" CornerRadius="25,25,0,0">
+                        <TextBlock Text="Notifications" Style="{StaticResource DisplayBoxLabelTheme}"/>
+                    </Border>
+
+
+                    <StackPanel Grid.Row="1">
+
+                        <multi:SafetyCarView Height="75" Width="Auto" Margin="15" Padding="5"/>
+
+                        <multi:WeatherView Height="75" Width="Auto" Margin="15" Padding="5"/>
+
+                        <multi:EventView Height="75" Width="Auto" Margin="15" Padding="5"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="1">
+
+                            </StackPanel>
+
+                        </Grid>
                     </StackPanel>
 
                 </Grid>
-                
-            </GroupBox>
 
-            <GroupBox
-                Header="Notes"
-                BorderBrush="Crimson"
-                Foreground="Crimson"
-                BorderThickness="3"
-                Margin="5"
-                Grid.Row="2">
+
+
+            </Border>
+
+            <Border Style="{StaticResource DisplayBoxTheme}" Margin="10,0,10,0">
                 <Grid>
+
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition/>
-                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid
-                        Height="auto"
-                        BorderBrush="Transparent">
+                    <Border Background="#2F4858" CornerRadius="25,25,0,0">
+                        <TextBlock Text="Session Info"  Style="{StaticResource DisplayBoxLabelTheme}"/>
+                    </Border>
+                    
+                    <Grid Grid.Row="1">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="Formula: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Session: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Circuit: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                            <Image HorizontalAlignment="Center"/>
+                            <TextBlock Text="Network Type: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Active Cars: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Participants: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding model.Formula}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                            <TextBlock Text="{Binding model.CurrentSession}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                            <TextBlock Text="{Binding model.Circuit}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                            <TextBlock Text="{Binding model.NetworkGame}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                            <TextBlock Text="{Binding model.NumOfActiveCars}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                            <TextBlock Text="{Binding model.TotalParticipants}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                            <Image/>
+                        </StackPanel>
+
+                    </Grid>
+                    
+
+                </Grid>
+                
+            </Border>
+
+            <Border Style="{StaticResource DisplayBoxTheme}" Grid.Column="2" 
+                    Grid.RowSpan="2" Margin="10,0,10,0">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="#2F4858" CornerRadius="25,25,0,0">
+                        <TextBlock Text="Leaderboard" Style="{StaticResource DisplayBoxLabelTheme}"/>
+                    </Border>
+
+                    <DataGrid Background="Transparent" RowBackground="Transparent" Width="400"
+                              Name="CompressedLeaderboard" ItemsSource="{Binding Path=Driver}"
+                              GridLinesVisibility="None" IsReadOnly="True"
+                              AutoGenerateColumns="False" Padding="5" HeadersVisibility="Column"
+                              Sorting="CompressedLeaderboard_Sorting"
+                              BorderBrush="Transparent" Grid.Row="1"
+                              CanUserAddRows="False" CanUserDeleteRows="False" 
+                              CanUserResizeRows="False" CanUserResizeColumns="False" SelectionUnit="Cell">
+
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CarPosition}"  Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="Padding" Value="15,0,15,0"/>
+                                <Setter Property="Foreground" Value="MediumAquamarine"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="MediumAquamarine"/>
+                                <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding CarPosition}" Header="Pos" Width="Auto" SortDirection="Ascending"/>
+                            <DataGridTextColumn Binding="{Binding DriverName}" Header="Driver" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding raceNumber}" Header="Car #" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="Laps" Width="Auto"/>
+                            <DataGridTemplateColumn Header="Status">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding DriverStatusSource}" Margin="5" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Warnings}" Header="Warnings" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Penalties}" Header="Penalties" Width="Auto"/>
+                        </DataGrid.Columns>
+
+                        <DataGrid.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarTheme}"/>
+                            <Style TargetType="Thumb" BasedOn="{StaticResource ScrollBarThumbTheme}"/>
+                        </DataGrid.Resources>
 
                     </DataGrid>
 
-                    <TextBox Margin="5"
-                             BorderBrush="Black"
-                             Grid.Row="1"/>
-
-                </Grid>
-            </GroupBox>
-
-            <GroupBox
-                Header="Session Info"
-                BorderBrush="Crimson"
-                BorderThickness="3"
-                Margin="5"
-                
-                Grid.Column="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel>
-                        <TextBlock Text="{Binding model.NetworkGame}"
-                               Padding="10"/>
-                        <TextBlock Text="{Binding model.Formula, FallbackValue=Formula: }"
-                               Padding="10"/>
-                        <TextBlock Text="{Binding model.Circuit, FallbackValue=Circuit: }"
-                               Padding="10"/>
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Column="1">
-                        <TextBlock Text="{Binding model.CurrentWeather}"
-                               Padding="10"/>
-                        <TextBlock Text="{Binding model.NumOfActiveCars, FallbackValue=Participants: }"
-                               Padding="10"/>
-                    </StackPanel>
                 </Grid>
 
-            </GroupBox>
-
-            <GroupBox
-                Header="Penalties and Accidents"
-                BorderBrush="Crimson"
-                Foreground="Crimson"
-                BorderThickness="3"
-                Margin="5"
-                Grid.Row="2"
-                Grid.Column="1">
-                
-            </GroupBox>
-
-            <GroupBox 
-                Header="Leaderboard"
-                Margin="5"
-                BorderBrush="Crimson"
-                Foreground="Crimson"
-                BorderThickness="3"
-                Grid.Column="2"
-                Grid.RowSpan="2">
-                <DataGrid Background="Transparent"
-                  RowBackground="Transparent"
-                  Name="CompressedLeaderboard" 
-                  ItemsSource="{Binding Path=Driver}"
-                  GridLinesVisibility="None"
-                  IsReadOnly="True"
-                  AutoGenerateColumns="False"
-                  Padding="5" Sorting="CompressedLeaderboard_Sorting"
-                          BorderBrush="Transparent">
-
-                    <DataGrid.ItemContainerStyle>
-                        <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding CarPosition}"  Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.ItemContainerStyle>
-
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="Height" Value="30"/>
-                            <Setter Property="Padding" Value="15,0,15,0"/>
-                            <Setter Property="Foreground" Value="Crimson"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-
-                    <DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="Height" Value="30"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
-                        </Style>
-                    </DataGrid.CellStyle>
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding CarPosition}" Header="Pos" Width="Auto" SortDirection="Ascending"/>
-                        <DataGridTextColumn Binding="{Binding DriverName}" Header="Driver" Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding raceNumber}" Header="Car #" Width="Auto"/>
-                        <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="Laps" Width="Auto"/>
-                        <DataGridTemplateColumn Header="Status">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding DriverStatusSource}" Margin="5" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </GroupBox>
-
+            </Border>
         </Grid>
     </Border>
 </UserControl>

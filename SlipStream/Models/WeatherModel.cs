@@ -32,6 +32,13 @@ namespace SlipStream.Models
             set { SetField(ref _weather, value, nameof(Weather)); }
         }
 
+        private string _weatherHistoryIcon;
+        public string WeatherHistoryIcon
+        {
+            get { return _weatherHistoryIcon; }
+            set { SetField(ref _weatherHistoryIcon, value, nameof(WeatherHistoryIcon)); }
+        }
+
         private string _trackTemperature;
         public string TrackTemperature
         {

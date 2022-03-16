@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SlipStream"
+             xmlns:multi="clr-namespace:SlipStream.Views.Multi"
              xmlns:ViewModels="clr-namespace:SlipStream.ViewModels"
              xmlns:Views="clr-namespace:SlipStream.Views" 
              StartupUri="ShellWindow.xaml">
@@ -13,21 +14,25 @@
                 <ResourceDictionary Source="./Core/Themes/TopbarButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Core/Themes/TopbarCloseButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Core/Themes/HomeButtonTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="./Core/Themes/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/DisplayBoxTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/DisplayBoxLabelTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/MultiViewBorderTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/DataGridTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/ScrollBarTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/SliderTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/LeaderboardTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/ColorTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/MenuTheme.xaml"/>
 
-
-
-                <!-- 
-                I am not really sure what all of this does...
-                But this applies globally, to all .xaml pages
-                (not sure if that is what you intended or not..?
-                -->
                 <ResourceDictionary>
 
                     <FontFamily x:Key="Formula1 Display">/Core/Fonts/#Formula1 Display</FontFamily>
 
-
                     <Style TargetType="TextBlock">
                         <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+                        <Setter Property="TextBlock.Foreground" Value="#F9F871"/>
+                        <Setter Property="Foreground" Value="#F9F871"/>
                     </Style>
 
                     <Style x:Key="LabelStyle" TargetType="Label">
@@ -35,30 +40,13 @@
                     </Style>
 
                     <Style TargetType="GroupBox">
-                        <Setter Property="BorderBrush" Value="Crimson"/>
-                        <Setter Property="BorderThickness" Value="3"/>
+                        <Setter Property="BorderBrush" Value="#F9F871"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0.5"/>
                         <Setter Property="Padding" Value="10"/>
                     </Style>
 
-                    <DataTemplate DataType="{x:Type ViewModels:HomeViewModel}">
-                        <Views:HomeView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type ViewModels:DriverViewModel}">
-                        <Views:DriverView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type ViewModels:RaceControlViewModel}">
-                        <Views:RaceControlView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type ViewModels:EngineerViewModel}">
-                        <Views:EngineerView/>
-                    </DataTemplate>
-
                 </ResourceDictionary>
-
-
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -19,28 +19,55 @@
     <None Remove="Core\Fonts\Formula1-Bold.ttf" />
     <None Remove="Core\Fonts\Formula1-Regular.ttf" />
     <None Remove="Core\Fonts\Formula1-Wide.ttf" />
+    <None Remove="Core\Images\background_stock.jpg" />
+    <None Remove="Core\Images\black_circle.png" />
+    <None Remove="Core\Images\blue_circle.png" />
     <None Remove="Core\Images\bossy_50px.png" />
+    <None Remove="Core\Images\check.png" />
     <None Remove="Core\Images\clear.png" />
+    <None Remove="Core\Images\cloudy.png" />
+    <None Remove="Core\Images\Construction.png" />
     <None Remove="Core\Images\CustomHard.png" />
+    <None Remove="Core\Images\CustomInt.png" />
     <None Remove="Core\Images\CustomMedium.png" />
     <None Remove="Core\Images\CustomSoft.png" />
+    <None Remove="Core\Images\CustomWet.png" />
+    <None Remove="Core\Images\dashboard.png" />
     <None Remove="Core\Images\discord.png" />
+    <None Remove="Core\Images\down_arrow.png" />
+    <None Remove="Core\Images\dynamic.png" />
     <None Remove="Core\Images\fast.png" />
     <None Remove="Core\Images\finish.png" />
+    <None Remove="Core\Images\finish_flag.png" />
     <None Remove="Core\Images\garage.png" />
+    <None Remove="Core\Images\green_circle.png" />
     <None Remove="Core\Images\HardTire.png" />
     <None Remove="Core\Images\heavy_rain.png" />
+    <None Remove="Core\Images\home.png" />
     <None Remove="Core\Images\home_32px.png" />
+    <None Remove="Core\Images\img_arrow.png" />
+    <None Remove="Core\Images\in-lap.png" />
     <None Remove="Core\Images\light_rain.png" />
     <None Remove="Core\Images\MediumTire.png" />
-    <None Remove="Core\Images\out.png" />
+    <None Remove="Core\Images\orange_circle.png" />
+    <None Remove="Core\Images\out-lap.png" />
     <None Remove="Core\Images\overcast.png" />
-    <None Remove="Core\Images\redbox.png" />
+    <None Remove="Core\Images\red_circle.png" />
+    <None Remove="Core\Images\relative.png" />
     <None Remove="Core\Images\safety_car.png" />
     <None Remove="Core\Images\SoftTire.png" />
     <None Remove="Core\Images\steering_wheel.png" />
     <None Remove="Core\Images\storm.png" />
+    <None Remove="Core\Images\strategy.png" />
+    <None Remove="Core\Images\timer_50px.png" />
+    <None Remove="Core\Images\up_arrow.png" />
+    <None Remove="Core\Images\warning.png" />
+    <None Remove="Core\Images\weather.png" />
+    <None Remove="Core\Images\white_circle.png" />
+    <None Remove="Core\Images\wrench_1.png" />
+    <None Remove="Core\Images\wrench_2.png" />
     <None Remove="Core\Images\wrench_24px.png" />
+    <None Remove="Core\Images\yellow_circle.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,13 +95,34 @@
     <Resource Include="Core\Fonts\Formula1-Wide.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\background_stock.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\black_circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\blue_circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\bossy_50px.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\check.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\clear.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\cloudy.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Construction.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\CustomHard.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\CustomInt.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\CustomMedium.png">
@@ -83,7 +131,19 @@
     <Resource Include="Core\Images\CustomSoft.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\CustomWet.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\dashboard.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\discord.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\down_arrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\dynamic.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\fast.png">
@@ -92,7 +152,13 @@
     <Resource Include="Core\Images\finish.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\finish_flag.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\garage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\green_circle.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\HardTire.png">
@@ -101,7 +167,16 @@
     <Resource Include="Core\Images\heavy_rain.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\home.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\home_32px.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\img_arrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\in-lap.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\light_rain.png">
@@ -110,13 +185,19 @@
     <Resource Include="Core\Images\MediumTire.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\out.png">
+    <Resource Include="Core\Images\orange_circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\out-lap.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\overcast.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\redbox.png">
+    <Resource Include="Core\Images\red_circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\relative.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\safety_car.png">
@@ -131,7 +212,34 @@
     <Resource Include="Core\Images\storm.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\strategy.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\timer_50px.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\up_arrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\warning.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\weather.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\white_circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\wrench_1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\wrench_2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\wrench_24px.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\yellow_circle.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -142,7 +250,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\NewFolder\" />
+    <Page Update="Core\Themes\DisplayBoxTheme.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

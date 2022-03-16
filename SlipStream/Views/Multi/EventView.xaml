@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="SlipStream.Views.Multi.EventView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SlipStream.Views.Multi"
+             mc:Ignorable="d" 
+             Height="100" Width="400">
+    <Border Style="{StaticResource MultiViewBorderTheme}">
+
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Notification:"
+                       VerticalAlignment="Center"
+                       FontSize="14"/>
+
+            <TextBlock Text="{Binding model.EventStringCode}"
+                       Grid.Row="1" Foreground="MediumAquamarine"
+                       VerticalAlignment="Center" FontSize="14"
+                       Grid.Column="1" Margin="10,0,0,0"/>
+
+
+            
+            
+
+
+        </Grid>
+
+    </Border>
+</UserControl>

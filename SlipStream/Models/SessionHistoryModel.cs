@@ -32,24 +32,83 @@ namespace SlipStream.Models
             set { SetField(ref _numTireStints, value, nameof(NumTireStints)); }
         }
 
-        public uint m_bestLapTimeLapNum;                       // Lap the best lap time was achieved on
-        public uint m_bestSector1LapNum;                       // Lap the best Sector 1 time was achieved on
-        public uint m_bestSector2LapNum;                       // Lap the best Sector 2 time was achieved on
-        public uint m_bestSector3LapNum;                       // Lap the best Sector 3 time was achieved on
+        private uint _bestLapTimeLapNum;
+        public uint BestLapTimeLapNum
+        {
+            get { return _bestLapTimeLapNum; }
+            set { SetField(ref _bestLapTimeLapNum, value, nameof(BestLapTimeLapNum)); }
+        }
+        private uint _bestS1LapNum;
+        public uint BestS1LapNum
+        {
+            get { return _bestS1LapNum; }
+            set { SetField(ref _bestS1LapNum, value, nameof(BestS1LapNum)); }
+        }
+        private uint _bestS2LapNum;
+        public uint BestS2LapNum
+        {
+            get { return _bestS2LapNum; }
+            set { SetField(ref _bestS2LapNum, value, nameof(BestS2LapNum)); }
+        }
+        private uint _bestS3LapNum;
+        public uint BestS3LapNum
+        {
+            get { return _bestS3LapNum; }
+            set { SetField(ref _bestS3LapNum, value, nameof(BestS3LapNum)); }
+        }
 
         // Lap History Data
 
-        public uint m_lapTimeInMS;                // lap time in milliseconds
-        public uint m_sector1TimeInMS;            // Sector 1 time in milliseconds
-        public uint m_sector2TimeInMS;            // Sector 2 time in milliseconds
-        public uint m_sector3TimeInMS;            // Sector 3 time in milliseconds
-        public uint m_lapValidBitFlags;           // 0x01 bit set-lap valid,
+        private uint _lapTime;
+        public uint LapTime
+        {
+            get { return _lapTime; }
+            set { SetField(ref _lapTime, value, nameof(LapTime)); }
+        }
+        private uint _sector1Time;
+        public uint Sector1Time
+        {
+            get { return _sector1Time; }
+            set { SetField(ref _sector1Time, value, nameof(Sector1Time)); }
+        }
+        private uint _sector2Time;
+        public uint Sector2Time
+        {
+            get { return _sector2Time; }
+            set { SetField(ref _sector2Time, value, nameof(Sector2Time)); }
+        }
+        private uint _sector3Time;
+        public uint Sector3Time
+        {
+            get { return _sector3Time; }
+            set { SetField(ref _sector3Time, value, nameof(Sector3Time)); }
+        }
+        private uint _lapValid;
+        public uint LapValid
+        {
+            get { return _lapValid; }
+            set { SetField(ref _lapValid, value, nameof(LapValid)); }
+        }
 
         // Tire History Data
 
-        public uint m_endLap;                       // Lap the tyre usage ends on (255 of current tyre)
-        public uint m_tyreActualCompound;           // Actual tyres used by this driver
-        public uint m_tyreVisualCompound;           // Visual tyres used by this driver
-
+        private uint _endLap;
+        public uint EndLap
+        {
+            get { return _endLap; }
+            set { SetField(ref _endLap, value, nameof(EndLap)); }
+        }
+        private uint _tireActual;
+        public uint TireActual
+        {
+            get { return _tireActual; }
+            set { SetField(ref _tireActual, value, nameof(TireActual)); }
+        }
+        private uint _tireVisual;
+        public uint TireVisual
+        {
+            get { return _tireVisual; }
+            set { SetField(ref _tireVisual, value, nameof(TireVisual)); }
+        }
     }
 }

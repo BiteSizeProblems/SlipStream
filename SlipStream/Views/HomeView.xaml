@@ -3,15 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SlipStream.Views" xmlns:viewmodels="clr-namespace:SlipStream.ViewModels"
+             xmlns:local="clr-namespace:SlipStream.Views" 
+             xmlns:viewmodels="clr-namespace:SlipStream.ViewModels"
+             
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="980" d:DesignWidth="1820">
 
     <Border Background="Transparent">
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
@@ -22,44 +24,116 @@
                    FontWeight="Bold"/>
 
             </StackPanel>
-            
-            
 
-            <Grid Grid.Row="1" Margin="5,10,5,10">
+            <Border Margin="5" CornerRadius="25" Grid.Row="1">
+                <Grid>
 
-                <GroupBox
-                    Header="Need Help?"
-                    FontWeight="Bold">
-                    <StackPanel Margin="5,10,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                        <TextBlock
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Margin="5" Background="#FF1B303D" 
+                            BorderBrush="#FF4C70" BorderThickness="3" 
+                            CornerRadius="25">
+                        <StackPanel>
+
+                            <Border Background="#2F4858" CornerRadius="25,25,0,0">
+                                <TextBlock Text="Welcome" HorizontalAlignment="Center"
+                               Padding="20,10,20,10" FontSize="18"/>
+                            </Border>
+
+                            <TextBlock
                             Text="Welcome to SlipStream, an app designed to enhance your racing performance. Whether you race online or locally, SlipStream can help you develop your skillset."
-                            Padding="10" TextWrapping="Wrap"/>
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
 
-                        <TextBlock
+                            <TextBlock
+                            Text="If you're new here, check out out quick guide (right) to get started. Otherwise, remember to have fun, and if you need any more help from us, check out the links on the left. Have fun, and let's go racing!"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="5" Background="#FF1B303D" 
+                            BorderBrush="#FF4C70" BorderThickness="3"
+                            CornerRadius="25" Grid.Column="1">
+                        <StackPanel>
+
+                            <Border Background="#2F4858" CornerRadius="25,25,0,0">
+                                <TextBlock Text="Looking For Something?" HorizontalAlignment="Center"
+                               Padding="20,10,20,10" FontSize="18"/>
+                            </Border>
+
+                            <TextBlock
                             Text="Racing is hard, we get that. While driver's on circuits in the real-world have a team behind them to guide their progress, there often isn't the same support for members of the sim-racing community. That's why you'll find our app has designed four features to suit your needs."
-                            Padding="10" TextWrapping="Wrap"/>
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
 
-                        <TextBlock
+                            <TextBlock
+                            Text="Drivers:"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+                            
+                            <TextBlock
                             Text="For drivers, check out our 'Driver' tab. There, you'll find many features designed to improve your race performance. This feature is designed to be used while you race, so you'll find larger font, bold colors and a streamlined interface to ensure you stay on the track, instead of searching for the information you need."
-                            Padding="10" TextWrapping="Wrap"/>
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
 
-                        <TextBlock
+                            <TextBlock
+                            Text="Engineers, Officials and Spectators:"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+
+                            <TextBlock
                             Text="For those of you who spend time engineering for a driver, managing a league or race, or simply spectating, you can also find useful resources in the tabs in our menu. For these features, you'll find a similar level of data relevance, meaning we have specifically chosen the data we believe will be most relevent, depending on your level of participation to improve your experience." 
-                            Padding="10" TextWrapping="Wrap"/>
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
 
-                        <TextBlock
-                            Text="Lastly, have fun. Kind of ironic, for an app built for dedicated, serious users, but we mean it. If you need any more help from us, check out the links on the left. Have fun, and let's go racing!"
-                            Padding="10" TextWrapping="Wrap"/>
-                        
-                        
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="5" Background="#FF1B303D" 
+                            BorderBrush="#FF4C70" BorderThickness="3"
+                            CornerRadius="25" Grid.Column="2">
+                        <StackPanel>
+
+                            <Border Background="#2F4858" CornerRadius="25,25,0,0">
+                                <TextBlock Text="Setting Up?" HorizontalAlignment="Center"
+                               Padding="20,10,20,10" FontSize="18"/>
+                            </Border>
+
+                            <TextBlock
+                            Text="In the settings screen for Formula One 2021, select 'Telemetry Settings'"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+
+                            <TextBlock
+                            Text="Adjust your seetings to match the following"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+
+                            <TextBlock
+                            Text="UDP Telemetry: On"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+                            
+                            <TextBlock
+                            Text="Broadcast Mode: On"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+
+                            <TextBlock
+                            Text="Data Restrictions: None"
+                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
+
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+            </Border>
 
 
-                    </StackPanel>
-                </GroupBox>
-                
-            </Grid>
-            
+
+
+
         </Grid>
     </Border>
 </UserControl>
