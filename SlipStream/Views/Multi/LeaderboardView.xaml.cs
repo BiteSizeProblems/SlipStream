@@ -22,8 +22,6 @@ namespace SlipStream.Views.Multi
     /// </summary>
     public partial class LeaderboardView : UserControl
     {
-        //public DataViewModel DVM { get; set; }
-
         public LeaderboardView()
         {
             InitializeComponent();

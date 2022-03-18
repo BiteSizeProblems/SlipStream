@@ -26,15 +26,7 @@
                     CanUserResizeRows="False" SelectionUnit="CellOrRowHeader" CanUserResizeColumns="False"
                     CellStyle="{StaticResource LeaderboardTheme}">
 
-                    <DataGrid.ItemContainerStyle>
-                        <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding CarPosition}"  Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.ItemContainerStyle>
+
 
                     <DataGrid.Resources>
                         <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarTheme}"/>

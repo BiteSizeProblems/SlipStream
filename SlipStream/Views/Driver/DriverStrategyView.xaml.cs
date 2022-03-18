@@ -22,7 +22,10 @@ namespace SlipStream.Views
     {
         public DriverStrategyView()
         {
+
+
             InitializeComponent();
+
         }
     }
 }
