@@ -88,7 +88,7 @@ namespace SlipStream.ViewModels
             LeaderboardViewCommand = new RelayCommand(o =>
             {
                 CurrentView = LV;
-                LV.DataContext = DataVM;
+                //LV.DataContext = DataVM;
             });
 
             // MENU MULTI-VIEW COMMANDS
@@ -104,7 +104,6 @@ namespace SlipStream.ViewModels
                 CurrentView = DSV;
                 DSV.DataContext = DataVM;
             });
-
 
             EngineerDefaultViewCommand = new RelayCommand(o =>
             {

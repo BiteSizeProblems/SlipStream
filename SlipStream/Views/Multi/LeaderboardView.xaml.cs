@@ -22,9 +22,14 @@ namespace SlipStream.Views.Multi
     /// </summary>
     public partial class LeaderboardView : UserControl
     {
+        public DataViewModel DataVM { get; set; }
+
         public LeaderboardView()
         {
+            DataVM = DataViewModel.GetInstance();
+
             InitializeComponent();
+            this.DataContext = DataVM;
 
             this.Leaderboard.Items.IsLiveSorting = true;
             this.Leaderboard.Items.SortDescriptions.Add(new SortDescription("CarPosition", ListSortDirection.Ascending));

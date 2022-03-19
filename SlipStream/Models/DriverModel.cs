@@ -334,7 +334,7 @@ namespace SlipStream.Models
             set { SetField(ref bestLapDelta, value, nameof(BestLapDelta)); }
         }
 
-        // RACE
+            // RACE
 
         private TimeSpan _raceInterval; // Interval to driver ahead (Race Only).
         public TimeSpan RaceInterval
@@ -355,15 +355,6 @@ namespace SlipStream.Models
         {
             get { return _selectedDelta; }
             set { SetField(ref _selectedDelta, value, nameof(SelectedDelta)); }
-        }
-
-        // TIRE DATA
-
-        private VisualTireCompounds visualTireCompound;
-        public VisualTireCompounds VisualTireCompound
-        {
-            get { return visualTireCompound; }
-            set { SetField(ref visualTireCompound, value, nameof(VisualTireCompound)); }
         }
 
         // CAR POSITIONS & STATUS
@@ -521,7 +512,7 @@ namespace SlipStream.Models
             set { SetField(ref _pitRejoin, value, nameof(PitRejoin)); }
         }
 
-        // Tire History Data
+        // TIRE DATA
 
         private uint _endLap;
         public uint EndLap
@@ -537,14 +528,14 @@ namespace SlipStream.Models
             set { SetField(ref _tireActualCompound, value, nameof(TireActualCompound)); }
         }
 
-        private TyreCompounds _tireVisualCompound;
-        public TyreCompounds TireVisualCompound
+        private VisualTireCompounds visualTireCompound;
+        public VisualTireCompounds VisualTireCompound
         {
-            get { return _tireVisualCompound; }
-            set { SetField(ref _tireVisualCompound, value, nameof(TireVisualCompound)); }
+            get { return visualTireCompound; }
+            set { SetField(ref visualTireCompound, value, nameof(VisualTireCompound)); }
         }
 
-        // Car Damage Data
+        // CAR DAMAGE DATA
 
         private float _flTireWear;
         public float FLTireWear

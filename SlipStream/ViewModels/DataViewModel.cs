@@ -107,7 +107,6 @@ namespace SlipStream.ViewModels
             UDPC.OnEventDataReceive += UDPC_OnEventDataReceive;
 
             UDPC.OnFinalClassificationDataReceive += UDPC_OnFinalClassificationDataReceive;
-            UDPC.OnSessionHistoryDataReceive += UDPC_OnSessionHistoryDataReceive;
         }
 
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
@@ -179,12 +178,12 @@ namespace SlipStream.ViewModels
             if (packet.m_sessionType != SessionTypes.Race)
             {
                 model.SessionTimeRemaining = $"Time Remaining: {TimeSpan.FromSeconds(packet.m_sessionTimeLeft)}";
-                model.SessionDuration = $"Session Duration: {TimeSpan.FromSeconds(packet.m_sessionDuration)}";
+                model.SessionDuration = TimeSpan.FromSeconds(packet.m_sessionDuration).ToString();
             }
             else
             {
                 model.SessionTimeRemaining = $"{model.LeadLap} / {packet.m_totalLaps}";
-                model.SessionDuration = $"# of Laps: {packet.m_totalLaps.ToString()}";
+                model.SessionDuration = packet.m_totalLaps.ToString();
             }
         }
 
@@ -207,7 +206,6 @@ namespace SlipStream.ViewModels
                 {
                     Driver[i].DriverName = Regex.Replace(participant.m_driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 }
-                else { Driver[i].DriverName = "Placeholder"; }
 
                 // TEAM COLORS
                 switch (Driver[i].TeamID)
@@ -259,6 +257,8 @@ namespace SlipStream.ViewModels
                 Driver[i].CurrentLapNum = lapData.currentLapNum - 1;
                 Driver[i].DriverStatus = Regex.Replace(lapData.driverStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 Driver[i].DriverStatusUpdate = lapData.driverStatus;
+                Driver[i].Warnings = lapData.warnings;
+                Driver[i].Penalties = lapData.penalties;
 
                 // POSITION CHANGE
                 if (model.CurrentSession == "Race")
@@ -275,9 +275,28 @@ namespace SlipStream.ViewModels
                     }
                 }
 
-                // PENALTIES & WARNINGS
-                Driver[i].Warnings = lapData.warnings;
-                Driver[i].Penalties = lapData.penalties;
+                // SESSION FASTEST LAPTIME / RACE LEAD LAP / LEAD LAP TIME / LEADER INTERVAL
+                if (Driver[i].CarPosition == 1)
+                {
+                    model.SessionFastestLap = Driver[i].BestLapTime;
+
+                    if(model.CurrentSession == "Race" | model.CurrentSession == "RaceTwo")
+                    {
+                        model.LeadLap = Driver[i].CurrentLapNum + 1;
+                        model.LeadLapTime = Driver[i].CurrentLapTime;
+                    }
+                }
+                else
+                {
+                    if (Driver[i].CurrentLapNum == model.LeadLap - 1)
+                    {
+                        if(Driver[i].CurrentLapTime < TimeSpan.FromSeconds(1))
+                        {
+                            Driver[i].RaceIntervalLeader = model.LeadLapTime - Driver[i].CurrentLapTime;
+                        }
+                        
+                    }
+                }
 
                 // BEST LAPTIME DELTA
                 if (Driver[i].CurrentLapNum > 0)
@@ -286,36 +305,21 @@ namespace SlipStream.ViewModels
                 }
 
                 // INTERVAL
-                if (Driver[i].CurrentLapNum == Driver[i-1].CurrentLapNum)
+                //if (Driver[i].CurrentLapNum == Driver[i-1].CurrentLapNum)
                 {
-                    Driver[i].RaceInterval = Driver[i-1].CurrentLapTime;
+                    // Driver[i].RaceInterval = Driver[i-1].CurrentLapTime;
                 }
 
-                // LEADER BENCHMARK
-
-                if (Driver[i].CarPosition == 1)
+                // SELECTED DELTA
+                switch (model.CurrentSession)
                 {
-                    model.LeadLapTime = Driver[i].CurrentLapTime;
-                }
-
-                // INTERVAL TO LEADER
-
-                if (Driver[i].CurrentLapNum == Driver[i - 1].CurrentLapNum)
-                {
-                    Driver[i].RaceIntervalLeader = model.LeadLapTime - Driver[i].CurrentLapTime;
-                }
-                else
-                {
-                    Driver[i].RaceIntervalLeader = TimeSpan.FromSeconds(1.5);
-                    // Driver[i].RaceIntervalLeader = model.LeadLap = Driver[i].CurrentLapNum;
-                }
-                    
-
-                // SESSION FASTEST LAPTIME & LEAD LAP NUM
-                if (Driver[i].CarPosition == 1)
-                {
-                    model.SessionFastestLap = Driver[i].BestLapTime;
-                    model.LeadLap = Driver[i].CurrentLapNum + 1;
+                    default:
+                        Driver[i].SelectedDelta = Driver[i].BestLapDelta;
+                        break;
+                    case "Race":
+                    case "RaceTwo":
+                        Driver[i].SelectedDelta = Driver[i].RaceIntervalLeader;
+                        break;
                 }
 
                 // LAST SECTOR TIMES
@@ -544,19 +548,6 @@ namespace SlipStream.ViewModels
                 Driver[i].CarPosition = (byte)finalData.m_position;
                 Driver[i].CurrentLapNum = (int)finalData.m_numLaps;
                 Driver[i].BestLapTime = TimeSpan.FromMilliseconds(finalData.m_bestLapTimeInMS);
-            }
-        }
-
-        private void UDPC_OnSessionHistoryDataReceive(PacketSessionHistoryData packet)
-        {
-            for (int i = 0; i < packet.m_lapHistoryData.Length; i++)
-            {
-                var lapHistory = packet.m_lapHistoryData[i];
-                var tireHistory = packet.m_tyreStintsHistoryData[i];
-
-                Driver[i].lapNum = Driver[i].lapNum + 1;
-                Driver[i].CarIdx = packet.m_carIdx;
-                Driver[i].LapTimeHist = TimeSpan.FromMilliseconds(lapHistory.m_lapTimeInMS);
             }
         }
     }

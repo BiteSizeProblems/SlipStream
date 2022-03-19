@@ -26,7 +26,15 @@
                     CanUserResizeRows="False" SelectionUnit="CellOrRowHeader" CanUserResizeColumns="False"
                     CellStyle="{StaticResource LeaderboardTheme}">
 
-
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding raceNumber}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
 
                     <DataGrid.Resources>
                         <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarTheme}"/>
@@ -66,7 +74,7 @@
                         <DataGridTextColumn Binding="{Binding TeamName}" Header="TEAM" IsReadOnly="True"  Width="125"/>
                         <DataGridTextColumn Binding="{Binding LastLapTime, StringFormat=m\\:ss\\.fff }" Width="125" Header="LAST LAP" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding BestLapTime,StringFormat=m\\:ss\\.fff, FallbackValue=--:--.--- }" Width="125" Header="BEST LAP" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding RaceInterval,StringFormat=ss\\.fff}" Width="100" Header="GAP" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding SelectedDelta,StringFormat=ss\\.fff}" Width="100" Header="GAP" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding S1Display, StringFormat=ss\\.fff }" Width="100" Header="S1" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding S2Display, StringFormat=ss\\.fff }" Width="100" Header="S2" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding S3Display, StringFormat=ss\\.fff }" Width="100" Header="S3" IsReadOnly="True"/>
@@ -92,16 +100,32 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Image Source="/Core/Images/black_circle.png" Height="25"/>
-                <TextBlock Text="In Garage" VerticalAlignment="Center" Padding="15,0,45,0"/>
-                <Image Source="/Core/Images/green_circle.png" Height="25"/>
-                <TextBlock Text="Flying Lap" VerticalAlignment="Center" Padding="15,0,45,0"/>
-                <Image Source="/Core/Images/red_circle.png" Height="25"/>
-                <TextBlock Text="In Lap" VerticalAlignment="Center" Padding="15,0,45,0"/>
-                <Image Source="/Core/Images/yellow_circle.png" Height="25"/>
-                <TextBlock Text="Out Lap" VerticalAlignment="Center" Padding="15,0,45,0"/>
-            </StackPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Lap: "/>
+                    <TextBlock Text="{Binding model.LeadLap, StringFormat={}{0}/}"/>
+                    <TextBlock Text="{Binding model.SessionDuration, StringFormat={}{0}}"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="/Core/Images/black_circle.png" Height="25"/>
+                    <TextBlock Text="In Garage" VerticalAlignment="Center" Padding="15,0,45,0"/>
+                    <Image Source="/Core/Images/green_circle.png" Height="25"/>
+                    <TextBlock Text="Flying Lap" VerticalAlignment="Center" Padding="15,0,45,0"/>
+                    <Image Source="/Core/Images/red_circle.png" Height="25"/>
+                    <TextBlock Text="In Lap" VerticalAlignment="Center" Padding="15,0,45,0"/>
+                    <Image Source="/Core/Images/yellow_circle.png" Height="25"/>
+                    <TextBlock Text="Out Lap" VerticalAlignment="Center" Padding="15,0,45,0"/>
+                </StackPanel>
+
+            </Grid>
+            
         </Grid>
     </Border>
 </UserControl>
