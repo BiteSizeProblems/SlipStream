@@ -15,17 +15,11 @@ using System.Windows.Shapes;
 
 namespace SlipStream.Views
 {
-    /// <summary>
-    /// Interaction logic for DriverStrategyView.xaml
-    /// </summary>
     public partial class DriverStrategyView : UserControl
     {
         public DriverStrategyView()
         {
-
-
             InitializeComponent();
-
         }
     }
 }
