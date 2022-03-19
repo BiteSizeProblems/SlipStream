@@ -25,6 +25,7 @@ namespace SlipStream.Views
 
         public EngineerDefaultView()
         {
+            this.DataContext = DataViewModel.GetInstance();
             InitializeComponent();
             
         }

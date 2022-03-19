@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SlipStream.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace SlipStream.Views
     {
         public RaceControlWeatherView()
         {
+            this.DataContext = DataViewModel.GetInstance();
             InitializeComponent();
 
             this.W_ForecastDataGrid.Items.IsLiveSorting = true;

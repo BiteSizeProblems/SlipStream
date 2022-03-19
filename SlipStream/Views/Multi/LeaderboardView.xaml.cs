@@ -25,7 +25,7 @@ namespace SlipStream.Views.Multi
         public LeaderboardView()
         {
             InitializeComponent();
-
+            this.DataContext = DataViewModel.GetInstance();
             this.Leaderboard.Items.IsLiveSorting = true;
             this.Leaderboard.Items.SortDescriptions.Add(new SortDescription("CarPosition", ListSortDirection.Ascending));
         }

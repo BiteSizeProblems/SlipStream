@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SlipStream.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace SlipStream.Views
     {
         public DriverStrategyView()
         {
+            this.DataContext = DataViewModel.GetInstance();
             InitializeComponent();
         }
     }
