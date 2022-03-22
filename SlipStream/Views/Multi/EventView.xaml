@@ -10,23 +10,18 @@
 
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Notification:"
+            <TextBlock Text="NOTIFICATION: "
                        VerticalAlignment="Center"
-                       FontSize="14"/>
+                       FontSize="14" FontWeight="Bold"/>
 
             <TextBlock Text="{Binding model.EventStringCode}"
                        Grid.Row="1" Foreground="MediumAquamarine"
                        VerticalAlignment="Center" FontSize="14"
                        Grid.Column="1" Margin="10,0,0,0"/>
-
-
-            
-            
-
 
         </Grid>
 

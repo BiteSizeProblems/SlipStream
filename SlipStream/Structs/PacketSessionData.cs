@@ -56,7 +56,7 @@ namespace SlipStream.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 21)]
         public MarshalZone[] m_marshalZones;             // List of marshal zones – max 21
 
-        public SafetyCarStatuses m_safetyCarStatus;           // 0 = no safety car, 1 = full
+        public SafetyCarStatus m_safetyCarStatus;           // 0 = no safety car, 1 = full
                                                   // 2 = virtual, 3 = formation lap
         public byte m_networkGame;               // 0 = offline, 1 = online
         public byte m_numWeatherForecastSamples; // Number of weather samples to follow

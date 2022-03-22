@@ -79,7 +79,22 @@
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0">
-                                
+                                <StackPanel Orientation="Horizontal">
+                                    
+                                    <StackPanel Margin="10,0">
+                                        <Image Source="/Core/Images/CustomSoft.png" Height="125"/>
+                                        <TextBlock/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Margin="10,0">
+                                        <Image Source="/Core/Images/CustomMedium.png" Height="125"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Margin="10,0">
+                                        <Image Source="/Core/Images/CustomHard.png" Height="125"/>
+                                    </StackPanel>
+                                    
+                                </StackPanel>
                             </Grid>
 
                             <Grid Grid.Row="1">

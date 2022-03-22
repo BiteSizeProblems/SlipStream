@@ -28,7 +28,7 @@ namespace SlipStream.Structs
         public byte gridPosition;            // Grid position the vehicle started the race in
         public DriverStatus driverStatus;            // Status of driver - 0 = in garage, 1 = flying lap
                                              // 2 = in lap, 3 = out lap, 4 = on track
-        public byte resultStatus;              // Result status - 0 = invalid, 1 = inactive, 2 = active
+        public ResultStatus resultStatus;              // Result status - 0 = invalid, 1 = inactive, 2 = active
                                                // 3 = finished, 4 = didnotfinish, 5 = disqualified
                                                // 6 = not classified, 7 = retired
         public byte pitLaneTimerActive;          // Pit lane timing, 0 = inactive, 1 = active

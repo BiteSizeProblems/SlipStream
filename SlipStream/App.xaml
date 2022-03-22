@@ -16,7 +16,6 @@
                 <ResourceDictionary Source="./Core/Themes/HomeButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./Core/Themes/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="./Core/Themes/DisplayBoxTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/DisplayBoxLabelTheme.xaml"/>
                 <ResourceDictionary Source="./Core/Themes/MultiViewBorderTheme.xaml"/>
                 <ResourceDictionary Source="./Core/Themes/DataGridTheme.xaml"/>
                 <ResourceDictionary Source="./Core/Themes/ScrollBarTheme.xaml"/>
@@ -31,8 +30,7 @@
 
                     <Style TargetType="TextBlock">
                         <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
-                        <Setter Property="TextBlock.Foreground" Value="#F9F871"/>
-                        <Setter Property="Foreground" Value="#F9F871"/>
+                        <Setter Property="Foreground" Value="White"/>
                     </Style>
 
                     <Style x:Key="LabelStyle" TargetType="Label">

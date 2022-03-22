@@ -10,12 +10,12 @@
 
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Safety Car: "
+            <TextBlock Text="SAFETY CAR: " FontWeight="Bold"
                        VerticalAlignment="Center" FontSize="14"
                        Margin="10,0,0,0" HorizontalAlignment="Right"/>
             

@@ -8,132 +8,73 @@
              
              mc:Ignorable="d" 
              d:DesignHeight="980" d:DesignWidth="1820">
-
-    <Border Background="Transparent">
-        <Grid>
-
+    <Border>
+        <Grid Margin="20">
             <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-
-                <Label Content="Racing, Made Simple." 
-                   Style="{StaticResource LabelStyle}"
-                   FontWeight="Bold"/>
-
-            </StackPanel>
-
-            <Border Margin="5" CornerRadius="25" Grid.Row="1">
-                <Grid>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <Border Margin="5" Background="#FF1B303D" 
-                            BorderBrush="#FF4C70" BorderThickness="3" 
-                            CornerRadius="25">
-                        <StackPanel>
-
-                            <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Welcome" HorizontalAlignment="Center"
-                               Padding="20,10,20,10" FontSize="18"/>
-                            </Border>
-
-                            <TextBlock
-                            Text="Welcome to SlipStream, an app designed to enhance your racing performance. Whether you race online or locally, SlipStream can help you develop your skillset."
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                            <TextBlock
-                            Text="If you're new here, check out out quick guide (right) to get started. Otherwise, remember to have fun, and if you need any more help from us, check out the links on the left. Have fun, and let's go racing!"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                        </StackPanel>
-                    </Border>
-
-                    <Border Margin="5" Background="#FF1B303D" 
-                            BorderBrush="#FF4C70" BorderThickness="3"
-                            CornerRadius="25" Grid.Column="1">
-                        <StackPanel>
-
-                            <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Looking For Something?" HorizontalAlignment="Center"
-                               Padding="20,10,20,10" FontSize="18"/>
-                            </Border>
-
-                            <TextBlock
-                            Text="Racing is hard, we get that. While driver's on circuits in the real-world have a team behind them to guide their progress, there often isn't the same support for members of the sim-racing community. That's why you'll find our app has designed four features to suit your needs."
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                            <TextBlock
-                            Text="Drivers:"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-                            
-                            <TextBlock
-                            Text="For drivers, check out our 'Driver' tab. There, you'll find many features designed to improve your race performance. This feature is designed to be used while you race, so you'll find larger font, bold colors and a streamlined interface to ensure you stay on the track, instead of searching for the information you need."
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                            <TextBlock
-                            Text="Engineers, Officials and Spectators:"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                            <TextBlock
-                            Text="For those of you who spend time engineering for a driver, managing a league or race, or simply spectating, you can also find useful resources in the tabs in our menu. For these features, you'll find a similar level of data relevance, meaning we have specifically chosen the data we believe will be most relevent, depending on your level of participation to improve your experience." 
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                        </StackPanel>
-                    </Border>
-
-                    <Border Margin="5" Background="#FF1B303D" 
-                            BorderBrush="#FF4C70" BorderThickness="3"
-                            CornerRadius="25" Grid.Column="2">
-                        <StackPanel>
-
-                            <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Setting Up?" HorizontalAlignment="Center"
-                               Padding="20,10,20,10" FontSize="18"/>
-                            </Border>
-
-                            <TextBlock
-                            Text="In the settings screen for Formula One 2021, select 'Telemetry Settings'"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                            <TextBlock
-                            Text="Adjust your seetings to match the following"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                            <TextBlock
-                            Text="UDP Telemetry: On"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-                            
-                            <TextBlock
-                            Text="Broadcast Mode: On"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                            <TextBlock
-                            Text="Data Restrictions: None"
-                            Padding="20,10,20,10" TextWrapping="Wrap" Foreground="MediumAquamarine"/>
-
-                        </StackPanel>
-                    </Border>
-
-                </Grid>
-
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}">
+                <TextBlock Text="SLIPSTREAM" Style="{StaticResource DisplayBoxLabelTheme}"/>
             </Border>
 
+            <Border Grid.Row="1" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}">
 
+                <StackPanel>
 
+                    <Border CornerRadius="25,25,0,0">
+                        <TextBlock Text="SETTING UP?" Style="{StaticResource DisplayBoxLabelTheme}"/>
+                    </Border>
 
+                    <TextBlock
+                            Text="In the settings screen for Formula One 2021, select 'Telemetry Settings'"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
 
+                    <TextBlock
+                            Text="Adjust your seetings to match the following:"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                    <TextBlock
+                            Text="UDP Telemetry: On"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                    <TextBlock
+                            Text="Broadcast Mode: On"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                    <TextBlock
+                            Text="Data Restrictions: None"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="2" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}">
+                <StackPanel>
+                    
+                    <TextBlock Text="TO GET STARTED... SELECT:" Style="{StaticResource DisplayBoxLabelTheme}"/>
+
+                    <Image Source="/Core/Images/Menu/relative.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                    <TextBlock Text="FOR LIVE TIMING" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                    <Image Source="/Core/Images/Menu/steering-wheel.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                    <TextBlock Text="FOR DRIVERS" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                    <Image Source="/Core/Images/Menu/wrench.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                    <TextBlock Text="FOR ENGINEERS" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                    <Image Source="/Core/Images/Menu/finish_flag.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                    <TextBlock Text="FOR RACE CONTROL AND COMMENTATORS" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+            
         </Grid>
     </Border>
 </UserControl>

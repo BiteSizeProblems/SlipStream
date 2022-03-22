@@ -3,6 +3,8 @@
 
     <FontFamily x:Key="Formula1 Display">/Core/Fonts/#Formula1 Display</FontFamily>
 
+    <!--// STANDARD LEADERBOARD //-->
+    
     <Style x:Key="DataGridTheme" TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="RowBackground" Value="Transparent"/>
@@ -19,5 +21,42 @@
         <Setter Property="CanUserResizeRows" Value="False"/>
         <Setter Property="SelectionUnit" Value="CellOrRowHeader"/>
     </Style>
+
+    <Style x:Key="LeaderboardHeaderTheme" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="0,8"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="LeaderboardCellTheme" TargetType="{x:Type DataGridCell}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="MediumAquamarine"/>
+        <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+    </Style>
+
+    <!--// SMALL LEADERBOARD //-->
     
+    <Style x:Key="SmallLeaderboardHeaderTheme" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Padding" Value="0,8"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="SmallLeaderboardCellTheme" TargetType="{x:Type DataGridCell}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="20,0"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="MediumAquamarine"/>
+        <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+    </Style>
+
 </ResourceDictionary>

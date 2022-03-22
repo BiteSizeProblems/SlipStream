@@ -10,12 +10,12 @@
 
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Weather: "
+            <TextBlock Text="WEATHER: " FontWeight="Bold"
                        VerticalAlignment="Center"
                        FontSize="14" HorizontalAlignment="Right"/>
             

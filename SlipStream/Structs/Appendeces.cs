@@ -537,7 +537,7 @@ namespace SlipStream.Structs
             red = 4,
         }
 
-        public enum ResultSatuses : sbyte
+        public enum ResultStatus : sbyte
         {
             Unknown = -1,
             Invalid = 0,
@@ -546,7 +546,7 @@ namespace SlipStream.Structs
             Finished = 3,
             DidNotFinish = 4,
             Disqualified = 5,
-            NotClassiFied = 6,
+            NotClassified = 6,
             Retired = 7,
         }
 
@@ -618,16 +618,16 @@ namespace SlipStream.Structs
         public enum SessionTypes : byte
         {
             Unknown,
-            PracticeOne,
-            PracticeTwo,
-            PracticeThree,
-            ShortPractice,
+            P1,
+            P2,
+            P3,
+            PShort,
             Q1,
             Q2,
             Q3,
-            ShortQualifying,
-            OneShotQualifying,
-            Race,
+            QShort,
+            QOneShot,
+            RACE,
             RaceTwo,
             TimeTrial,
         }
@@ -640,7 +640,7 @@ namespace SlipStream.Structs
             F1Generic,
         }
 
-        public enum SafetyCarStatuses : byte
+        public enum SafetyCarStatus : byte
         {
             Clear,
             SafetyCarActive,
@@ -656,7 +656,7 @@ namespace SlipStream.Structs
             auto = 3,
         }
 
-        public enum RacingLineSatuses
+        public enum RacingLineStatus
         {
             Off,
             CornersOnly,
@@ -669,7 +669,7 @@ namespace SlipStream.Structs
             Line_3D
         }
 
-        public enum PitStatuses : sbyte
+        public enum PitStatus : sbyte
         {
             Unknown = -1,
             None = 0,
@@ -748,14 +748,14 @@ namespace SlipStream.Structs
             Max,
         }
 
-        public enum DRSStatuses : sbyte
+        public enum DRSStatus : sbyte
         {
             Unknown = -1,
             NotAllowed = 0,
             Allowed = 1,
         }
 
-        public enum ReadyStatuses : byte
+        public enum ReadyStatus : byte
         {
             NotReady,
             Ready,

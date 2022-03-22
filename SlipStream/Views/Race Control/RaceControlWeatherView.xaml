@@ -58,9 +58,9 @@
                 </DataGrid.CellStyle>
                 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding SessionType}" Header="Session" Width="200" SortDirection="Ascending"/>
+                    <DataGridTextColumn Binding="{Binding SessionType}" Header="SESSION" Width="200" SortDirection="Ascending"/>
                     <DataGridTextColumn Binding="{Binding TimeOffset}" Header="+/-" Width="200"/>
-                    <DataGridTextColumn Binding="{Binding Weather}" Header="Weather" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding Weather}" Header="WEATHER" Width="200"/>
                     <DataGridTemplateColumn Width="125">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -68,9 +68,9 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Binding="{Binding TrackTemperature}" Header="Track Temp" Width="200"/>
-                    <DataGridTextColumn Binding="{Binding AirTemperature}" Header="Air Temp" Width="200"/>
-                    <DataGridTextColumn Binding="{Binding RainPercentage}" Header="Precip" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding TrackTemperature}" Header="TRACK TEMP" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding AirTemperature}" Header="AIR TEMP" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding RainPercentage}" Header="PRECIP" Width="200"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -26,11 +26,5 @@ namespace SlipStream.Views
         {
             InitializeComponent();
         }
-
-        private void CompressedLeaderboard_Sorting(object sender, DataGridSortingEventArgs e)
-        {
-            this.CompressedLeaderboard.Items.IsLiveSorting = true;
-            this.CompressedLeaderboard.Items.SortDescriptions.Add(new SortDescription("DriverName", ListSortDirection.Ascending));
-        }
     }
 }

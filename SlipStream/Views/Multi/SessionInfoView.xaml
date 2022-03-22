@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="SlipStream.Views.Multi.SessionInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SlipStream.Views.Multi"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Border Style="{StaticResource DisplayBoxTheme}">
+        
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Background="#2F4858" CornerRadius="25,25,0,0">
+                <TextBlock Text="SESSION INFO"  Style="{StaticResource DisplayBoxLabelTheme}"/>
+            </Border>
+
+            <Image Source="{Binding model.TrackIcon}" Margin="5" Height="100" Grid.Row="1"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           RenderOptions.BitmapScalingMode="HighQuality"/>
+
+            <Grid Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Network Type: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Total Participants: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Drivers: "
+                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding model.NetworkGame}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                    <TextBlock Text="{Binding model.TotalParticipants}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                    <TextBlock Text="{Binding model.NumOfActiveCars}"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                    <Image/>
+                </StackPanel>
+
+            </Grid>
+
+
+
+        </Grid>
+
+    </Border>
+    
+</UserControl>

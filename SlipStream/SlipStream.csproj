@@ -25,8 +25,10 @@
     <None Remove="Core\Images\bossy_50px.png" />
     <None Remove="Core\Images\check.png" />
     <None Remove="Core\Images\clear.png" />
+    <None Remove="Core\Images\cloud.png" />
     <None Remove="Core\Images\cloudy.png" />
     <None Remove="Core\Images\Construction.png" />
+    <None Remove="Core\Images\crew.png" />
     <None Remove="Core\Images\CustomHard.png" />
     <None Remove="Core\Images\CustomInt.png" />
     <None Remove="Core\Images\CustomMedium.png" />
@@ -47,19 +49,79 @@
     <None Remove="Core\Images\home_32px.png" />
     <None Remove="Core\Images\img_arrow.png" />
     <None Remove="Core\Images\in-lap.png" />
+    <None Remove="Core\Images\Leaderboard\dash.png" />
+    <None Remove="Core\Images\Leaderboard\green_arrow.png" />
+    <None Remove="Core\Images\Leaderboard\red_arrow.png" />
     <None Remove="Core\Images\light_rain.png" />
     <None Remove="Core\Images\MediumTire.png" />
+    <None Remove="Core\Images\Menu\dashboard.png" />
+    <None Remove="Core\Images\Menu\dynamic.png" />
+    <None Remove="Core\Images\Menu\finish.png" />
+    <None Remove="Core\Images\Menu\finish_flag.png" />
+    <None Remove="Core\Images\Menu\home.png" />
+    <None Remove="Core\Images\Menu\relative.png" />
+    <None Remove="Core\Images\Menu\steering_wheel.png" />
+    <None Remove="Core\Images\Menu\stopwatch.png" />
+    <None Remove="Core\Images\Menu\strategy.png" />
+    <None Remove="Core\Images\Menu\weather.png" />
+    <None Remove="Core\Images\Menu\wrench.png" />
     <None Remove="Core\Images\orange_circle.png" />
     <None Remove="Core\Images\out-lap.png" />
     <None Remove="Core\Images\overcast.png" />
+    <None Remove="Core\Images\rainy-day.png" />
     <None Remove="Core\Images\red_circle.png" />
     <None Remove="Core\Images\relative.png" />
     <None Remove="Core\Images\safety_car.png" />
     <None Remove="Core\Images\SoftTire.png" />
+    <None Remove="Core\Images\steering-wheel.png" />
     <None Remove="Core\Images\steering_wheel.png" />
     <None Remove="Core\Images\storm.png" />
     <None Remove="Core\Images\strategy.png" />
     <None Remove="Core\Images\timer_50px.png" />
+    <None Remove="Core\Images\TrackIcons\abudhabi.svg" />
+    <None Remove="Core\Images\TrackIcons\australia.svg" />
+    <None Remove="Core\Images\TrackIcons\austria.svg" />
+    <None Remove="Core\Images\TrackIcons\azerbaijan.svg" />
+    <None Remove="Core\Images\TrackIcons\bahrain.svg" />
+    <None Remove="Core\Images\TrackIcons\belgium.svg" />
+    <None Remove="Core\Images\TrackIcons\brazil.svg" />
+    <None Remove="Core\Images\TrackIcons\canada.svg" />
+    <None Remove="Core\Images\TrackIcons\china.svg" />
+    <None Remove="Core\Images\TrackIcons\france.svg" />
+    <None Remove="Core\Images\TrackIcons\greatbritain.svg" />
+    <None Remove="Core\Images\TrackIcons\hungary.svg" />
+    <None Remove="Core\Images\TrackIcons\italy.svg" />
+    <None Remove="Core\Images\TrackIcons\japan.svg" />
+    <None Remove="Core\Images\TrackIcons\mexico.svg" />
+    <None Remove="Core\Images\TrackIcons\monaco.svg" />
+    <None Remove="Core\Images\TrackIcons\netherlands.svg" />
+    <None Remove="Core\Images\TrackIcons\russia.svg" />
+    <None Remove="Core\Images\TrackIcons\singapore.svg" />
+    <None Remove="Core\Images\TrackIcons\spain.svg" />
+    <None Remove="Core\Images\TrackIcons\usa.svg" />
+    <None Remove="Core\Images\TrackIcons\vietnam.svg" />
+    <None Remove="Core\Images\Tracks\abudhabi.png" />
+    <None Remove="Core\Images\Tracks\australia.png" />
+    <None Remove="Core\Images\Tracks\austria.png" />
+    <None Remove="Core\Images\Tracks\azerbaijan.png" />
+    <None Remove="Core\Images\Tracks\bahrain.png" />
+    <None Remove="Core\Images\Tracks\belgium.png" />
+    <None Remove="Core\Images\Tracks\brazil.png" />
+    <None Remove="Core\Images\Tracks\canada.png" />
+    <None Remove="Core\Images\Tracks\china.png" />
+    <None Remove="Core\Images\Tracks\france.png" />
+    <None Remove="Core\Images\Tracks\greatbritain.png" />
+    <None Remove="Core\Images\Tracks\hungary.png" />
+    <None Remove="Core\Images\Tracks\italy.png" />
+    <None Remove="Core\Images\Tracks\japan.png" />
+    <None Remove="Core\Images\Tracks\mexico.png" />
+    <None Remove="Core\Images\Tracks\monaco.png" />
+    <None Remove="Core\Images\Tracks\netherlands.png" />
+    <None Remove="Core\Images\Tracks\russia.png" />
+    <None Remove="Core\Images\Tracks\singapore.png" />
+    <None Remove="Core\Images\Tracks\spain.png" />
+    <None Remove="Core\Images\Tracks\usa.png" />
+    <None Remove="Core\Images\Tracks\vietnam.png" />
     <None Remove="Core\Images\up_arrow.png" />
     <None Remove="Core\Images\warning.png" />
     <None Remove="Core\Images\weather.png" />
@@ -104,19 +166,22 @@
     <Resource Include="Core\Images\blue_circle.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\bossy_50px.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Core\Images\check.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\clear.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\cloud.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\cloudy.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\Construction.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\crew.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\CustomHard.png">
@@ -134,28 +199,7 @@
     <Resource Include="Core\Images\CustomWet.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\dashboard.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Core\Images\discord.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\down_arrow.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\dynamic.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\fast.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\finish.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\finish_flag.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\garage.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\green_circle.png">
@@ -167,16 +211,19 @@
     <Resource Include="Core\Images\heavy_rain.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\home.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\home_32px.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Core\Images\img_arrow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\in-lap.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Leaderboard\dash.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Leaderboard\green_arrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Leaderboard\red_arrow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\light_rain.png">
@@ -185,19 +232,46 @@
     <Resource Include="Core\Images\MediumTire.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\orange_circle.png">
+    <Resource Include="Core\Images\Menu\dashboard.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\out-lap.png">
+    <Resource Include="Core\Images\Menu\dynamic.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\finish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\finish_flag.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\home.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\relative.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\stopwatch.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\strategy.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\weather.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\wrench.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\orange_circle.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\overcast.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\red_circle.png">
+    <Resource Include="Core\Images\rainy-day.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\relative.png">
+    <Resource Include="Core\Images\red_circle.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\safety_car.png">
@@ -206,37 +280,145 @@
     <Resource Include="Core\Images\SoftTire.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\steering_wheel.png">
+    <Resource Include="Core\Images\Menu\steering-wheel.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\storm.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\strategy.png">
+    <Resource Include="Core\Images\TrackIcons\australia.svg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\timer_50px.png">
+    <Resource Include="Core\Images\TrackIcons\austria.svg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\up_arrow.png">
+    <Resource Include="Core\Images\TrackIcons\azerbaijan.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\bahrain.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\belgium.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\brazil.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\canada.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\china.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\france.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\greatbritain.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\hungary.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\italy.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\japan.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\mexico.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\monaco.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\netherlands.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\russia.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\singapore.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\spain.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\usa.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackIcons\vietnam.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\abudhabi.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\australia.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\austria.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\azerbaijan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\bahrain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\belgium.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\brazil.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\canada.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\china.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\france.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\greatbritain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\hungary.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\italy.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\japan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\mexico.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\monaco.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\netherlands.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\russia.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\singapore.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\spain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\usa.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Tracks\vietnam.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\warning.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Core\Images\weather.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Core\Images\white_circle.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\wrench_1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\wrench_2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Core\Images\wrench_24px.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\yellow_circle.png">

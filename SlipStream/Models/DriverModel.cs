@@ -14,7 +14,7 @@ using static SlipStream.Structs.Enums;
 namespace SlipStream.Models
 {
     // MODEL 
-    public class DriverModel : ObservableObject
+    public class DriverModel : ObservableObject                         // 22 SIZE ARRAYS ONLY!
     {
         // Args CTOR
         public DriverModel(int c, Drivers d, Teams t, int r)
@@ -36,7 +36,7 @@ namespace SlipStream.Models
             this.TeamID = Teams.Unknown;
         }
 
-        // Driver Index
+        // INDEXING
 
         private int _driverIndex;
         public int DriverIndex
@@ -52,7 +52,7 @@ namespace SlipStream.Models
             set { SetField(ref _maxIndex, value, nameof(MaxIndex)); }
         }
 
-        // Driver Participant Data
+        // DRIVER INFO
 
         private Drivers _driverID;
         public Drivers DriverID
@@ -75,6 +75,23 @@ namespace SlipStream.Models
             set { SetField(ref ai, value, nameof(AI)); }
         }
 
+        // PENALTIES & WARNINGS
+
+        private int _warnings;
+        public int Warnings
+        {
+            get { return _warnings; }
+            set { SetField(ref _warnings, value, nameof(Warnings)); }
+        }
+
+        private int _penalties;
+        public int Penalties
+        {
+            get { return _penalties; }
+            set { SetField(ref _penalties, value, nameof(Penalties)); }
+        }
+
+        // TEAM INFO
         private Teams _teamID;
         public Teams TeamID
         {
@@ -123,50 +140,12 @@ namespace SlipStream.Models
             }
         }
 
+        // CAR INFO
         private int _raceNumber;
         public int raceNumber
         {
             get { return _raceNumber; }
             set { SetField(ref _raceNumber, value, nameof(raceNumber)); }
-        }
-
-        // PENALTIES & WARNINGS
-
-        private int _warnings;
-        public int Warnings
-        {
-            get { return _warnings; }
-            set { SetField(ref _warnings, value, nameof(Warnings)); }
-        }
-
-        private int _penalties;
-        public int Penalties
-        {
-            get { return _penalties; }
-            set { SetField(ref _penalties, value, nameof(Penalties)); }
-        }
-
-        // CAR DATA
-
-        private int _tireAge;
-        public int TireAge
-        {
-            get { return _tireAge; }
-            set { SetField(ref _tireAge, value, nameof(TireAge)); }
-        }
-
-        private string _fuelMix;
-        public string FuelMix
-        {
-            get { return _fuelMix; }
-            set { SetField(ref _fuelMix, value, nameof(FuelMix)); }
-        }
-
-        private ErsDeployMode _ersDeployMode;
-        public ErsDeployMode ErsDeployMode
-        {
-            get { return _ersDeployMode; }
-            set { SetField(ref _ersDeployMode, value, nameof(ErsDeployMode)); }
         }
 
         private string _vehicleFlag;
@@ -176,42 +155,9 @@ namespace SlipStream.Models
             set { SetField(ref _vehicleFlag, value, nameof(VehicleFlag)); }
         }
 
-        private int _ersRemaining;
-        public int ErsRemaining
-        {
-            get { return _ersRemaining; }
-            set { SetField(ref _ersRemaining, value, nameof(ErsRemaining)); }
-        }
+        
 
-        private float _ersUsed;
-        public float ErsUsed
-        {
-            get { return _ersUsed; }
-            set { SetField(ref _ersUsed, value, nameof(ErsUsed)); }
-        }
-
-        private string _tireIconSource;
-        public string TireIconSource
-        {
-            get { return _tireIconSource; }
-            set { SetField(ref _tireIconSource, value, nameof(TireIconSource)); }
-        }
-
-        private DriverStatus _driverStatusUpdate;
-        public DriverStatus DriverStatusUpdate
-        {
-            get { return _driverStatusUpdate; }
-            set { SetField(ref _driverStatusUpdate, value, nameof(DriverStatusUpdate)); }
-        }
-
-        private string _driverStatusSource;
-        public string DriverStatusSource
-        {
-            get { return _driverStatusSource; }
-            set { SetField(ref _driverStatusSource, value, nameof(DriverStatusSource)); }
-        }
-
-        // DRIVER LAP DATA, TIMES & GAPS
+        // LAP / SECTOR DATA, TIMES & GAPS
 
         private int currentLapNum;
         public int CurrentLapNum
@@ -235,7 +181,7 @@ namespace SlipStream.Models
             {
                 SetField(ref lastLapTime, value, nameof(LastLapTime));
 
-                if(LastS1 != TimeSpan.FromSeconds(0) && LastS2 != TimeSpan.FromSeconds(0) && LastLapTime != TimeSpan.FromSeconds(0) && DriverStatus != "InGarage")
+                if(LastS1 != TimeSpan.FromSeconds(0) && LastS2 != TimeSpan.FromSeconds(0) && LastLapTime != TimeSpan.FromSeconds(0) && DriverStatus != DriverStatus.InGarage)
                 {
                     LastS3 = LastLapTime - (LastS1 + LastS2);
                 }
@@ -325,7 +271,7 @@ namespace SlipStream.Models
 
         // GAPS & INTERVALS
 
-            // LAP TIMES
+            // FASTEST LAP DELTA
 
         private TimeSpan bestLapDelta; // Delta of driver's best lap time to the fastest overall lap time in a session.
         public TimeSpan BestLapDelta
@@ -357,14 +303,44 @@ namespace SlipStream.Models
             set { SetField(ref _selectedDelta, value, nameof(SelectedDelta)); }
         }
 
-        // CAR POSITIONS & STATUS
+        // CAR / DRIVER STATUS
 
-        private string driverStatus;
-        public string DriverStatus
+        private string _driverStatusSource;
+        public string DriverStatusSource
+        {
+            get { return _driverStatusSource; }
+            set { SetField(ref _driverStatusSource, value, nameof(DriverStatusSource)); }
+        }
+
+        private DriverStatus driverStatus;
+        public DriverStatus DriverStatus
         {
             get { return driverStatus; }
             set { SetField(ref driverStatus, value, nameof(DriverStatus)); }
         }
+
+        private PitStatus _pitStatus;
+        public PitStatus PitStatus
+        {
+            get { return _pitStatus; }
+            set { SetField(ref _pitStatus, value, nameof(PitStatus)); }
+        }
+
+        private ResultStatus _resultStatus;
+        public ResultStatus ResultStatus
+        {
+            get { return _resultStatus; }
+            set { SetField(ref _resultStatus, value, nameof(ResultStatus)); }
+        }
+
+        private string _actualDriverStatus;
+        public string ActualDriverStatus
+        {
+            get { return _actualDriverStatus; }
+            set { SetField(ref _actualDriverStatus, value, nameof(ActualDriverStatus)); }
+        }
+
+        // CAR POSITIONS
 
         private int carPosition;
         public int CarPosition
@@ -392,101 +368,6 @@ namespace SlipStream.Models
         {
             get { return _positionChangeIcon; }
             set { SetField(ref _positionChangeIcon, value, nameof(PositionChangeIcon)); }
-        }
-
-        // Packet Session History Data
-
-        private int _lapNum;
-        public int lapNum
-        {
-            get { return _lapNum; }
-            set { SetField(ref _lapNum, value, nameof(lapNum)); }
-        }
-
-        private uint _carIdx;
-        public uint CarIdx
-        {
-            get { return _carIdx; }
-            set { SetField(ref _carIdx, value, nameof(CarIdx)); }
-        }
-
-        private uint _numLaps;
-        public uint NumLaps
-        {
-            get { return _numLaps; }
-            set { SetField(ref _numLaps, value, nameof(NumLaps)); }
-        }
-
-        private uint _numTireStints;
-        public uint NumTireStints
-        {
-            get { return _numTireStints; }
-            set { SetField(ref _numTireStints, value, nameof(NumTireStints)); }
-        }
-
-        private uint _bestLapNum;
-        public uint BestLapNum
-        {
-            get { return _bestLapNum; }
-            set { SetField(ref _bestLapNum, value, nameof(BestLapNum)); }
-        }
-
-        private uint _bestS1Num;
-        public uint BestS1Num
-        {
-            get { return _bestS1Num; }
-            set { SetField(ref _bestS1Num, value, nameof(BestS1Num)); }
-        }
-
-        private uint _bestS2Num;
-        public uint BestS2Num
-        {
-            get { return _bestS2Num; }
-            set { SetField(ref _bestS2Num, value, nameof(BestS2Num)); }
-        }
-
-        private uint _bestS3Num;
-        public uint BestS3Num
-        {
-            get { return _bestS3Num; }
-            set { SetField(ref _bestS3Num, value, nameof(BestS3Num)); }
-        }
-
-        // Lap History Data
-
-        private TimeSpan _lapTimeHist;
-        public TimeSpan LapTimeHist
-        {
-            get { return _lapTimeHist; }
-            set { SetField(ref _lapTimeHist, value, nameof(LapTimeHist)); }
-        }
-
-        private TimeSpan _s1TimeHist;
-        public TimeSpan S1TimeHist
-        {
-            get { return _s1TimeHist; }
-            set { SetField(ref _s1TimeHist, value, nameof(S1TimeHist)); }
-        }
-
-        private TimeSpan _s2TimeHist;
-        public TimeSpan S2TimeHist
-        {
-            get { return _s2TimeHist; }
-            set { SetField(ref _s2TimeHist, value, nameof(S2TimeHist)); }
-        }
-
-        private TimeSpan _s3TimeHist;
-        public TimeSpan S3TimeHist
-        {
-            get { return _s3TimeHist; }
-            set { SetField(ref _s3TimeHist, value, nameof(S3TimeHist)); }
-        }
-
-        private uint _lapValidHist;
-        public uint LapValidHist
-        {
-            get { return _lapValidHist; }
-            set { SetField(ref _lapValidHist, value, nameof(LapValidHist)); }
         }
 
         // PIT STOP DATA
@@ -532,7 +413,81 @@ namespace SlipStream.Models
         public VisualTireCompounds VisualTireCompound
         {
             get { return visualTireCompound; }
-            set { SetField(ref visualTireCompound, value, nameof(VisualTireCompound)); }
+            set 
+            { 
+                SetField(ref visualTireCompound, value, nameof(VisualTireCompound));
+
+                // TIRE SHORT
+                switch (VisualTireCompound)
+                {
+                    case VisualTireCompounds.Soft:
+                        TireCompoundShort = "S";
+                        break;
+                    case VisualTireCompounds.Medium:
+                        TireCompoundShort = "M";
+                        break;
+                    case VisualTireCompounds.Hard:
+                        TireCompoundShort = "H";
+                        break;
+                    case VisualTireCompounds.Inter:
+                        TireCompoundShort = "I";
+                        break;
+                    case VisualTireCompounds.Wet:
+                        TireCompoundShort = "W";
+                        break;
+                }
+            }
+        }
+
+        private string _tireCompoundShort;
+        public string TireCompoundShort
+        {
+            get { return _tireCompoundShort; }
+            set { SetField(ref _tireCompoundShort, value, nameof(TireCompoundShort)); }
+        }
+
+        private int _tireAge;
+        public int TireAge
+        {
+            get { return _tireAge; }
+            set { SetField(ref _tireAge, value, nameof(TireAge)); }
+        }
+
+        private string _tireIconSource;
+        public string TireIconSource
+        {
+            get { return _tireIconSource; }
+            set { SetField(ref _tireIconSource, value, nameof(TireIconSource)); }
+        }
+
+        // ENGINE & ERS DATA
+
+        private string _fuelMix;
+        public string FuelMix
+        {
+            get { return _fuelMix; }
+            set { SetField(ref _fuelMix, value, nameof(FuelMix)); }
+        }
+
+        private ErsDeployMode _ersDeployMode;
+        public ErsDeployMode ErsDeployMode
+        {
+            get { return _ersDeployMode; }
+            set { SetField(ref _ersDeployMode, value, nameof(ErsDeployMode)); }
+        }
+
+        private int _ersRemaining;
+        public int ErsRemaining
+        {
+            get { return _ersRemaining; }
+            set { SetField(ref _ersRemaining, value, nameof(ErsRemaining)); }
+        }
+
+        private float _ersUsed;
+        public float ErsUsed
+        {
+            get { return _ersUsed; }
+            set { SetField(ref _ersUsed, value, nameof(ErsUsed)); }
         }
 
         // CAR DAMAGE DATA
@@ -591,6 +546,98 @@ namespace SlipStream.Models
         {
             get { return _frTireWearColor; }
             set { SetField(ref _frTireWearColor, value, nameof(FRTireWearColor)); }
+        }
+
+        // SESSION HISTORY PACKET
+        private int _lapNum;
+        public int lapNum
+        {
+            get { return _lapNum; }
+            set { SetField(ref _lapNum, value, nameof(lapNum)); }
+        }
+
+        private uint _carIdx;
+        public uint CarIdx
+        {
+            get { return _carIdx; }
+            set { SetField(ref _carIdx, value, nameof(CarIdx)); }
+        }
+
+        private uint _numLaps;
+        public uint NumLaps
+        {
+            get { return _numLaps; }
+            set { SetField(ref _numLaps, value, nameof(NumLaps)); }
+        }
+
+        private uint _numTireStints;
+        public uint NumTireStints
+        {
+            get { return _numTireStints; }
+            set { SetField(ref _numTireStints, value, nameof(NumTireStints)); }
+        }
+
+        private uint _bestLapNum;
+        public uint BestLapNum
+        {
+            get { return _bestLapNum; }
+            set { SetField(ref _bestLapNum, value, nameof(BestLapNum)); }
+        }
+
+        private uint _bestS1Num;
+        public uint BestS1Num
+        {
+            get { return _bestS1Num; }
+            set { SetField(ref _bestS1Num, value, nameof(BestS1Num)); }
+        }
+
+        private uint _bestS2Num;
+        public uint BestS2Num
+        {
+            get { return _bestS2Num; }
+            set { SetField(ref _bestS2Num, value, nameof(BestS2Num)); }
+        }
+
+        private uint _bestS3Num;
+        public uint BestS3Num
+        {
+            get { return _bestS3Num; }
+            set { SetField(ref _bestS3Num, value, nameof(BestS3Num)); }
+        }
+
+        private TimeSpan _lapTimeHist;
+        public TimeSpan LapTimeHist
+        {
+            get { return _lapTimeHist; }
+            set { SetField(ref _lapTimeHist, value, nameof(LapTimeHist)); }
+        }
+
+        private TimeSpan _s1TimeHist;
+        public TimeSpan S1TimeHist
+        {
+            get { return _s1TimeHist; }
+            set { SetField(ref _s1TimeHist, value, nameof(S1TimeHist)); }
+        }
+
+        private TimeSpan _s2TimeHist;
+        public TimeSpan S2TimeHist
+        {
+            get { return _s2TimeHist; }
+            set { SetField(ref _s2TimeHist, value, nameof(S2TimeHist)); }
+        }
+
+        private TimeSpan _s3TimeHist;
+        public TimeSpan S3TimeHist
+        {
+            get { return _s3TimeHist; }
+            set { SetField(ref _s3TimeHist, value, nameof(S3TimeHist)); }
+        }
+
+        private uint _lapValidHist;
+        public uint LapValidHist
+        {
+            get { return _lapValidHist; }
+            set { SetField(ref _lapValidHist, value, nameof(LapValidHist)); }
         }
     }
 }

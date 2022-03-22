@@ -3,10 +3,24 @@
 
     <Style x:Key="DisplayBoxTheme" TargetType="Border">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Margin" Value="5"/>
-        <Setter Property="BorderBrush" Value="#FF4C70"/>
-        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Margin" Value="15"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="BorderBrush" Value="MediumAquamarine"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="25"/>
-        <Setter Property="Background" Value="#FF1B303D"/>
+        <Setter Property="Background" Value="#BF193549"/>
     </Style>
+
+    <FontFamily x:Key="Formula1 Display">/Core/Fonts/#Formula1 Display</FontFamily>
+
+    <Style x:Key="DisplayBoxLabelTheme" TargetType="TextBlock">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="{StaticResource Formula1 Display}"/>
+    </Style>
+    
 </ResourceDictionary>

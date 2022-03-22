@@ -15,245 +15,249 @@
         <ViewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Margin="5" CornerRadius="25,25,0,0">
-        <Grid>
+    <Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="35"/>
-                
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="175"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <Image Source="/Core/Images/background_stock.jpg" 
+        <Image Source="/Core/Images/background_stock.jpg" 
                    RenderOptions.BitmapScalingMode="HighQuality"
-                   Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+                   StretchDirection="Both"/>
+        
+        <Border Margin="5" CornerRadius="25,25,0,0" Background="#7F193549">
+            
+            <Grid>
 
-            <Border Grid.ColumnSpan="2" CornerRadius="10,10,0,0" MouseDown="Border_MouseDown">
-                <Grid  HorizontalAlignment="Stretch">
-                    <Label 
-                       VerticalAlignment="Center" HorizontalAlignment="Left" 
-                       Content="SlipStream V1.0" 
-                       Margin="10,0,0,0"
-                        FontSize="6"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                    <Border Margin="5" CornerRadius="10" HorizontalAlignment="Right" 
-                            BorderBrush="yellow" BorderThickness="1">
-                        <DockPanel HorizontalAlignment="Center" Margin="2">
-                            <Button Click="MinimizeButton_Click" Width="30" 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                
+
+                <Border Grid.Column="1" CornerRadius="10,10,0,0" MouseDown="Border_MouseDown">
+                    <Grid  HorizontalAlignment="Stretch" Background="#7F193549">
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="SLIPSTREAM" FontSize="18" FontWeight="Bold" 
+                            Margin="10,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <Label Content="~ RACING, MADE SIMPLE" FontSize="14"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        
+
+                        <Border Margin="5" CornerRadius="10" HorizontalAlignment="Right" 
+                            BorderBrush="White" BorderThickness="1">
+                            <DockPanel HorizontalAlignment="Center" Margin="2">
+                                <Button Click="MinimizeButton_Click" Width="30" 
                                     Style="{StaticResource TopbarCloseButtonTheme}">
-                                <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
-                            </Button>
-                            <Button Click="FullscreenButton_Click" Width="30" 
+                                    <TextBlock Text="–" Margin="0,-3,0,0" FontSize="20"/>
+                                </Button>
+                                <Button Click="FullscreenButton_Click" Width="30" 
                                     Style="{StaticResource TopbarCloseButtonTheme}" HorizontalAlignment="Center">
-                                <TextBlock x:Name="MinMaxIcon" Text="1" Margin="0,0,-1,-1" FontSize="16" FontFamily="Marlett"/>
-                            </Button>
-                            <Button Click="CloseButton_Click" Width="30" 
+                                    <TextBlock x:Name="MinMaxIcon" Text="1" Margin="0,0,-1,-1" FontSize="16" FontFamily="Marlett"/>
+                                </Button>
+                                <Button Click="CloseButton_Click" Width="30" 
                                     Style="{StaticResource TopbarCloseButtonTheme}" HorizontalAlignment="Right">
-                                <TextBlock Text="x" Margin="0,-5,0,0" FontSize="20"/>
-                            </Button>
-                        </DockPanel>
-                    </Border>
-                    
-                </Grid>
-            </Border>
+                                    <TextBlock Text="x" Margin="0,-5,0,0" FontSize="20"/>
+                                </Button>
+                            </DockPanel>
+                        </Border>
 
-            <Border Grid.RowSpan="3" Background="#2F4858">
+                    </Grid>
+                </Border>
 
-                <StackPanel Margin="5,10">
+                <Border Grid.RowSpan="12" Background="#7F193549" BorderThickness="0,0,1,0" BorderBrush="MediumAquamarine">
 
-                    <Label 
-                    Content="SlipStream" 
-                    FontSize="18" 
-                    FontWeight="Bold"
-                    Padding="0,20"
-                    HorizontalAlignment="Center"/>
+                    <StackPanel Margin="5,50" VerticalAlignment="Center">
 
-                    <!--// Main Menu //-->
+                        
 
-                    <Menu Height="Auto" Margin="5,10" Background="Transparent">
+                        <!--// Main Menu //-->
 
-                        <Menu.ItemsPanel>
+                        <Menu Height="Auto" Margin="5,10" Background="Transparent">
 
-                            <ItemsPanelTemplate>
+                            <Menu.ItemsPanel>
 
-                                <VirtualizingStackPanel Orientation="Vertical"/>
+                                <ItemsPanelTemplate>
 
-                            </ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Vertical"/>
 
-                        </Menu.ItemsPanel>
+                                </ItemsPanelTemplate>
 
-                        <!--// Main Menu - Home //-->
+                            </Menu.ItemsPanel>
 
-                        <MenuItem Header="Home" Template="{StaticResource Menu_Template}" 
+                            <!--// Main Menu - Home //-->
+
+                            <MenuItem Template="{StaticResource Menu_Template}" 
                                   Command="{Binding HomeViewCommand}">
 
-                            <MenuItem.Icon>
+                                <MenuItem.Icon>
 
-                                <Image Source="/Core/Images/home.png"/>
+                                    <Image Source="/Core/Images/Menu/home.png"/>
 
-                            </MenuItem.Icon>
+                                </MenuItem.Icon>
 
-                        </MenuItem>
+                            </MenuItem>
 
-                        <!--// Main Menu - Leaderboard //-->
+                            <!--// Main Menu - Leaderboard //-->
 
-                        <MenuItem Header="Live Timing" 
-                                  Template="{StaticResource Menu_Template}" 
+                            <MenuItem Template="{StaticResource Menu_Template}" 
                                   Command="{Binding LeaderboardViewCommand}">
 
-                            <MenuItem.Icon>
+                                <MenuItem.Icon>
 
-                                <Image Source="/Core/Images/relative.png"/>
+                                    <Image Source="/Core/Images/Menu/relative.png"/>
 
-                            </MenuItem.Icon>
+                                </MenuItem.Icon>
 
-                        </MenuItem>
+                            </MenuItem>
 
-                        <!--// Main Menu - Driver //-->
+                            <!--// Main Menu - Driver //-->
 
-                        <MenuItem Header="Driver" Template="{StaticResource Menu_SubMenu_Template}">
+                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}">
 
-                            <MenuItem.Icon>
+                                <MenuItem.Icon>
 
-                                <Image Source="/Core/Images/steering_wheel.png"/>
+                                    <Image Source="/Core/Images/Menu/steering-wheel.png"/>
 
-                            </MenuItem.Icon>
+                                </MenuItem.Icon>
 
-                            <!--// Driver Submenu - Dashboard //-->
+                                <!--// Driver Submenu - Dashboard //-->
 
-                            <MenuItem Header="Dashboard"
+                                <MenuItem Header="Dashboard"
                               Template="{StaticResource Item_Template}" Command="{Binding DriverDefaultViewCommand}">
 
-                                <MenuItem.Icon>
+                                    <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/dashboard.png"
+                                        <Image Source="/Core/Images/Menu/dashboard.png"
                                    Stretch="None" Width="5" Height="5"/>
 
-                                </MenuItem.Icon>
+                                    </MenuItem.Icon>
 
-                            </MenuItem>
+                                </MenuItem>
 
-                            <!--// Driver Submenu - Strategy //-->
+                                <!--// Driver Submenu - Strategy //-->
 
-                            <MenuItem Header="Strategy"
+                                <MenuItem Header="Strategy"
                               Template="{StaticResource Item_Template}" Command="{Binding DriverStrategyViewCommand}">
 
-                                <MenuItem.Icon>
+                                    <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/strategy.png"
+                                        <Image Source="/Core/Images/Menu/strategy.png"
                                    Stretch="None" />
 
-                                </MenuItem.Icon>
+                                    </MenuItem.Icon>
+
+                                </MenuItem>
 
                             </MenuItem>
 
-                        </MenuItem>
+                            <!--// Main Menu - Engineer //-->
 
-                        <!--// Main Menu - Engineer //-->
+                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}">
 
-                        <MenuItem Header="Engineer" Template="{StaticResource Menu_SubMenu_Template}">
+                                <MenuItem.Icon>
 
-                            <MenuItem.Icon>
+                                    <Image Source="/Core/Images/Menu/wrench.png"/>
 
-                                <Image Source="/Core/Images/wrench_1.png"/>
+                                </MenuItem.Icon>
 
-                            </MenuItem.Icon>
+                                <!--// Driver Submenu - Dashboard //-->
 
-                            <!--// Driver Submenu - Dashboard //-->
-
-                            <MenuItem Header="Dashboard"
+                                <MenuItem Header="Dashboard"
                               Template="{StaticResource Item_Template}" Command="{Binding EngineerDefaultViewCommand}">
 
-                                <MenuItem.Icon>
+                                    <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/dashboard.png"
+                                        <Image Source="/Core/Images/Menu/dashboard.png"
                                    Stretch="None" />
 
-                                </MenuItem.Icon>
+                                    </MenuItem.Icon>
 
-                            </MenuItem>
+                                </MenuItem>
 
-                            <!--// Driver Submenu - Strategy //-->
+                                <!--// Driver Submenu - Strategy //-->
 
-                            <MenuItem Header="Strategy"
+                                <MenuItem Header="Strategy"
                               Template="{StaticResource Item_Template}" Command="{Binding EngineerStrategyViewCommand}">
 
-                                <MenuItem.Icon>
+                                    <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/strategy.png"
+                                        <Image Source="/Core/Images/Menu/strategy.png"
                                    Stretch="None" />
 
-                                </MenuItem.Icon>
+                                    </MenuItem.Icon>
+
+                                </MenuItem>
 
                             </MenuItem>
 
-                        </MenuItem>
+                            <!--// Main Menu - Race Control //-->
 
-                        <!--// Main Menu - Race Control //-->
+                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}">
 
-                        <MenuItem Header="Race Control" Template="{StaticResource Menu_SubMenu_Template}">
+                                <MenuItem.Icon>
 
-                            <MenuItem.Icon>
+                                    <Image Source="/Core/Images/Menu/finish_flag.png"/>
 
-                                <Image Source="/Core/Images/finish_flag.png"/>
+                                </MenuItem.Icon>
 
-                            </MenuItem.Icon>
+                                <!--// Driver Submenu - Dashboard //-->
 
-                            <!--// Driver Submenu - Dashboard //-->
-
-                            <MenuItem Header="Dashboard"
+                                <MenuItem Header="Dashboard"
                               Template="{StaticResource Item_Template}" Command="{Binding RaceControlDefaultViewCommand}">
 
-                                <MenuItem.Icon>
+                                    <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/dashboard.png"
+                                        <Image Source="/Core/Images/Menu/dashboard.png"
                                    Stretch="None" />
 
-                                </MenuItem.Icon>
+                                    </MenuItem.Icon>
 
-                            </MenuItem>
+                                </MenuItem>
 
-                            <!--// Driver Submenu - Strategy //-->
+                                <!--// Driver Submenu - Strategy //-->
 
-                            <MenuItem Header="Weather"
+                                <MenuItem Header="Weather"
                               Template="{StaticResource Item_Template}" Command="{Binding RaceControlWeatherViewCommand}">
 
-                                <MenuItem.Icon>
+                                    <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/weather.png"
+                                        <Image Source="/Core/Images/Menu/weather.png"
                                    Stretch="None" />
 
-                                </MenuItem.Icon>
+                                    </MenuItem.Icon>
+
+                                </MenuItem>
 
                             </MenuItem>
 
-                        </MenuItem>
+                        </Menu>
 
-                    </Menu>
-
-                    <Button BorderThickness="0" 
+                        <Button BorderThickness="0" 
                         Background="Transparent" 
                         Width="45"
                         Margin="0,0,0,0" Click="DiscordButton_Click"
                         >
-                        <Image Source="/Core/Images/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    </Button>
+                            <Image Source="/Core/Images/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Button>
 
-                </StackPanel>
-                
-            </Border>
+                    </StackPanel>
 
-            <ContentControl
+                </Border>
+
+                <ContentControl
                 x:Name="ShellContent"
                 Content="{Binding CurrentView}"
                 Grid.Column="1"
                 Grid.Row="2"
                 Margin="5"/>
-        </Grid>
-    </Border>
+            </Grid>
+        </Border>
+
+    </Grid>
+    
 </Window>

@@ -43,7 +43,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Border Style="{StaticResource DisplayBoxTheme}" Margin="10,0,10,10">
+                    <Border Style="{StaticResource DisplayBoxTheme}">
 
                         <Grid>
 
@@ -53,7 +53,7 @@
                             </Grid.RowDefinitions>
 
                             <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Driver Selection" Style="{StaticResource DisplayBoxLabelTheme}"/>
+                                <TextBlock Text="DRIVER SELECTION" Style="{StaticResource DisplayBoxLabelTheme}"/>
                             </Border>
 
 
@@ -83,7 +83,7 @@
 
                     </Border>
 
-                    <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1" Margin="10,0,10,0">
+                    <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1">
                         <Grid>
 
                             <Grid.RowDefinitions>
@@ -92,7 +92,7 @@
                             </Grid.RowDefinitions>
 
                             <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Relative Info"  Style="{StaticResource DisplayBoxLabelTheme}"/>
+                                <TextBlock Text="RELATIVE INFO"  Style="{StaticResource DisplayBoxLabelTheme}"/>
                             </Border>
 
                             <Grid Grid.Row="1">
@@ -149,7 +149,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Border Style="{StaticResource DisplayBoxTheme}" Grid.Column="1" Margin="10,0,10,10">
+                    <Border Style="{StaticResource DisplayBoxTheme}" Grid.Column="1">
                         <Grid>
 
                             <Grid.RowDefinitions>
@@ -158,7 +158,7 @@
                             </Grid.RowDefinitions>
 
                             <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Performance"  Style="{StaticResource DisplayBoxLabelTheme}"/>
+                                <TextBlock Text="PERFORMANCE"  Style="{StaticResource DisplayBoxLabelTheme}"/>
                             </Border>
 
                             <Grid Grid.Row="1">
@@ -228,11 +228,11 @@
                                 <StackPanel Grid.Column="3">
                                     <TextBlock Text="{Binding CurrentSelectedDriver.LastLapTime, StringFormat=m\\:ss\\.fff }"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                    <TextBlock Text="{Binding CurrentSelectedDriver.S1Time, StringFormat=ss\\.fff }"
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.LastS1, StringFormat=ss\\.fff }"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                    <TextBlock Text="{Binding CurrentSelectedDriver.S2Time, StringFormat=ss\\.fff }"
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.LastS2, StringFormat=ss\\.fff }"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                    <TextBlock Text="{Binding CurrentSelectedDriver.S3Time, StringFormat=ss\\.fff }"
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.LastS3, StringFormat=ss\\.fff }"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
 
                                     <Image Source="{Binding CurrentSelectedDriver.TireIconSource}" Margin="0,15,10,15" 
@@ -251,47 +251,9 @@
 
                     </Border>
 
-                    <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1" Margin="10,0,10,0">
-
-                        <Grid>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-
-                            <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Notifications" Style="{StaticResource DisplayBoxLabelTheme}"/>
-                            </Border>
-
-
-                            <StackPanel Grid.Row="1">
-
-                                <multi:SafetyCarView Height="75" Width="Auto" Margin="15" Padding="5"/>
-
-                                <multi:WeatherView Height="75" Width="Auto" Margin="15" Padding="5"/>
-
-                                <multi:EventView Height="75" Width="Auto" Margin="15" Padding="5"/>
-
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <StackPanel Grid.Column="1">
-
-                                    </StackPanel>
-
-                                </Grid>
-                            </StackPanel>
-
-                        </Grid>
-
-                    </Border>
+                    <multi:NotificationView Grid.Row="1"/>
 
                 </Grid>
-
 
                 <Grid Grid.Column="2" >
 
@@ -300,7 +262,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Border Style="{StaticResource DisplayBoxTheme}" Margin="10,0,10,10" >
+                    <Border Style="{StaticResource DisplayBoxTheme}" >
 
                         <Grid>
 
@@ -310,7 +272,7 @@
                             </Grid.RowDefinitions>
 
                             <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Ranking" Style="{StaticResource DisplayBoxLabelTheme}"/>
+                                <TextBlock Text="RANKING" Style="{StaticResource DisplayBoxLabelTheme}"/>
                             </Border>
 
                             <StackPanel Grid.Row="1">
@@ -326,7 +288,7 @@
 
                     </Border>
 
-                    <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1" Margin="10,0,10,0">
+                    <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1">
 
                         <Grid>
 
@@ -336,48 +298,53 @@
                             </Grid.RowDefinitions>
 
                             <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                                <TextBlock Text="Tire and Car Data" Style="{StaticResource DisplayBoxLabelTheme}"/>
+                                <TextBlock Text="TIRE AND CAR DATA" Style="{StaticResource DisplayBoxLabelTheme}"/>
                             </Border>
 
-                            <Grid Grid.Row="1">
+                            <Grid Width="Auto" Margin="10" Grid.Row="1">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Row="1">
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Border Grid.Row="1" Grid.Column="1" CornerRadius="10" Background="Yellow" BorderBrush="Red" BorderThickness="3">
-                                    <TextBlock Text="%" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
 
-                                <Border Grid.Row="1" Grid.Column="3" CornerRadius="10" Background="Yellow" BorderBrush="Red" BorderThickness="3">
-                                    <TextBlock Text="%" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                                    <Border Grid.Row="1" Grid.Column="1" CornerRadius="10" Background="{Binding CurrentSelectedDriver.FLTireWearColor}" BorderBrush="White" BorderThickness="3">
+                                        <TextBlock Text="{Binding CurrentSelectedDriver.FLTireWear, StringFormat={}{0:F1}%}" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    </Border>
 
-                                <Border Grid.Row="2" Grid.Column="2" Margin="10" CornerRadius="25" Background="Yellow">
-                                    <TextBlock Text="%" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                                    <Border Grid.Row="1" Grid.Column="3" CornerRadius="10" Background="{Binding CurrentSelectedDriver.FRTireWearColor}" BorderBrush="White" BorderThickness="3">
+                                        <TextBlock Text="{Binding CurrentSelectedDriver.FRTireWear, StringFormat={}{0:F1}%}" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    </Border>
 
-                                <Border Grid.Row="3" Grid.Column="1" CornerRadius="10" Background="Yellow" BorderBrush="Red" BorderThickness="3">
-                                    <TextBlock Text="%" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                                    <Border Grid.Row="2" Grid.Column="2" Margin="10" CornerRadius="25" BorderBrush="Transparent" BorderThickness="3">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding CurrentSelectedDriver.TireWear, StringFormat={}{0:F1}%}" Foreground="White" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Padding="10"/>
+                                            <Image Source="{Binding CurrentSelectedDriver.TireIconSource}" Margin="5" Height="55" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                        </StackPanel>
+                                    </Border>
 
-                                <Border Grid.Row="3" Grid.Column="3" CornerRadius="10" Background="Yellow" BorderBrush="Red" BorderThickness="3">
-                                    <TextBlock Text="%" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                                    <Border Grid.Row="3" Grid.Column="1" CornerRadius="10" Background="{Binding CurrentSelectedDriver.RLTireWearColor}" BorderBrush="White" BorderThickness="3">
+                                        <TextBlock Text="{Binding CurrentSelectedDriver.RLTireWear, StringFormat={}{0:F1}%}" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    </Border>
 
+                                    <Border Grid.Row="3" Grid.Column="3" CornerRadius="10" Background="{Binding CurrentSelectedDriver.RRTireWearColor}" BorderBrush="White" BorderThickness="3">
+                                        <TextBlock Text="{Binding CurrentSelectedDriver.RRTireWear, StringFormat={}{0:F1}%}" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    </Border>
 
+                                </Grid>
 
                             </Grid>
 
