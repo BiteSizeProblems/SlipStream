@@ -17,7 +17,7 @@
 
     <Grid>
 
-        <Image Source="/Core/Images/background_stock.jpg" 
+        <Image Source="/Core/Images/Misc/background_stock.jpg" 
                    RenderOptions.BitmapScalingMode="HighQuality"
                    StretchDirection="Both"/>
         
@@ -34,8 +34,6 @@
                     <ColumnDefinition Width="75"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
-                
 
                 <Border Grid.Column="1" CornerRadius="10,10,0,0" MouseDown="Border_MouseDown">
                     <Grid  HorizontalAlignment="Stretch" Background="#7F193549">
@@ -242,7 +240,7 @@
                         Width="45"
                         Margin="0,0,0,0" Click="DiscordButton_Click"
                         >
-                            <Image Source="/Core/Images/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image Source="/Core/Images/Menu/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                         </Button>
 
                     </StackPanel>

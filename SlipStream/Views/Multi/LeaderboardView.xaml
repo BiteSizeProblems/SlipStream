@@ -15,6 +15,30 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
+            <Grid Margin="20,0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="{Binding model.Formula}" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding model.CurrentSession}" Grid.Row="1" Grid.Column="1" 
+                               FontSize="14" HorizontalAlignment="Center" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="LIVE TIMING" FontSize="20" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding model.Circuit}" Grid.Row="2" Grid.ColumnSpan="3" 
+                               FontSize="14" FontWeight="Bold"/>
+                </StackPanel>
+            </Grid>
+            
 
             <Border Grid.Row="1">
                 <DataGrid 
@@ -65,7 +89,7 @@
                         <DataGridTextColumn Binding="{Binding TeamName}" Header="TEAM" IsReadOnly="True"  Width="125"/>
                         <DataGridTextColumn Binding="{Binding LastLapTime, StringFormat=m\\:ss\\.fff }" Width="125" Header="LAST" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding BestLapTime,StringFormat=m\\:ss\\.fff, FallbackValue=--:--.--- }" Width="125" Header="BEST" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding RaceInterval,StringFormat=ss\\.fff}" Width="100" Header="GAP" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding SelectedDelta,StringFormat=ss\\.fff}" Width="100" Header="GAP" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding S1Display, StringFormat=ss\\.fff }" Width="100" Header="S1" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding S2Display, StringFormat=ss\\.fff }" Width="100" Header="S2" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding S3Display, StringFormat=ss\\.fff }" Width="100" Header="S3" IsReadOnly="True"/>
@@ -99,13 +123,13 @@
                 </StackPanel>
                 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Source="/Core/Images/black_circle.png" Height="25"/>
+                    <Image Source="/Core/Images/Lights/black_circle.png" Height="25"/>
                     <TextBlock Text="IN-GARAGE" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
-                    <Image Source="/Core/Images/green_circle.png" Height="25"/>
+                    <Image Source="/Core/Images/Lights/green_circle.png" Height="25"/>
                     <TextBlock Text="FLYING LAP" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
-                    <Image Source="/Core/Images/red_circle.png" Height="25"/>
+                    <Image Source="/Core/Images/Lights/red_circle.png" Height="25"/>
                     <TextBlock Text="IN-LAP" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
-                    <Image Source="/Core/Images/yellow_circle.png" Height="25"/>
+                    <Image Source="/Core/Images/Lights/yellow_circle.png" Height="25"/>
                     <TextBlock Text="OUT-LAP" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
                 </StackPanel>
 

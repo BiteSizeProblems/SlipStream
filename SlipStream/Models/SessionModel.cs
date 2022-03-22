@@ -21,11 +21,12 @@ namespace SlipStream.Models
             { 
                 SetField(ref _totalParticipants, value, nameof(TotalParticipants));
                 MaxIndex = TotalParticipants - 1;
+                MinIndex = 0;
             }
         }
 
-        private string _NumOfActiveCars;
-        public string NumOfActiveCars
+        private int _NumOfActiveCars;
+        public int NumOfActiveCars
         {
             get { return _NumOfActiveCars; }
             set { SetField(ref _NumOfActiveCars, value, nameof(NumOfActiveCars)); }
@@ -38,6 +39,7 @@ namespace SlipStream.Models
             set { SetField(ref _NumOfParticipants, value, nameof(NumOfParticipants)); }
         }
 
+        // INDEXING
         private int _maxIndex;
         public int MaxIndex
         {
@@ -58,7 +60,10 @@ namespace SlipStream.Models
         public int NumSoftTires
         {
             get { return _NumSoftTires; }
-            set { SetField(ref _NumSoftTires, value, nameof(NumSoftTires)); }
+            set 
+            { 
+                SetField(ref _NumSoftTires, value, nameof(NumSoftTires)); 
+            }
         }
 
         private int _NumMediumTires;
@@ -75,7 +80,28 @@ namespace SlipStream.Models
             set { SetField(ref _NumHardTires, value, nameof(NumHardTires)); }
         }
 
+        private int _NumInterTires;
+        public int NumInterTires
+        {
+            get { return _NumInterTires; }
+            set { SetField(ref _NumInterTires, value, nameof(NumInterTires)); }
+        }
+
+        private int _NumWetTires;
+        public int NumWetTires
+        {
+            get { return _NumWetTires; }
+            set { SetField(ref _NumWetTires, value, nameof(NumWetTires)); }
+        }
+
         // LAP & TIME DATA
+
+        private TimeSpan _averageSoftTime;
+        public TimeSpan AverageSoftTime
+        {
+            get { return _averageSoftTime; }
+            set { SetField(ref _averageSoftTime, value, nameof(AverageSoftTime)); }
+        }
 
         private int _totalLaps;
         public int TotalLaps

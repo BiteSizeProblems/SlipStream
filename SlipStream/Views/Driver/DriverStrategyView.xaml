@@ -16,15 +16,15 @@
                 <Grid>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="{Binding CurrentSelectedDriver.DriverName}" Padding="5"
                                            FontSize="28" HorizontalAlignment="Center"/>
 
-                    <DockPanel Grid.Row="1">
-                        <Grid Width="650" HorizontalAlignment="Left" Margin="10">
+                    <DockPanel Grid.Row="1" >
+                        <Grid Width="550" HorizontalAlignment="Left" Margin="10">
 
                             <Grid Grid.Row="1">
 
@@ -71,7 +71,7 @@
 
                         </Grid>
 
-                        <Grid Width="650" HorizontalAlignment="Right" Margin="10">
+                        <Grid Width="800" HorizontalAlignment="Right" Margin="10" Grid.Row="1">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -80,20 +80,42 @@
 
                             <Grid Grid.Row="0">
                                 <StackPanel Orientation="Horizontal">
-                                    
-                                    <StackPanel Margin="10,0">
-                                        <Image Source="/Core/Images/CustomSoft.png" Height="125"/>
-                                        <TextBlock/>
+
+                                    <StackPanel Width="125">
+                                        <TextBlock Text="S" FontSize="80" HorizontalAlignment="Center"
+                                                   Foreground="Red"/>
+                                        <TextBlock Text="{Binding model.NumSoftTires, FallbackValue=--/--}" 
+                                                   FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
                                     </StackPanel>
-                                    
-                                    <StackPanel Margin="10,0">
-                                        <Image Source="/Core/Images/CustomMedium.png" Height="125"/>
+
+                                    <StackPanel Width="125">
+                                        <TextBlock Text="M" FontSize="80" HorizontalAlignment="Center"
+                                                   Foreground="Yellow"/>
+                                        <TextBlock Text="{Binding model.NumMediumTires, FallbackValue=--/--}" 
+                                                   FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
                                     </StackPanel>
-                                    
-                                    <StackPanel Margin="10,0">
-                                        <Image Source="/Core/Images/CustomHard.png" Height="125"/>
+
+                                    <StackPanel Width="125">
+                                        <TextBlock Text="H" FontSize="80" HorizontalAlignment="Center"
+                                                   Foreground="LightGray"/>
+                                        <TextBlock Text="{Binding model.NumHardTires, FallbackValue=--/--}" 
+                                                   FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
                                     </StackPanel>
-                                    
+
+                                    <StackPanel Width="125">
+                                        <TextBlock Text="I" FontSize="80" HorizontalAlignment="Center"
+                                                   Foreground="MediumAquamarine"/>
+                                        <TextBlock Text="{Binding model.NumInterTires, FallbackValue=--/--}" 
+                                                   FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
+                                    </StackPanel>
+
+                                    <StackPanel Width="125">
+                                        <TextBlock Text="W" FontSize="80" HorizontalAlignment="Center"
+                                                   Foreground="green"/>
+                                        <TextBlock Text="{Binding model.NumWetTires, FallbackValue=--/--}" 
+                                                   FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
+                                    </StackPanel>
+
                                 </StackPanel>
                             </Grid>
 

@@ -7,7 +7,7 @@
         <Border x:Name="border"
                 BorderBrush="#2E333A"
                 BorderThickness="0"
-                Height="50"
+                Height="75"
                 Width="75">
 
             <Grid>
@@ -27,8 +27,7 @@
                 <ContentPresenter x:Name="Icon"
                                   ContentSource="Icon"
                                   HorizontalAlignment="Left"
-                                  Height="20"
-                                  Width="20"
+                                  Height="30"
                                   Margin="5,0,0,0"
                                   VerticalAlignment="Center" />
 
@@ -47,7 +46,7 @@
 
                 <!--// Right Arrow Icon //-->
 
-                <Image Source="/Core/Images/img_arrow.png"
+                <Image Source="/Core/Images/Menu/img_arrow.png"
                        Stretch="None"
                        Grid.Column="4"
                        HorizontalAlignment="Left"
@@ -134,7 +133,7 @@
         <Border x:Name="border"
                 BorderBrush="#2E333A"
                 BorderThickness="0"
-                Height="50"
+                Height="75"
                 Width="50"
                 >
 
@@ -155,7 +154,7 @@
                 <ContentPresenter x:Name="Icon"
                                   ContentSource="Icon"
                                   HorizontalAlignment="Left"
-                                  Height="20"
+                                  Height="30"
                                   Margin="5,0,0,0"
                                   VerticalAlignment="Center" />
 

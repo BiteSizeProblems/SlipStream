@@ -155,8 +155,6 @@ namespace SlipStream.Models
             set { SetField(ref _vehicleFlag, value, nameof(VehicleFlag)); }
         }
 
-        
-
         // LAP / SECTOR DATA, TIMES & GAPS
 
         private int currentLapNum;
@@ -206,6 +204,7 @@ namespace SlipStream.Models
             set { SetField(ref bestLapTime, value, nameof(BestLapTime)); }
         }
 
+        // LAST SECTOR TIMES
         private TimeSpan _lastS1;
         public TimeSpan LastS1
         {
@@ -227,6 +226,7 @@ namespace SlipStream.Models
             set {SetField(ref _lastS3, value, nameof(LastS3));}
         }
 
+        // BEST SECTOR TIMES
         private TimeSpan bestS1;
         public TimeSpan BestS1
         {
@@ -248,6 +248,7 @@ namespace SlipStream.Models
             set { SetField(ref bestS3, value, nameof(BestS3)); }
         }
 
+        // DISPLAYED SECTOR TIMES
         private TimeSpan _s1Display;
         public TimeSpan S1Display
         {
@@ -271,8 +272,7 @@ namespace SlipStream.Models
 
         // GAPS & INTERVALS
 
-            // FASTEST LAP DELTA
-
+            // DELTA TO FASTEST LAP
         private TimeSpan bestLapDelta; // Delta of driver's best lap time to the fastest overall lap time in a session.
         public TimeSpan BestLapDelta
         {
@@ -280,8 +280,7 @@ namespace SlipStream.Models
             set { SetField(ref bestLapDelta, value, nameof(BestLapDelta)); }
         }
 
-            // RACE
-
+            // INTERVAL TO DRIVER AHEAD
         private TimeSpan _raceInterval; // Interval to driver ahead (Race Only).
         public TimeSpan RaceInterval
         {
@@ -289,6 +288,7 @@ namespace SlipStream.Models
             set { SetField(ref _raceInterval, value, nameof(RaceInterval)); }
         }
 
+            // INTERVAL TO LEADER
         private TimeSpan _raceIntervalLeader;  // Interval to race leader (Race Only).
         public TimeSpan RaceIntervalLeader
         {
@@ -296,6 +296,7 @@ namespace SlipStream.Models
             set { SetField(ref _raceIntervalLeader, value, nameof(RaceIntervalLeader)); }
         }
 
+            // DELTA DISPLAYED
         private TimeSpan _selectedDelta;  // Gap / Interval selected by user.
         public TimeSpan SelectedDelta
         {
@@ -304,7 +305,6 @@ namespace SlipStream.Models
         }
 
         // CAR / DRIVER STATUS
-
         private string _driverStatusSource;
         public string DriverStatusSource
         {
@@ -317,13 +317,6 @@ namespace SlipStream.Models
         {
             get { return driverStatus; }
             set { SetField(ref driverStatus, value, nameof(DriverStatus)); }
-        }
-
-        private PitStatus _pitStatus;
-        public PitStatus PitStatus
-        {
-            get { return _pitStatus; }
-            set { SetField(ref _pitStatus, value, nameof(PitStatus)); }
         }
 
         private ResultStatus _resultStatus;
@@ -391,6 +384,13 @@ namespace SlipStream.Models
         {
             get { return _pitRejoin; }
             set { SetField(ref _pitRejoin, value, nameof(PitRejoin)); }
+        }
+
+        private PitStatus _pitStatus;
+        public PitStatus PitStatus
+        {
+            get { return _pitStatus; }
+            set { SetField(ref _pitStatus, value, nameof(PitStatus)); }
         }
 
         // TIRE DATA
@@ -490,8 +490,7 @@ namespace SlipStream.Models
             set { SetField(ref _ersUsed, value, nameof(ErsUsed)); }
         }
 
-        // CAR DAMAGE DATA
-
+        // TIRE WEAR
         private float _flTireWear;
         public float FLTireWear
         {
@@ -523,6 +522,7 @@ namespace SlipStream.Models
             set { SetField(ref _tireWear, value, nameof(TireWear)); }
         }
 
+        // TIRE WEAR COLORS
         private string _rlTireWearColor;
         public string RLTireWearColor
         {

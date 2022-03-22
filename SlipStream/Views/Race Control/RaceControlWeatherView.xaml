@@ -52,7 +52,7 @@
                 </DataGrid.ColumnHeaderStyle>
 
                 <DataGrid.CellStyle>
-                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource LeaderboardTheme}">
+                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource LeaderboardCellTheme}">
                         <Setter Property="HorizontalAlignment" Value="Center"/>
                     </Style>
                 </DataGrid.CellStyle>

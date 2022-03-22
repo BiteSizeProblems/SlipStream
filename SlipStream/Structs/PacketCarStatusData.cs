@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using static SlipStream.Structs.Appendeces;
 
 namespace SlipStream.Structs
 {
@@ -24,7 +25,7 @@ namespace SlipStream.Structs
                                              // F1 Classic - 9 = dry, 10 = wet
                                              // F2 – 11 = super soft, 12 = soft, 13 = medium, 14 = hard
                                              // 15 = wet
-        public byte m_visualTyreCompound;       // F1 visual (can be different from actual compound)
+        public VisualTireCompounds m_visualTyreCompound;       // F1 visual (can be different from actual compound)
                                                 // 16 = soft, 17 = medium, 18 = hard, 7 = inter, 8 = wet
                                                 // F1 Classic – same as above
                                                 // F2 ‘19, 15 = wet, 19 – super soft, 20 = soft

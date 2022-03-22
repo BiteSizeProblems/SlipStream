@@ -7,6 +7,7 @@ using SlipStream.Views.Multi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,21 +39,13 @@ namespace SlipStream.ViewModels
         public DriverModel driver { get; set; }
         public WeatherModel w_model { get; set; }
 
-        // VIEW COMMANDS
-        public RelayCommand LeaderboardViewCommand { get; set; }
-        public LeaderboardView LV { get; set; }
-
-        // VIEW MODEL VARIABLES
-        private int _numActiveCars;
-        public int NumActiveCars
-        {
-            get { return _numActiveCars; }
-            set { SetField(ref _numActiveCars, value, nameof(NumActiveCars)); }
-        }
-
         // DRIVER INDEXING
 
         private int[] IndexToPositionArr = new int[22];
+
+        private int[] NumSoft = new int[0];
+        private int[] NumMedium = new int[0];
+        private int[] NumHard = new int[0];
 
         private int _selectedIndex;
         public int SelectedIndex
@@ -126,7 +119,7 @@ namespace SlipStream.ViewModels
             model.SafetyCarStatus = Regex.Replace(packet.m_safetyCarStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
 
             // PITSTOP DATA
-            for (int i = 0; i < NumActiveCars; i++)
+            for (int i = 0; i < model.NumOfActiveCars; i++)
             {
                 Driver[i].PitWindowIdeal = packet.m_pitStopWindowIdealLap;
                 Driver[i].PitWindowLate = packet.m_pitStopWindowLatestLap;
@@ -197,7 +190,7 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnParticipantDataReceive(PacketParticipantsData packet)
         {
-            model.NumOfActiveCars = packet.m_numActiveCars.ToString();
+            model.NumOfActiveCars = packet.m_numActiveCars;
             model.TotalParticipants = packet.m_participants.Length;
 
             for (int i = 0; i < packet.m_participants.Length; i++)
@@ -309,8 +302,6 @@ namespace SlipStream.ViewModels
                         Driver[i].RaceInterval = TimeSpan.FromMilliseconds(DeltaArr[i+1]);
                     }
                 }
-                    
-                
 
                 // POSITION CHANGE
                 if (model.SessionType == SessionTypes.RACE | model.SessionType == SessionTypes.RaceTwo)
@@ -362,18 +353,14 @@ namespace SlipStream.ViewModels
                     Driver[i].BestLapDelta = Driver[i].BestLapTime - model.SessionFastestLap;
                 }
 
-                
-
-                
-
                 // SELECTED DELTA
                 switch (model.CurrentSession)
                 {
                     default:
                         Driver[i].SelectedDelta = Driver[i].BestLapDelta;
                         break;
-                    case "Race":
-                    case "RaceTwo":
+                    case "R A C E":
+                    case "Race Two":
                         Driver[i].SelectedDelta = Driver[i].RaceIntervalLeader;
                         break;
                 }
@@ -418,25 +405,25 @@ namespace SlipStream.ViewModels
                     switch (Driver[i].DriverStatus)
                     {
                         case DriverStatus.InGarage:
-                            Driver[i].DriverStatusSource = "/Core/Images/black_circle.png";
+                            Driver[i].DriverStatusSource = "/Core/Images/Lights/black_circle.png";
                             Driver[i].S1Display = Driver[i].BestS1;
                             Driver[i].S2Display = Driver[i].BestS2;
                             Driver[i].S3Display = Driver[i].BestS3;
                             break;
                         case DriverStatus.OutLap:
-                            Driver[i].DriverStatusSource = "/Core/Images/yellow_circle.png";
+                            Driver[i].DriverStatusSource = "/Core/Images/Lights/yellow_circle.png";
                             Driver[i].S1Display = Driver[i].LastS1;
                             Driver[i].S2Display = Driver[i].LastS2;
                             Driver[i].S3Display = Driver[i].LastS3;
                             break;
                         case DriverStatus.InLap:
-                            Driver[i].DriverStatusSource = "/Core/Images/red_circle.png";
+                            Driver[i].DriverStatusSource = "/Core/Images/Lights/red_circle.png";
                             Driver[i].S1Display = Driver[i].LastS1;
                             Driver[i].S2Display = Driver[i].LastS2;
                             Driver[i].S3Display = Driver[i].LastS3;
                             break;
                         case DriverStatus.FlyingLap:
-                            Driver[i].DriverStatusSource = "/Core/Images/Green_circle.png";
+                            Driver[i].DriverStatusSource = "/Core/Images/Lights/Green_circle.png";
                             Driver[i].S1Display = Driver[i].LastS1;
                             Driver[i].S2Display = Driver[i].LastS2;
                             Driver[i].S3Display = Driver[i].LastS3;
@@ -452,25 +439,25 @@ namespace SlipStream.ViewModels
                         switch (Driver[i].ResultStatus)
                         {
                             default:
-                                Driver[i].DriverStatusSource = "/Core/Images/black_circle.png";
+                                Driver[i].DriverStatusSource = "/Core/Images/Lights/black_circle.png";
                                 Driver[i].S1Display = TimeSpan.FromSeconds(0);
                                 Driver[i].S2Display = TimeSpan.FromSeconds(0);
                                 Driver[i].S3Display = TimeSpan.FromSeconds(0);
                                 break;
                             case ResultStatus.Active:
-                                Driver[i].DriverStatusSource = "/Core/Images/green_circle.png";
+                                Driver[i].DriverStatusSource = "/Core/Images/Lights/green_circle.png";
                                 Driver[i].S1Display = Driver[i].BestS1;
                                 Driver[i].S2Display = Driver[i].BestS2;
                                 Driver[i].S3Display = Driver[i].BestS3;
                                 break;
                             case ResultStatus.Finished:
-                                Driver[i].DriverStatusSource = "/Core/Images/white_circle.png";
+                                Driver[i].DriverStatusSource = "/Core/Images/Lights/white_circle.png";
                                 Driver[i].S1Display = TimeSpan.FromSeconds(0);
                                 Driver[i].S2Display = TimeSpan.FromSeconds(0);
                                 Driver[i].S3Display = TimeSpan.FromSeconds(0);
                                 break;
                             case ResultStatus.Disqualified:
-                                Driver[i].DriverStatusSource = "/Core/Images/red_circle.png";
+                                Driver[i].DriverStatusSource = "/Core/Images/Lights/red_circle.png";
                                 Driver[i].S1Display = TimeSpan.FromSeconds(0);
                                 Driver[i].S2Display = TimeSpan.FromSeconds(0);
                                 Driver[i].S3Display = TimeSpan.FromSeconds(0);
@@ -480,9 +467,11 @@ namespace SlipStream.ViewModels
                     else
                     {
                         Driver[i].ActualDriverStatus = Regex.Replace(Driver[i].PitStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-                        Driver[i].DriverStatusSource = "/Core/Images/yellow_circle.png";
+                        Driver[i].DriverStatusSource = "/Core/Images/Lights/yellow_circle.png";
                     }
                 }
+
+                model.AverageSoftTime = TimeSpan.FromMilliseconds(CarStatusUtils.GetAverageTireLaptime(packet.lapData));
             }
         }
 
@@ -492,11 +481,17 @@ namespace SlipStream.ViewModels
             {
                 var carStatusData = packet.m_carStatusData[i];
 
-                Driver[i].VisualTireCompound = (VisualTireCompounds)carStatusData.m_visualTyreCompound;
+                Driver[i].VisualTireCompound = carStatusData.m_visualTyreCompound;
                 Driver[i].TireAge = carStatusData.m_tyresAgeLaps;
                 Driver[i].VehicleFlag = $"Zone Flags: {carStatusData.m_vehicleFiaFlags}";
                 Driver[i].ErsRemaining = ((int)(carStatusData.m_ersStoreEnergy / 40000));
                 Driver[i].ErsDeployMode = (Enums.ErsDeployMode)carStatusData.m_ersDeployMode;
+
+                model.NumSoftTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Soft);
+                model.NumMediumTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Medium);
+                model.NumHardTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Hard);
+                model.NumInterTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Inter);
+                model.NumWetTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Wet);
 
                 switch (carStatusData.m_fuelMix)
                 {

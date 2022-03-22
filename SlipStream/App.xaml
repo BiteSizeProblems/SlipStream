@@ -11,19 +11,22 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./Core/Themes/TopbarButtonTheme.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="./Core/Themes/TopbarCloseButtonTheme.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="./Core/Themes/HomeButtonTheme.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="./Core/Themes/MenuButtonTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/DisplayBoxTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/MultiViewBorderTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/DataGridTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/ScrollBarTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/SliderTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/LeaderboardTheme.xaml"/>
-                <ResourceDictionary Source="./Core/Themes/ColorTheme.xaml"/>
+
+                <!--// WINDOW & MENU THEMES //-->
+                <ResourceDictionary Source="./Core/Themes/TopbarButtonTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/TopbarCloseButtonTheme.xaml"/>
                 <ResourceDictionary Source="./Core/Themes/MenuTheme.xaml"/>
 
+                <!--// NAVIGATION THEMES //-->
+                <ResourceDictionary Source="./Core/Themes/ScrollBarTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/SliderTheme.xaml"/>
+
+                <!--// CONTENT DISPLAY THEMES //-->
+                <ResourceDictionary Source="./Core/Themes/DisplayBoxTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/MultiViewBorderTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/LeaderboardTheme.xaml"/>
+
+                <!--// ALL APP DEFAULTS //-->
                 <ResourceDictionary>
 
                     <FontFamily x:Key="Formula1 Display">/Core/Fonts/#Formula1 Display</FontFamily>
@@ -35,13 +38,6 @@
 
                     <Style x:Key="LabelStyle" TargetType="Label">
                         <Setter Property="FontSize" Value="30"/>
-                    </Style>
-
-                    <Style TargetType="GroupBox">
-                        <Setter Property="BorderBrush" Value="#F9F871"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderThickness" Value="0.5"/>
-                        <Setter Property="Padding" Value="10"/>
                     </Style>
 
                 </ResourceDictionary>

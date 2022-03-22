@@ -110,7 +110,7 @@
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
                             <TextBlock Text="{Binding CurrentSelectedDriver.CurrentLapNum}"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                            <TextBlock Text="{Binding CurrentSelectedDriver.Warnings}"
+                            <TextBlock Text="{Binding model.AverageSoftTime, StringFormat=m\\:ss\\.fff}"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
                             <TextBlock Text="{Binding CurrentSelectedDriver.Penalties}"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
