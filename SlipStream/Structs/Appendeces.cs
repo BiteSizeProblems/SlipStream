@@ -60,6 +60,10 @@ namespace SlipStream.Structs
             SessionHistory
         }
 
+        
+
+        // TEAMS
+
         public enum Teams : byte
         {
             MyTeam = 255,
@@ -111,36 +115,71 @@ namespace SlipStream.Structs
         public enum Tracks : sbyte
         {
             Unknown = -1,
-            Melbourne = 0,
+            AlbertPark = 0,
             PaulRicard = 1,
-            Shanghai = 2,
+            ShanghaiInternational = 2,
             Sakhir = 3,
             Catalunya = 4,
             Monaco = 5,
-            Montreal = 6,
+            CircuitGillesVilleneuve = 6,
             Silverstone = 7,
             Hockenheim = 8,
             Hungaroring = 9,
-            Spa = 10,
+            SpaFrancorchamps = 10,
             Monza = 11,
-            Singapore = 12,
+            MarinaBay = 12,
             Suzuka = 13,
-            AbuDhabi = 14,
-            Texas = 15,
-            Brazil = 16,
-            Austria = 17,
-            Sochi = 18,
-            Mexico = 19,
-            Baku = 20,
+            YasMarina = 14,
+            CircuitOfTheAmericas = 15,
+            Interlagos = 16,
+            RedBullRing = 17,
+            SochiAutodrom = 18,
+            AutódromoHermanosRodríguez = 19,
+            BakuCity = 20,
             SakhirShort = 21,
             SilverstoneShort = 22,
-            TexasShor = 23,
+            CircuitOfTheAmericasShort = 23,
             SuzukaShort = 24,
             Hanoi = 25,
             Zandvoort = 26,
             Imola = 27,
-            Portimao = 28,
-            Jeddah = 29,
+            AlgarveInternationalCircuit = 28,
+            JeddahCorniche = 29,
+        }
+
+        public enum GrandPrix : sbyte
+        {
+            Unknown = -1,
+            Australian = 0,
+            French = 1,
+            Chinese = 2,
+            Bahrain = 3,
+            Spanish = 4,
+            Monaco = 5,
+            Canadian = 6,
+            British = 7,
+            German = 8,
+            Hungarian = 9,
+            Belgian = 10,
+            ItalianMonza = 11,
+            Singapore = 12,
+            Japanese = 13,
+            AbuDhabi = 14,
+            UnitedStates = 15,
+            Brazilian = 16,
+            Austrian = 17,
+            Russian = 18,
+            Mexican = 19,
+            Azerbaijan = 20,
+            BahrainShort = 21,
+            BritishShort = 22,
+            UnitedStatesShort = 23,
+            JapaneseShort = 24,
+            Vietnam = 25,
+            Dutch = 26,
+            ItalianImola = 27,
+            Portugese = 28,
+            SaudiArabian = 29,
         }
 
         public enum Drivers : byte
@@ -247,6 +286,14 @@ namespace SlipStream.Structs
             DavidCoulthard = 110,
             NicoRosberg = 111,
             Unknown = 255,
+        }
+
+        // SETTINGS
+
+        public enum NetworkTypes : byte
+        {
+            Offline = 0,
+            Online = 1,
         }
 
         public enum ButtonFlags
@@ -435,7 +482,7 @@ namespace SlipStream.Structs
             Vietnamese = 87,
         }
 
-        public enum PenalytyTypes : byte
+        public enum PenaltyTypes : byte
         {
             DriveThrough,
             StopGo,
@@ -599,7 +646,7 @@ namespace SlipStream.Structs
             High = 3,
         }
 
-        public enum ForecastAccuracies
+        public enum ForecastAccuracy
         {
             Perfect,
             Approximate,
@@ -634,10 +681,10 @@ namespace SlipStream.Structs
 
         public enum Formulas : byte
         {
-            F1Modern,
+            F1Realistic,
             F1Classic,
             F2,
-            F1Generic,
+            F1Equal,
         }
 
         public enum SafetyCarStatus : byte
@@ -723,14 +770,12 @@ namespace SlipStream.Structs
             Public,
         }
 
-        public enum ERSModes : byte
+        public enum ErsDeployMode
         {
-            None,
-            Low,
-            Medium,
-            High,
-            Overtake,
-            Hotlap,
+            None = 0,
+            Medium = 1,
+            HotLap = 2,
+            Overtake = 3
         }
 
         public enum TractionControlSettings : byte
@@ -740,7 +785,7 @@ namespace SlipStream.Structs
             Full,
         }
 
-        public enum FuelMixis : byte
+        public enum FuelMix : byte
         {
             Lean,
             Standard,

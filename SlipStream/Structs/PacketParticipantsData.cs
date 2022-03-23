@@ -15,7 +15,7 @@ namespace SlipStream.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 48)]
         public char[] m_name;               // Name of participant in UTF-8 format – null terminated
                                             // Will be truncated with … (U+2026) if too long
-        public byte m_yourTelemetry;          // The player's UDP setting, 0 = restricted, 1 = public
+        public TelemetrySettings m_yourTelemetry;          // The player's UDP setting, 0 = restricted, 1 = public
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]

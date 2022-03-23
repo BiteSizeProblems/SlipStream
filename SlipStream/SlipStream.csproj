@@ -38,6 +38,93 @@
     <None Remove="Core\Images\fast.png" />
     <None Remove="Core\Images\finish.png" />
     <None Remove="Core\Images\finish_flag.png" />
+    <None Remove="Core\Images\Flags\American.png" />
+    <None Remove="Core\Images\Flags\Argentinean.png" />
+    <None Remove="Core\Images\Flags\Australian.png" />
+    <None Remove="Core\Images\Flags\Austrian.png" />
+    <None Remove="Core\Images\Flags\Azerbaijani.png" />
+    <None Remove="Core\Images\Flags\Bahraini.png" />
+    <None Remove="Core\Images\Flags\Barbadian.png" />
+    <None Remove="Core\Images\Flags\Belgian.png" />
+    <None Remove="Core\Images\Flags\Bolivian.png" />
+    <None Remove="Core\Images\Flags\Brazilian.png" />
+    <None Remove="Core\Images\Flags\British.png" />
+    <None Remove="Core\Images\Flags\Bulgarian.png" />
+    <None Remove="Core\Images\Flags\Cameroonian.png" />
+    <None Remove="Core\Images\Flags\Canadian.png" />
+    <None Remove="Core\Images\Flags\Chilean.png" />
+    <None Remove="Core\Images\Flags\Chinese.png" />
+    <None Remove="Core\Images\Flags\Colombian.png" />
+    <None Remove="Core\Images\Flags\CostaRican.png" />
+    <None Remove="Core\Images\Flags\Croatian.png" />
+    <None Remove="Core\Images\Flags\Cypriot.png" />
+    <None Remove="Core\Images\Flags\Czech.png" />
+    <None Remove="Core\Images\Flags\Danish.png" />
+    <None Remove="Core\Images\Flags\Dutch.png" />
+    <None Remove="Core\Images\Flags\Ecuadorian.png" />
+    <None Remove="Core\Images\Flags\Emirian.png" />
+    <None Remove="Core\Images\Flags\English.png" />
+    <None Remove="Core\Images\Flags\Estonian.png" />
+    <None Remove="Core\Images\Flags\Finnish.png" />
+    <None Remove="Core\Images\Flags\French.png" />
+    <None Remove="Core\Images\Flags\German.png" />
+    <None Remove="Core\Images\Flags\Ghanaian.png" />
+    <None Remove="Core\Images\Flags\Greek.png" />
+    <None Remove="Core\Images\Flags\Guatemalan.png" />
+    <None Remove="Core\Images\Flags\Honduran.png" />
+    <None Remove="Core\Images\Flags\HongKonger.png" />
+    <None Remove="Core\Images\Flags\Hungarian.png" />
+    <None Remove="Core\Images\Flags\Icelander.png" />
+    <None Remove="Core\Images\Flags\Indian.png" />
+    <None Remove="Core\Images\Flags\Indonesian.png" />
+    <None Remove="Core\Images\Flags\Irish.png" />
+    <None Remove="Core\Images\Flags\Israeli.png" />
+    <None Remove="Core\Images\Flags\Italian.png" />
+    <None Remove="Core\Images\Flags\Jamaican.png" />
+    <None Remove="Core\Images\Flags\Japanese.png" />
+    <None Remove="Core\Images\Flags\Jordanian.png" />
+    <None Remove="Core\Images\Flags\Kuwaiti.png" />
+    <None Remove="Core\Images\Flags\Latvian.png" />
+    <None Remove="Core\Images\Flags\Lebanese.png" />
+    <None Remove="Core\Images\Flags\Lithuanian.png" />
+    <None Remove="Core\Images\Flags\Malaysian.png" />
+    <None Remove="Core\Images\Flags\Maltese.png" />
+    <None Remove="Core\Images\Flags\Mexican.png" />
+    <None Remove="Core\Images\Flags\Monegasque.png" />
+    <None Remove="Core\Images\Flags\NewZealander.png" />
+    <None Remove="Core\Images\Flags\Nicaraguan.png" />
+    <None Remove="Core\Images\Flags\NorthernIrish.png" />
+    <None Remove="Core\Images\Flags\Norwegian.png" />
+    <None Remove="Core\Images\Flags\Omani.png" />
+    <None Remove="Core\Images\Flags\Pakistani.png" />
+    <None Remove="Core\Images\Flags\Panamanian.png" />
+    <None Remove="Core\Images\Flags\Paraguayan.png" />
+    <None Remove="Core\Images\Flags\Peruvian.png" />
+    <None Remove="Core\Images\Flags\Polish.png" />
+    <None Remove="Core\Images\Flags\Portuguese.png" />
+    <None Remove="Core\Images\Flags\Qatari.png" />
+    <None Remove="Core\Images\Flags\Romanian.png" />
+    <None Remove="Core\Images\Flags\Russian.png" />
+    <None Remove="Core\Images\Flags\Salvadoran.png" />
+    <None Remove="Core\Images\Flags\Saudi.png" />
+    <None Remove="Core\Images\Flags\Scottish.png" />
+    <None Remove="Core\Images\Flags\Serbian.png" />
+    <None Remove="Core\Images\Flags\Singaporean.png" />
+    <None Remove="Core\Images\Flags\Slovakian.png" />
+    <None Remove="Core\Images\Flags\Slovenian.png" />
+    <None Remove="Core\Images\Flags\SouthAfrican.png" />
+    <None Remove="Core\Images\Flags\SouthKorean.png" />
+    <None Remove="Core\Images\Flags\Spanish.png" />
+    <None Remove="Core\Images\Flags\Swedish.png" />
+    <None Remove="Core\Images\Flags\Swiss.png" />
+    <None Remove="Core\Images\Flags\Thai.png" />
+    <None Remove="Core\Images\Flags\Turkish.png" />
+    <None Remove="Core\Images\Flags\Ukrainian.png" />
+    <None Remove="Core\Images\Flags\Unknown.png" />
+    <None Remove="Core\Images\Flags\Uruguayan.png" />
+    <None Remove="Core\Images\Flags\Venezuelan.png" />
+    <None Remove="Core\Images\Flags\Vietnamese.png" />
+    <None Remove="Core\Images\Flags\Welsh.png" />
     <None Remove="Core\Images\garage.png" />
     <None Remove="Core\Images\green_circle.png" />
     <None Remove="Core\Images\HardTire.png" />
@@ -59,6 +146,8 @@
     <None Remove="Core\Images\Menu\strategy.png" />
     <None Remove="Core\Images\Menu\weather.png" />
     <None Remove="Core\Images\Menu\wrench.png" />
+    <None Remove="Core\Images\Misc\f1_logo.png" />
+    <None Remove="Core\Images\Misc\f1_logo_white.png" />
     <None Remove="Core\Images\orange_circle.png" />
     <None Remove="Core\Images\out-lap.png" />
     <None Remove="Core\Images\red_circle.png" />
@@ -154,6 +243,267 @@
     <Resource Include="Core\Fonts\Formula1-Wide.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\Flags\American.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Argentinean.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Australian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Austrian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Azerbaijani.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Bahraini.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Barbadian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Belgian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Bolivian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Brazilian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\British.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Bulgarian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Cameroonian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Canadian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Chilean.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Chinese.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Colombian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\CostaRican.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Croatian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Cypriot.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Czech.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Danish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Dutch.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Ecuadorian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Emirian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\English.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Estonian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Finnish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\French.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\German.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Ghanaian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Greek.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Guatemalan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Honduran.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\HongKonger.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Hungarian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Icelander.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Indian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Indonesian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Irish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Israeli.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Italian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Jamaican.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Japanese.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Jordanian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Kuwaiti.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Latvian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Lebanese.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Lithuanian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Malaysian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Maltese.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Mexican.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Monegasque.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\NewZealander.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Nicaraguan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\NorthernIrish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Norwegian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Omani.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Pakistani.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Panamanian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Paraguayan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Peruvian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Polish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Portuguese.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Qatari.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Romanian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Russian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Salvadoran.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Saudi.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Scottish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Serbian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Singaporean.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Slovakian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Slovenian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\SouthAfrican.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\SouthKorean.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Spanish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Swedish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Swiss.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Thai.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Turkish.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Ukrainian.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Unknown.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Uruguayan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Venezuelan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Vietnamese.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Flags\Welsh.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\Misc\background_stock.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -161,6 +511,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\Lights\blue_circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Misc\f1_logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Misc\f1_logo_white.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\SafetyCar\check.png">

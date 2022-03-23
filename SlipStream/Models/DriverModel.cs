@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using static SlipStream.Structs.Appendeces;
-using static SlipStream.Structs.Enums;
 
 namespace SlipStream.Models
 {
@@ -34,6 +33,15 @@ namespace SlipStream.Models
         {
             this.DriverID = Drivers.Unknown;
             this.TeamID = Teams.Unknown;
+        }
+
+        // SETTINGS
+
+        private TelemetrySettings _uDPSetting;
+        public TelemetrySettings UDPSetting
+        {
+            get { return _uDPSetting; }
+            set { SetField(ref _uDPSetting, value, nameof(UDPSetting)); }
         }
 
         // INDEXING
@@ -106,36 +114,16 @@ namespace SlipStream.Models
             set { SetField(ref _teamName, value, nameof(TeamName)); }
         }
 
-        private SolidColorBrush _teamColor;
-        public SolidColorBrush TeamColor
+        private string _teamColorIcon;
+        public string TeamColorIcon
         {
-            get
-            {
-                return this._teamColor;
-            }
+            get{ return this._teamColorIcon; }
             set
             {
-                if (value != this.TeamColor)
+                if (value != this._teamColorIcon)
                 {
-                    this._teamColor = value;
-                    this.OnPropertyChanged("TeamColor");
-                }
-            }
-        }
-
-        private string _teamRect;
-        public string TeamRect
-        {
-            get
-            {
-                return this._teamRect;
-            }
-            set
-            {
-                if (value != this._teamRect)
-                {
-                    this._teamRect = value;
-                    this.OnPropertyChanged("TeamRect");
+                    this._teamColorIcon = value;
+                    this.OnPropertyChanged("TeamColorIcon");
                 }
             }
         }
@@ -462,8 +450,8 @@ namespace SlipStream.Models
 
         // ENGINE & ERS DATA
 
-        private string _fuelMix;
-        public string FuelMix
+        private FuelMix _fuelMix;
+        public FuelMix FuelMix
         {
             get { return _fuelMix; }
             set { SetField(ref _fuelMix, value, nameof(FuelMix)); }
@@ -638,6 +626,47 @@ namespace SlipStream.Models
         {
             get { return _lapValidHist; }
             set { SetField(ref _lapValidHist, value, nameof(LapValidHist)); }
+        }
+
+        // FINAL CLASSIFICATION DATA
+
+        private TimeSpan _totalRaceTime;
+        public TimeSpan TotalRaceTime
+        {
+            get { return _totalRaceTime; }
+            set { SetField(ref _totalRaceTime, value, nameof(TotalRaceTime)); }
+        }
+
+        private TimeSpan _finalRaceTime;
+        public TimeSpan FinalRaceTime
+        {
+            get { return _finalRaceTime; }
+            set 
+            { 
+                SetField(ref _finalRaceTime, value, nameof(FinalRaceTime));
+                TotalRaceTime = value + FinalPenaltiesTime;
+            }
+        }
+
+        private TimeSpan _finalPenaltiesTime;
+        public TimeSpan FinalPenaltiesTime
+        {
+            get { return _finalPenaltiesTime; }
+            set { SetField(ref _finalPenaltiesTime, value, nameof(FinalPenaltiesTime)); }
+        }
+
+        private int _finalPenaltiesNum;
+        public int FinalPenaltiesNum
+        {
+            get { return _finalPenaltiesNum; }
+            set { SetField(ref _finalPenaltiesNum, value, nameof(FinalPenaltiesNum)); }
+        }
+
+        private int _finalTireStintsNum;
+        public int FinalTireStintsNum
+        {
+            get { return _finalTireStintsNum; }
+            set { SetField(ref _finalTireStintsNum, value, nameof(FinalTireStintsNum)); }
         }
     }
 }

@@ -41,12 +41,6 @@ namespace SlipStream.ViewModels
 
         // DRIVER INDEXING
 
-        private int[] IndexToPositionArr = new int[22];
-
-        private int[] NumSoft = new int[0];
-        private int[] NumMedium = new int[0];
-        private int[] NumHard = new int[0];
-
         private int _selectedIndex;
         public int SelectedIndex
         {
@@ -117,6 +111,7 @@ namespace SlipStream.ViewModels
             model.CurrentSession = Regex.Replace(packet.m_sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
             model.CurrentWeather = Regex.Replace(packet.m_weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
             model.SafetyCarStatus = Regex.Replace(packet.m_safetyCarStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.NetworkGame = packet.m_networkGame;
 
             // PITSTOP DATA
             for (int i = 0; i < model.NumOfActiveCars; i++)
@@ -125,14 +120,6 @@ namespace SlipStream.ViewModels
                 Driver[i].PitWindowLate = packet.m_pitStopWindowLatestLap;
                 Driver[i].PitRejoin = packet.m_pitStopRejoinPosition;
             }
-
-            // NETWORK STATUS
-
-            if (packet.m_networkGame == 0)
-            {
-                model.NetworkGame = "Offline";
-            }
-            else { model.NetworkGame = "Online"; }
 
             // SAFETY CAR STATUS
             if (model.SafetyCarStatus == "Clear")
@@ -168,9 +155,9 @@ namespace SlipStream.ViewModels
             {
                 var forecast = packet.m_weatherForecastSamples[i];
 
-                W_Model[i].SessionType = (SessionTypes)forecast.m_sessionType;
+                W_Model[i].SessionType = forecast.m_sessionType;
                 W_Model[i].TimeOffset = forecast.m_timeOffset;
-                W_Model[i].Weather = (WeatherTypes)forecast.m_weather;
+                W_Model[i].Weather = forecast.m_weather;
                 W_Model[i].TrackTemperature = $"{(sbyte)((forecast.m_trackTemperature * 1.8) + 32)} F";
                 W_Model[i].AirTemperature = $"{(sbyte)((forecast.m_airTemperature * 1.8) + 32)} F";
                 W_Model[i].RainPercentage = $"{forecast.m_rainPercentage}%";
@@ -186,6 +173,8 @@ namespace SlipStream.ViewModels
                 model.SessionTimeRemaining = $"{model.LeadLap} / {packet.m_totalLaps}";
                 model.SessionDuration = packet.m_totalLaps.ToString();
             }
+
+            Console.WriteLine("Here");
         }
 
         private void UDPC_OnParticipantDataReceive(PacketParticipantsData packet)
@@ -201,9 +190,10 @@ namespace SlipStream.ViewModels
                 Driver[i].TeamName = Regex.Replace(participant.m_teamId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 Driver[i].raceNumber = participant.m_raceNumber;
                 Driver[i].AI = participant.m_aiControlled;
+                Driver[i].UDPSetting = participant.m_yourTelemetry;
 
                 // OFFLINE DRIVER NAMES
-                if (model.NetworkGame == "Offline")
+                if (model.NetworkGame == NetworkTypes.Offline)
                 {
                     Driver[i].DriverName = Regex.Replace(participant.m_driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 }
@@ -212,34 +202,34 @@ namespace SlipStream.ViewModels
                 switch (Driver[i].TeamID)
                 {
                     case Teams.Mercedes:
-                        Driver[i].TeamRect = "#00D2BE";
+                        Driver[i].TeamColorIcon = "#00D2BE";
                         break;
                     case Teams.RedBullRacing:
-                        Driver[i].TeamRect = "#0600EF";
+                        Driver[i].TeamColorIcon = "#0600EF";
                         break;
                     case Teams.Ferrari:
-                        Driver[i].TeamRect = "#C00000";
+                        Driver[i].TeamColorIcon = "#C00000";
                         break;
                     case Teams.Mclaren:
-                        Driver[i].TeamRect = "#FF8700";
+                        Driver[i].TeamColorIcon = "#FF8700";
                         break;
                     case Teams.Haas:
-                        Driver[i].TeamRect = "#FFFFFFFF";
+                        Driver[i].TeamColorIcon = "#FFFFFFFF";
                         break;
                     case Teams.Williams:
-                        Driver[i].TeamRect = "#0082FA";
+                        Driver[i].TeamColorIcon = "#0082FA";
                         break;
                     case Teams.AlphaTauri:
-                        Driver[i].TeamRect = "#C8C8C8";
+                        Driver[i].TeamColorIcon = "#C8C8C8";
                         break;
                     case Teams.Alpine:
-                        Driver[i].TeamRect = "#FF00D1FF";
+                        Driver[i].TeamColorIcon = "#FF00D1FF";
                         break;
                     case Teams.AlfaRomeo:
-                        Driver[i].TeamRect = "#FF870000";
+                        Driver[i].TeamColorIcon = "#FF870000";
                         break;
                     case Teams.AstonMartin:
-                        Driver[i].TeamRect = "#FF2F4F4F";
+                        Driver[i].TeamColorIcon = "#FF2F4F4F";
                         break;
                 }
             }
@@ -269,12 +259,14 @@ namespace SlipStream.ViewModels
                 Driver[i].Penalties = lapData.penalties;
 
                 
-                LapData currCar = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 1); // Car in Position
                 
-                LapData nextCar = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 2); // Position of Next Car
 
-                if(Driver[i].CarPosition != 1)
+                if(Driver[i].CarPosition == -10)
                 {
+                    LapData currCar = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 1); // Car in Position
+
+                    LapData nextCar = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 2); // Position of Next Car
+
                     // If they are on the same lap, then we can directly do the delta calculation
                     if (nextCar.currentLapNum == currCar.currentLapNum)
                     {
@@ -485,29 +477,14 @@ namespace SlipStream.ViewModels
                 Driver[i].TireAge = carStatusData.m_tyresAgeLaps;
                 Driver[i].VehicleFlag = $"Zone Flags: {carStatusData.m_vehicleFiaFlags}";
                 Driver[i].ErsRemaining = ((int)(carStatusData.m_ersStoreEnergy / 40000));
-                Driver[i].ErsDeployMode = (Enums.ErsDeployMode)carStatusData.m_ersDeployMode;
+                Driver[i].ErsDeployMode = carStatusData.m_ersDeployMode;
+                Driver[i].FuelMix = carStatusData.m_fuelMix;
 
                 model.NumSoftTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Soft);
                 model.NumMediumTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Medium);
                 model.NumHardTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Hard);
                 model.NumInterTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Inter);
                 model.NumWetTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Wet);
-
-                switch (carStatusData.m_fuelMix)
-                {
-                    case 0:
-                        Driver[i].FuelMix = $"Lean";
-                        break;
-                    case 1:
-                        Driver[i].FuelMix = $"Standard";
-                        break;
-                    case 2:
-                        Driver[i].FuelMix = $"Rich";
-                        break;
-                    case 3:
-                        Driver[i].FuelMix = $"Max";
-                        break;
-                }
 
                 switch (Driver[i].VisualTireCompound)
                 {
@@ -641,6 +618,11 @@ namespace SlipStream.ViewModels
                 Driver[i].CarPosition = (byte)finalData.m_position;
                 Driver[i].CurrentLapNum = (int)finalData.m_numLaps;
                 Driver[i].BestLapTime = TimeSpan.FromMilliseconds(finalData.m_bestLapTimeInMS);
+                Driver[i].FinalRaceTime = TimeSpan.FromSeconds(finalData.m_totalRaceTime);
+                Driver[i].FinalPenaltiesNum = finalData.m_numPenalties;
+                Driver[i].FinalPenaltiesTime = TimeSpan.FromSeconds(finalData.m_penaltiesTime);
+                Driver[i].FinalTireStintsNum = finalData.m_numTyreStints;
+                Driver[i].LastLapTime = Driver[i].TotalRaceTime;
             }
         }
     }

@@ -150,16 +150,16 @@ namespace SlipStream.Models
 
                 switch (Track)
                 {
-                    case Tracks.AbuDhabi:
+                    case Tracks.YasMarina:
                         TrackIcon = "/Core/Images/Tracks/abudhabi.png";
                         break;
-                    case Tracks.Austria:
+                    case Tracks.RedBullRing:
                         TrackIcon = "/Core/Images/Tracks/austria.png";
                         break;
-                    case Tracks.Baku:
+                    case Tracks.BakuCity:
                         TrackIcon = "/Core/Images/Tracks/azerbaijan.png";
                         break;
-                    case Tracks.Brazil:
+                    case Tracks.Interlagos:
                         TrackIcon = "/Core/Images/Tracks/brazil.png";
                         break;
                     case Tracks.Catalunya:
@@ -177,19 +177,19 @@ namespace SlipStream.Models
                     case Tracks.Imola:
                         TrackIcon = "/Core/Images/Tracks/italy_imola.png";
                         break;
-                    case Tracks.Jeddah:
+                    case Tracks.JeddahCorniche:
                         TrackIcon = "/Core/Images/Tracks/saudiarabia.png";
                         break;
-                    case Tracks.Melbourne:
+                    case Tracks.AlbertPark:
                         TrackIcon = "/Core/Images/Tracks/australia.png";
                         break;
-                    case Tracks.Mexico:
+                    case Tracks.AutódromoHermanosRodríguez:
                         TrackIcon = "/Core/Images/Tracks/mexico.png";
                         break;
                     case Tracks.Monaco:
                         TrackIcon = "/Core/Images/Tracks/monaco.png";
                         break;
-                    case Tracks.Montreal:
+                    case Tracks.CircuitGillesVilleneuve:
                         TrackIcon = "/Core/Images/Tracks/canada.png";
                         break;
                     case Tracks.Monza:
@@ -198,7 +198,7 @@ namespace SlipStream.Models
                     case Tracks.PaulRicard:
                         TrackIcon = "/Core/Images/Tracks/france.png";
                         break;
-                    case Tracks.Portimao:
+                    case Tracks.AlgarveInternationalCircuit:
                         TrackIcon = "/Core/Images/Tracks/portugal.png";
                         break;
                     case Tracks.Sakhir:
@@ -207,19 +207,19 @@ namespace SlipStream.Models
                     case Tracks.SakhirShort:
                         TrackIcon = "/Core/Images/Tracks/bahrain_short.png";
                         break;
-                    case Tracks.Shanghai:
+                    case Tracks.ShanghaiInternational:
                         TrackIcon = "/Core/Images/Tracks/china.png";
                         break;
                     case Tracks.Silverstone:
                         TrackIcon = "/Core/Images/Tracks/britain.png";
                         break;
-                    case Tracks.Singapore:
+                    case Tracks.MarinaBay:
                         TrackIcon = "/Core/Images/Tracks/singapore.png";
                         break;
-                    case Tracks.Sochi:
+                    case Tracks.SochiAutodrom:
                         TrackIcon = "/Core/Images/Tracks/russia.png";
                         break;
-                    case Tracks.Spa:
+                    case Tracks.SpaFrancorchamps:
                         TrackIcon = "/Core/Images/Tracks/belgium.png";
                         break;
                     case Tracks.Suzuka:
@@ -228,10 +228,10 @@ namespace SlipStream.Models
                     case Tracks.SuzukaShort:
                         TrackIcon = "/Core/Images/Tracks/japan_short.png";
                         break;
-                    case Tracks.Texas:
+                    case Tracks.CircuitOfTheAmericas:
                         TrackIcon = "/Core/Images/Tracks/usa.png";
                         break;
-                    case Tracks.TexasShor:
+                    case Tracks.CircuitOfTheAmericasShort:
                         TrackIcon = "/Core/Images/Tracks/usa_short.png";
                         break;
                     case Tracks.Zandvoort:
@@ -302,8 +302,8 @@ namespace SlipStream.Models
             set { SetField(ref _sessionType, value, nameof(SessionType)); }
         }
 
-        private string _networkGame;
-        public string NetworkGame
+        private NetworkTypes _networkGame;
+        public NetworkTypes NetworkGame
         {
             get { return _networkGame; }
             set { SetField(ref _networkGame, value, nameof(NetworkGame)); }

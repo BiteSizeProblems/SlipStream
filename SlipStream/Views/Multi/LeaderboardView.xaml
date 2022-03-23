@@ -55,7 +55,7 @@
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding raceNumber}" Value="0">
+                                <DataTrigger Binding="{Binding CarPosition}" Value="0">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -82,7 +82,7 @@
                         <DataGridTemplateColumn Width="Auto" CellStyle="{StaticResource ColorTheme}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Rectangle Width="10" Margin="5" Fill="{Binding TeamRect, FallbackValue=#ffffff}"/>
+                                    <Rectangle Width="10" Margin="5" Fill="{Binding TeamColorIcon, FallbackValue=#ffffff}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

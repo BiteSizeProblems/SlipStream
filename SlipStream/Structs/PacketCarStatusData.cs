@@ -8,7 +8,7 @@ namespace SlipStream.Structs
     {
         public byte m_tractionControl;          // Traction control - 0 = off, 1 = medium, 2 = full
         public byte m_antiLockBrakes;           // 0 (off) - 1 (on)
-        public byte m_fuelMix;                  // Fuel mix - 0 = lean, 1 = standard, 2 = rich, 3 = max
+        public FuelMix m_fuelMix;                  // Fuel mix - 0 = lean, 1 = standard, 2 = rich, 3 = max
         public byte m_frontBrakeBias;           // Front brake bias (percentage)
         public byte m_pitLimiterStatus;         // Pit limiter status - 0 = off, 1 = on
         public float m_fuelInTank;               // Current fuel mass
@@ -34,7 +34,7 @@ namespace SlipStream.Structs
         public sbyte m_vehicleFiaFlags;    // -1 = invalid/unknown, 0 = none, 1 = green
                                            // 2 = blue, 3 = yellow, 4 = red
         public float m_ersStoreEnergy;           // ERS energy store in Joules
-        public byte m_ersDeployMode;            // ERS deployment mode, 0 = none, 1 = medium
+        public ErsDeployMode m_ersDeployMode;            // ERS deployment mode, 0 = none, 1 = medium
                                                 // 2 = hotlap, 3 = overtake
         public float m_ersHarvestedThisLapMGUK;  // ERS energy harvested this lap by MGU-K
         public float m_ersHarvestedThisLapMGUH;  // ERS energy harvested this lap by MGU-H

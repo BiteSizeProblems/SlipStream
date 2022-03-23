@@ -38,7 +38,22 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="MediumAquamarine"/>
         <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding CarPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="1">
+                <Setter Property="Foreground" Value="Green" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CarPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="2">
+                <Setter Property="Foreground" Value="Black" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CarPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="3">
+                <Setter Property="Foreground" Value="Red" />
+            </DataTrigger>
+        </Style.Triggers>
+
     </Style>
+    
+    
 
     <!--// SMALL LEADERBOARD //-->
 

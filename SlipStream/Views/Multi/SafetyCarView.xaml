@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
              mc:Ignorable="d" 
-             Height="100" Width="400">
+             d:DesignHeight="100" d:DesignWidth="400">
     <Border Style="{StaticResource MultiViewBorderTheme}">
 
         <Grid Margin="10">
@@ -28,7 +28,7 @@
                 <Image Source="{Binding model.SafetyCarIcon}" Margin="2" 
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                <Image Source="/Core/Images/safety_car.png" Margin="2" 
+                <Image Source="/Core/Images/SafetyCar/safety_car.png" Margin="2" 
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
             </StackPanel>

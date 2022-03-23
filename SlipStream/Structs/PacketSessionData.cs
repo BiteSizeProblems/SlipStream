@@ -58,7 +58,7 @@ namespace SlipStream.Structs
 
         public SafetyCarStatus m_safetyCarStatus;           // 0 = no safety car, 1 = full
                                                   // 2 = virtual, 3 = formation lap
-        public byte m_networkGame;               // 0 = offline, 1 = online
+        public NetworkTypes m_networkGame;               // 0 = offline, 1 = online
         public byte m_numWeatherForecastSamples; // Number of weather samples to follow
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 56)]

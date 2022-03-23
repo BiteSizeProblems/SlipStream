@@ -12,15 +12,25 @@
             BorderThickness="0" BorderBrush="Transparent">
         <Grid>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="350"/>
                 <ColumnDefinition Width="500"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <multi:CompactLeaderboardView/>
+            <TextBlock Text="Race Control: Dashboard" Margin="20,0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" FontSize="30" 
+                       FontWeight="Bold" Grid.ColumnSpan="3"/>
 
-            <StackPanel Grid.Column="1">
+            <multi:CompactLeaderboardView Grid.Row="1"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="1">
 
                 <multi:SessionInfoView/>
 

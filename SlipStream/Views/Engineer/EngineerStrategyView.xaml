@@ -216,12 +216,7 @@
                                Padding="0,15,0,15" HorizontalAlignment="Right"/>
                                     <TextBlock Text="Last S3: "
                                Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                    
-                                    <TextBlock Text="Current Tire: "
-                               Padding="0,20,0,15" HorizontalAlignment="Right"/>
-                                    <TextBlock Text="Tire Age: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                    <TextBlock Text="Average Wear: "
+                                    <TextBlock Text="UDP Setting: "
                                Padding="0,15,0,15" HorizontalAlignment="Right"/>
                                 </StackPanel>
 
@@ -234,14 +229,8 @@
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
                                     <TextBlock Text="{Binding CurrentSelectedDriver.LastS3, StringFormat=ss\\.fff }"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-
-                                    <Image Source="{Binding CurrentSelectedDriver.TireIconSource}" Margin="0,15,10,15" 
-                                           Height="30" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left"/>
-                                    <TextBlock Text="{Binding CurrentSelectedDriver.TireAge}"
-                               Padding="10,5,0,15" Foreground="MediumAquamarine"/>
-                                    <TextBlock Text="{Binding CurrentSelectedDriver.TireWear}"
+                                    <TextBlock Text="{Binding CurrentSelectedDriver.UDPSetting}"
                                Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                    <Image/>
                                 </StackPanel>
 
                             </Grid>
