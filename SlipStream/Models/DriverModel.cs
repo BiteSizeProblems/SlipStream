@@ -75,6 +75,22 @@ namespace SlipStream.Models
             set { SetField(ref _carAheadPosition, value, nameof(CarAheadPosition)); }
         }
 
+        private float _currentLapTimeFloat;
+        public float CurrentLapTimeFloat
+        {
+            get { return _currentLapTimeFloat; }
+            set { SetField(ref _currentLapTimeFloat, value, nameof(CurrentLapTimeFloat)); }
+        }
+
+        // Motion Data
+
+        private float _totalDistance;
+        public float TotalDistance
+        {
+            get { return _totalDistance; }
+            set { SetField(ref _totalDistance, value, nameof(TotalDistance)); }
+        }
+
         // SESSION HISTORY
 
         private Array _lapHistory;

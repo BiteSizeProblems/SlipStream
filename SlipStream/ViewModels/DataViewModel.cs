@@ -82,8 +82,8 @@ namespace SlipStream.ViewModels
                 Driver.Add(new DriverModel());
                 Driver[i].DriverName = "Placeholder";
                 Driver[i].DriverIndex = i + 1;
-                Driver[i].LastLapTime = TimeSpan.Zero;
             }
+
             for (int i = 0; i < 56; i++)
             {
                 W_Model.Add(new WeatherModel());
@@ -226,6 +226,27 @@ namespace SlipStream.ViewModels
                     //Driver[originalDriverIndex].LastS3Rank = lastLapDriverIndex;
                 }
             }
+
+            // Gap to next car.
+            if (lapData.lapData != null)
+            {
+                int[] IndexToPositionArr = new int[22]; // 22 cars.
+
+                LapDataUtils.UpdatePositionArray(lapData.lapData, ref IndexToPositionArr); // Sort drivers by position.
+                                                                                           // Set the delta for the first person to zero
+                Driver[IndexingUtils.GetRealIndex(IndexToPositionArr, 1)].RaceInterval = TimeSpan.FromMilliseconds(0);
+
+                for (int i = 0; i < model.NumOfActiveCars-1; i++)
+                {
+                    var currCar = IndexingUtils.GetByRealPosition(lapData.lapData, IndexToPositionArr, i + 1); // 0 + 1 = Position 1 // Car Ahead
+                    var carBehind = IndexingUtils.GetByRealPosition(lapData.lapData, IndexToPositionArr, i + 2); // 0 + 2 == Position 2 // Car Behind
+
+                    uint delta = currCar.currentLapTimeInMS - carBehind.currentLapTimeInMS;
+
+                    Driver[IndexingUtils.GetRealIndex(IndexToPositionArr, i + 2)].RaceInterval = TimeSpan.FromMilliseconds(delta);
+                }
+            }
+
         }
 
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
@@ -294,7 +315,7 @@ namespace SlipStream.ViewModels
         private void UDPC_OnLapDataReceive(PacketLapData packet)
         {
             int[] IndexToPositionArr = new int[22]; // 22 cars.
-            float[] DeltaArr = new float[21]; // 21 deltas.
+            float[] DeltaArr = new float[22]; // 21 deltas.
             LapDataUtils.UpdatePositionArray(packet.lapData, ref IndexToPositionArr); // Sort drivers by position.
 
             for (int i = 0; i < 22; i++)
@@ -306,6 +327,7 @@ namespace SlipStream.ViewModels
 
                 Driver[i].CurrentLapNum = lapData.currentLapNum;
                 Driver[i].CurrentLapTime = TimeSpan.FromMilliseconds(lapData.currentLapTimeInMS);
+                Driver[i].CurrentLapTimeFloat = lapData.currentLapTimeInMS;
                 Driver[i].LastLapTime = TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS);
                 Driver[i].LastS1 = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
                 Driver[i].LastS2 = TimeSpan.FromMilliseconds(lapData.sector2TimeInMS);
@@ -451,28 +473,6 @@ namespace SlipStream.ViewModels
                         Driver[i].S2Display = TimeSpan.Zero;
                         Driver[i].S3Display = TimeSpan.Zero;
                         break;
-                }
-            }
-
-            for (int i = 0; i < DeltaArr.Count(); i++)
-            {
-                // Calculate Gap Between Drivers.
-                if (Driver[i].CarPosition != 0 && Driver[i].CarPosition != 1) // Cant' compute delta for the lead driver.
-                {
-                    var carAhead = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 1); // 0 + 1 = Position 1 // Car Ahead
-                    var carBehind = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 2); // 0 + 2 == Position 2 // Car Behind
-
-                    float delta = carAhead.currentLapTimeInMS - carBehind.currentLapTimeInMS;
-
-                    DeltaArr[IndexingUtils.GetRealIndex(IndexToPositionArr, i + 1)] = delta;
-                    Driver[i].RaceInterval = TimeSpan.FromMilliseconds(DeltaArr[i]);
-
-                    // Tests
-                    int ahead = carAhead.carPosition; // actual car position
-                    int bhind = carBehind.carPosition; // car behind // wrong direction.
-                    Driver[i].CarAheadPosition = Driver[ahead].CarPosition;
-                    Driver[i].ThisCarPosition = Driver[bhind].CarPosition;
-
                 }
             }
         }

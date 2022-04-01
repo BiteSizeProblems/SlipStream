@@ -84,8 +84,6 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding CarPosition}" IsReadOnly="True" Header="POS" Width="50"/>
-                        <DataGridTextColumn Binding="{Binding CarAheadPosition}" IsReadOnly="True" Header="Ah" Width="50"/>
-                        <DataGridTextColumn Binding="{Binding ThisCarPosition}" IsReadOnly="True" Header="This" Width="50"/>
                         <DataGridTemplateColumn Header="+ / -" Width="50">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
