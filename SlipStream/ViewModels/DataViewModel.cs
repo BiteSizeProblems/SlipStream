@@ -1,21 +1,14 @@
-﻿using SlipStream.Core;
-using SlipStream.Core.Utils;
+﻿using SlipStream.Core.Utils;
 using SlipStream.Models;
 using SlipStream.Structs;
-using SlipStream.Views;
-using SlipStream.Views.Multi;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Threading;
+using System.Threading;
 using static SlipStream.Structs.Appendeces;
+using System.Diagnostics;
 
 namespace SlipStream.ViewModels
 {
@@ -38,6 +31,7 @@ namespace SlipStream.ViewModels
         public SessionModel model { get; set; }
         public DriverModel driver { get; set; }
         public WeatherModel w_model { get; set; }
+        public SessionHistoryModel histModel { get; set; }
 
         // DRIVER INDEXING
 
@@ -59,11 +53,16 @@ namespace SlipStream.ViewModels
             set { SetField(ref _currSelectedDriver, value, nameof(CurrentSelectedDriver)); }
         }
 
+        private Timer slowTimer;
+        public PacketLapData latestLapDataPacket { get; set; }
+
         // Create observable collections of models
         public ObservableCollection<DriverModel> Driver { get; set; }
         private object _driverLock = new object();
         public ObservableCollection<WeatherModel> W_Model { get; set; }
         private object _w_modelLock = new object();
+        public ObservableCollection<SessionHistoryModel> HistModel { get; set; }
+        private object _histLock = new object();
 
         private DataViewModel() : base()
         {
@@ -74,6 +73,8 @@ namespace SlipStream.ViewModels
             BindingOperations.EnableCollectionSynchronization(Driver, _driverLock);
             W_Model = new ObservableCollection<WeatherModel>();
             BindingOperations.EnableCollectionSynchronization(W_Model, _w_modelLock);
+            HistModel = new ObservableCollection<SessionHistoryModel>();
+            BindingOperations.EnableCollectionSynchronization(HistModel, _histLock);
 
             // SET DEFAULT DRIVERS & WEATHER FORECASTS
             for (int i = 0; i < 22; i++)
@@ -81,10 +82,15 @@ namespace SlipStream.ViewModels
                 Driver.Add(new DriverModel());
                 Driver[i].DriverName = "Placeholder";
                 Driver[i].DriverIndex = i + 1;
+                Driver[i].LastLapTime = TimeSpan.Zero;
             }
             for (int i = 0; i < 56; i++)
             {
                 W_Model.Add(new WeatherModel());
+            }
+            for (int i = 0; i < 100; i++)
+            {
+                HistModel.Add(new SessionHistoryModel());
             }
 
             // SET INITIAL INDEX
@@ -93,62 +99,160 @@ namespace SlipStream.ViewModels
             // SET DATA RECEIVE ACTIONS
             UDPC.OnSessionDataReceive += UDPC_OnSessionDataReceive;
             UDPC.OnParticipantsDataReceive += UDPC_OnParticipantDataReceive;
-
             UDPC.OnLapDataReceive += UDPC_OnLapDataReceive;
             UDPC.OnCarStatusDataReceive += UDPC_OnCarStatusDataReceive;
             UDPC.OnCarDamageDataReceive += UDPC_OnCarDamageDataReceive;
             UDPC.OnEventDataReceive += UDPC_OnEventDataReceive;
-
+            UDPC.OnSessionHistoryDataReceive += UDPC_OnSessionHistoryDataReceive;
             UDPC.OnFinalClassificationDataReceive += UDPC_OnFinalClassificationDataReceive;
+
+            UDPC.OnLapDataReceive += updater;
+
+            slowTimer = new Timer(UpdateValuesSlow, null, 0, 1000);
+        }
+
+        private void UDPC_OnSessionHistoryDataReceive(PacketSessionHistoryData packet)
+        {
+            int DriverIndex = (int)packet.m_carIdx;
+
+            for (int i = 0; i < model.NumOfActiveCars; i++)
+            {
+                Driver[DriverIndex].BestLapNum = packet.m_bestLapTimeLapNum;
+                Driver[DriverIndex].BestS1Num = packet.m_bestSector1LapNum;
+                Driver[DriverIndex].BestS2Num = packet.m_bestSector2LapNum;
+                Driver[DriverIndex].BestS3Num = packet.m_bestSector3LapNum;
+                Driver[DriverIndex].NumTireStints = packet.m_numTyreStints;
+            }
+
+            // Lap History Data
+            for (int i = 0; i < packet.m_lapHistoryData.Length; i++) // For each lap
+            {
+                var lapHistoryData = packet.m_lapHistoryData[i];
+
+                HistModel[i].LapTime = TimeSpan.FromMilliseconds(lapHistoryData.m_lapTimeInMS);
+                HistModel[i].Sector1Time = lapHistoryData.m_sector1TimeInMS;
+                HistModel[i].Sector2Time = lapHistoryData.m_sector2TimeInMS;
+                HistModel[i].Sector3Time = lapHistoryData.m_sector3TimeInMS;
+
+                //Driver[CarIdx].CarIdx = packet.m_carIdx; // This style is used to calculate the rankings.
+                //Driver[0].CarIdx = packet.m_carIdx;
+            }
+
+            // Tire History Data
+            for (int i = 0; i < packet.m_tyreStintsHistoryData.Length; i++) // For each tire stint
+            {
+                var tireHistoryData = packet.m_tyreStintsHistoryData[i];
+
+                HistModel[i].EndLap = tireHistoryData.m_endLap;
+                HistModel[i].TireActual = tireHistoryData.m_tyreActualCompound;
+                HistModel[i].TireVisual = tireHistoryData.m_tyreVisualCompound;
+            }
+        }
+
+        private void updater(PacketLapData packet)
+        {
+            latestLapDataPacket = packet;
+        }
+
+        private void UpdateValuesSlow(object state = null)
+        {
+            // Say we wanted to order the drivers in order of m_lastLapTimeInMS to see who is currently lapping the quickest
+            PacketLapData lapData = latestLapDataPacket;
+
+            if(lapData.lapData != null)
+            {
+                var lastLapTimeLookupArray = lapData.lapData
+                    .Where(lapData => lapData.lastLapTimeInMS != 0) // Filter out drivers who do not have a time set.
+                                .Select((data, index) => new { data, index }) // Create a object that looks like {LapData data, int index}
+                                .OrderBy(value => value.data.lastLapTimeInMS) // Order it by the m_lastLapTimeInMS property
+                                .Select(value => value.index) // Take only the index property from the sorted array
+                                .ToArray(); // Convert the array;
+
+                for (int i = 0; i < lastLapTimeLookupArray.Length; i++)
+                {
+                    var originalDriverIndex = lastLapTimeLookupArray[i];
+                    //Debug.WriteLine(lastLapTimeLookupArray[i]); // Returns original index
+
+                    var lastLapDriverIndex = i + 1;
+                    //var lastLapDriverIndex = lapData.lapData[lastLapTimeLookupArray[i]].carPosition;
+                    //Debug.WriteLine(lapData.lapData[lastLapTimeLookupArray[i]].carPosition); // Returns Array of car positions sorted by Last Lap Time.
+
+                    Driver[originalDriverIndex].LastLapRank = lastLapDriverIndex;
+                }
+            }
+
+            if (lapData.lapData != null)
+            {
+                var lastS1TimeLookupArray = lapData.lapData
+                    .Where(lapData => lapData.sector1TimeInMS != 0) // Filter out drivers who do not have a time set.
+                                .Select((data, index) => new { data, index }) // Create a object that looks like {LapData data, int index}
+                                .OrderBy(value => value.data.sector1TimeInMS) // Order it by the m_lastLapTimeInMS property
+                                .Select(value => value.index) // Take only the index property from the sorted array
+                                .ToArray(); // Convert the array;
+
+                for (int i = 0; i < lastS1TimeLookupArray.Length; i++)
+                {
+                    var originalDriverIndex = lastS1TimeLookupArray[i];
+                    var lastLapDriverIndex = i + 1;
+
+                    Driver[originalDriverIndex].LastS1Rank = lastLapDriverIndex;
+                }
+            }
+
+            if (lapData.lapData != null)
+            {
+                var lastS2TimeLookupArray = lapData.lapData.Where(lapData => lapData.sector2TimeInMS != 0).Select((data, index) => new { data, index })
+                    .OrderBy(value => value.data.sector2TimeInMS).Select(value => value.index).ToArray();
+
+                for (int i = 0; i < lastS2TimeLookupArray.Length; i++)
+                {
+                    var originalDriverIndex = lastS2TimeLookupArray[i];
+                    var lastLapDriverIndex = i + 1;
+
+                    Driver[originalDriverIndex].LastS2Rank = lastLapDriverIndex;
+                }
+            }
+
+            if (driver != null)
+            {
+                var lastS3TimeLookupArray = Driver.Where(driver => driver.LastS3 != TimeSpan.Zero).Select((data, index) => new { data, index })
+                    .OrderBy(value => value.data.LastS3).Select(value => value.index).ToArray();
+
+                for (int i = 0; i < lastS3TimeLookupArray.Length; i++)
+                {
+                    var originalDriverIndex = lastS3TimeLookupArray[i];
+                    var lastLapDriverIndex = i + 1;
+
+                    //Driver[originalDriverIndex].LastS3Rank = lastLapDriverIndex;
+                }
+            }
         }
 
         private void UDPC_OnSessionDataReceive(PacketSessionData packet)
         {
-            model.Formula = Regex.Replace(packet.m_formula.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-            model.Circuit = Regex.Replace(packet.m_trackId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            model.Formula = packet.m_formula;
+            model.Circuit = packet.m_trackId;
+            model.CurrentSession = packet.m_sessionType;
+            model.CurrentWeather = packet.m_weather;
+            model.SafetyCarStatus = packet.m_safetyCarStatus;
             model.Track = packet.m_trackId;
-            model.SessionType = packet.m_sessionType;
-            model.CurrentSession = Regex.Replace(packet.m_sessionType.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-            model.CurrentWeather = Regex.Replace(packet.m_weather.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-            model.SafetyCarStatus = Regex.Replace(packet.m_safetyCarStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
             model.NetworkGame = packet.m_networkGame;
+            model.PitWindowIdeal = packet.m_pitStopWindowIdealLap;
+            model.PitWindowLate = packet.m_pitStopWindowLatestLap;
+            model.PitRejoin = packet.m_pitStopRejoinPosition;
+            model.SessionDuration = TimeSpan.FromSeconds(packet.m_sessionDuration);
+            model.SessionTimeRemaining = TimeSpan.FromSeconds(packet.m_sessionTimeLeft);
+            model.TotalLaps = packet.m_totalLaps;
 
-            // PITSTOP DATA
-            for (int i = 0; i < model.NumOfActiveCars; i++)
-            {
-                Driver[i].PitWindowIdeal = packet.m_pitStopWindowIdealLap;
-                Driver[i].PitWindowLate = packet.m_pitStopWindowLatestLap;
-                Driver[i].PitRejoin = packet.m_pitStopRejoinPosition;
-            }
+            model.RaceLapCount = $"{model.LeadLap} / {packet.m_totalLaps}";
 
-            // SAFETY CAR STATUS
-            if (model.SafetyCarStatus == "Clear")
+            if (model.CurrentSession == SessionTypes.RACE | model.CurrentSession == SessionTypes.RACE_TWO)
             {
-                model.SafetyCarIcon = "/Core/Images/check.png";
+                model.LeftInSession = model.RaceLapCount;
             }
-            else if (model.SafetyCarStatus != "Clear")
+            else
             {
-                model.SafetyCarIcon = "/Core/Images/warning.png";
-            }
-
-            // WEATHER ICON
-            switch (model.CurrentWeather)
-            {
-                case "Clear":
-                    model.CurrentWeatherIcon = "/Core/Images/clear.png";
-                    break;
-                case "Overcast":
-                    model.CurrentWeatherIcon = "/Core/Images/overcast.png";
-                    break;
-                case "Light Rain":
-                    model.CurrentWeatherIcon = "/Core/Images/light_rain.png";
-                    break;
-                case "Heavy Rain":
-                    model.CurrentWeatherIcon = "/Core/Images/heavy_rain.png";
-                    break;
-                case "Storm":
-                    model.CurrentWeatherIcon = "/Core/Images/storm.png";
-                    break;
+                model.LeftInSession = model.SessionTimeRemaining.ToString();
             }
 
             for (int i = 0; i < packet.m_numWeatherForecastSamples; i++)
@@ -162,19 +266,6 @@ namespace SlipStream.ViewModels
                 W_Model[i].AirTemperature = $"{(sbyte)((forecast.m_airTemperature * 1.8) + 32)} F";
                 W_Model[i].RainPercentage = $"{forecast.m_rainPercentage}%";
             }
-
-            if (packet.m_sessionType != SessionTypes.RACE)
-            {
-                model.SessionTimeRemaining = $"Time Remaining: {TimeSpan.FromSeconds(packet.m_sessionTimeLeft)}";
-                model.SessionDuration = TimeSpan.FromSeconds(packet.m_sessionDuration).ToString();
-            }
-            else
-            {
-                model.SessionTimeRemaining = $"{model.LeadLap} / {packet.m_totalLaps}";
-                model.SessionDuration = packet.m_totalLaps.ToString();
-            }
-
-            Console.WriteLine("Here");
         }
 
         private void UDPC_OnParticipantDataReceive(PacketParticipantsData packet)
@@ -197,273 +288,192 @@ namespace SlipStream.ViewModels
                 {
                     Driver[i].DriverName = Regex.Replace(participant.m_driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 }
-
-                // TEAM COLORS
-                switch (Driver[i].TeamID)
-                {
-                    case Teams.Mercedes:
-                        Driver[i].TeamColorIcon = "#00D2BE";
-                        break;
-                    case Teams.RedBullRacing:
-                        Driver[i].TeamColorIcon = "#0600EF";
-                        break;
-                    case Teams.Ferrari:
-                        Driver[i].TeamColorIcon = "#C00000";
-                        break;
-                    case Teams.Mclaren:
-                        Driver[i].TeamColorIcon = "#FF8700";
-                        break;
-                    case Teams.Haas:
-                        Driver[i].TeamColorIcon = "#FFFFFFFF";
-                        break;
-                    case Teams.Williams:
-                        Driver[i].TeamColorIcon = "#0082FA";
-                        break;
-                    case Teams.AlphaTauri:
-                        Driver[i].TeamColorIcon = "#C8C8C8";
-                        break;
-                    case Teams.Alpine:
-                        Driver[i].TeamColorIcon = "#FF00D1FF";
-                        break;
-                    case Teams.AlfaRomeo:
-                        Driver[i].TeamColorIcon = "#FF870000";
-                        break;
-                    case Teams.AstonMartin:
-                        Driver[i].TeamColorIcon = "#FF2F4F4F";
-                        break;
-                }
             }
         }
 
         private void UDPC_OnLapDataReceive(PacketLapData packet)
         {
-            // 22 cars
-            int[] IndexToPositionArr = new int[22];
-            // 21 deltas
-            float[] DeltaArr = new float[21];
+            int[] IndexToPositionArr = new int[22]; // 22 cars.
+            float[] DeltaArr = new float[21]; // 21 deltas.
+            LapDataUtils.UpdatePositionArray(packet.lapData, ref IndexToPositionArr); // Sort drivers by position.
 
-            LapDataUtils.UpdatePositionArray(packet.lapData, ref IndexToPositionArr);
-
-            for (int i = 0; i < packet.lapData.Length; i++)
+            for (int i = 0; i < 22; i++)
             {
                 var lapData = packet.lapData[i];
 
-                Driver[i].CurrentLapTime = TimeSpan.FromMilliseconds(lapData.currentLapTimeInMS);
                 Driver[i].CarPosition = lapData.carPosition;
                 Driver[i].GridPosition = lapData.gridPosition;
+
+                Driver[i].CurrentLapNum = lapData.currentLapNum;
+                Driver[i].CurrentLapTime = TimeSpan.FromMilliseconds(lapData.currentLapTimeInMS);
                 Driver[i].LastLapTime = TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS);
-                Driver[i].CurrentLapNum = lapData.currentLapNum - 1;
-                Driver[i].DriverStatus = lapData.driverStatus;
-                Driver[i].ResultStatus = lapData.resultStatus;
+                Driver[i].LastS1 = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
+                Driver[i].LastS2 = TimeSpan.FromMilliseconds(lapData.sector2TimeInMS);
+
                 Driver[i].Warnings = lapData.warnings;
                 Driver[i].Penalties = lapData.penalties;
 
-                
-                
+                Driver[i].DriverStatus = lapData.driverStatus;
+                Driver[i].ResultStatus = lapData.resultStatus;
+                Driver[i].PitStatus = lapData.pitStatus;
 
-                if(Driver[i].CarPosition == -10)
+                // Calculate average lap times by tire.
+                if (Driver[i].ResultStatus == ResultStatus.Active)
                 {
-                    LapData currCar = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 1); // Car in Position
-
-                    LapData nextCar = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 2); // Position of Next Car
-
-                    // If they are on the same lap, then we can directly do the delta calculation
-                    if (nextCar.currentLapNum == currCar.currentLapNum)
+                    if (Driver[i].VisualTireCompound == VisualTireCompounds.Soft && Driver[i].ResultStatus == ResultStatus.Active)
                     {
-                        float delta = currCar.currentLapTimeInMS - nextCar.currentLapTimeInMS; // ex 0.100
+                        var laptimes = new float[22];
 
-                        DeltaArr[IndexingUtils.GetRealIndex(IndexToPositionArr, i + 1)] = delta;
+                        laptimes[i] = lapData.lastLapTimeInMS;
 
-                        Driver[i].RaceInterval = TimeSpan.FromMilliseconds(DeltaArr[i+1]);
+                        model.AverageSoftTime = TimeSpan.FromMilliseconds(laptimes.Sum());
                     }
-                    // If we are one lap ahead of the other car we must still compute delta
-                    else if (currCar.currentLapNum - 1 == nextCar.currentLapNum)
+                    else if (Driver[i].VisualTireCompound == VisualTireCompounds.Medium)
                     {
-                        var delta = currCar.currentLapTimeInMS - nextCar.currentLapTimeInMS + currCar.lastLapTimeInMS; // ex 0.100
+                        var laptimes = new float[22];
 
-                        DeltaArr[IndexingUtils.GetRealIndex(IndexToPositionArr, i + 1)] = delta;
+                        laptimes[i] = lapData.lastLapTimeInMS;
 
-                        Driver[i].RaceInterval = TimeSpan.FromMilliseconds(DeltaArr[i+1]);
-
-                    }
-                    //Other wise we can't compute a delta since they are +1 Lap (I think....?)
-                    else
-                    {
-                        DeltaArr[IndexingUtils.GetRealIndex(IndexToPositionArr, i + 1)] = -1;
-
-                        Driver[i].RaceInterval = TimeSpan.FromMilliseconds(DeltaArr[i+1]);
+                        model.AverageMediumTime = TimeSpan.FromMilliseconds(laptimes.Sum());
                     }
                 }
 
-                // POSITION CHANGE
-                if (model.SessionType == SessionTypes.RACE | model.SessionType == SessionTypes.RaceTwo)
+                // Set Actual Driver Status
+                if (Driver[i].PitStatus == PitStatus.None | Driver[i].PitStatus == PitStatus.Unknown)
                 {
-                    Driver[i].PositionChange = (sbyte)(Driver[i].CarPosition - Driver[i].GridPosition);
-
-                    if (Driver[i].PositionChange > 0)
+                    switch (model.CurrentSession)
                     {
-                        Driver[i].PositionChangeIcon = "/Core/Images/Leaderboard/red_arrow.png";
-                    }
-                    else if (Driver[i].PositionChange < 0)
-                    {
-                        Driver[i].PositionChangeIcon = "/Core/Images/Leaderboard/green_arrow.png";
-                    }
-                    else { Driver[i].PositionChangeIcon = "/Core/Images/Leaderboard/dash.png"; }
-                }
-
-                // SESSION FASTEST LAPTIME / RACE LEAD LAP / LEAD LAP TIME / LEADER INTERVAL
-                if (Driver[i].CarPosition == 1)
-                {
-                    model.SessionFastestLap = Driver[i].BestLapTime;
-
-                    if(model.CurrentSession == "R A C E" | model.CurrentSession == "Race Two")
-                    {
-                        model.LeadLap = Driver[i].CurrentLapNum + 1;
-                        model.LeadLapTime = Driver[i].CurrentLapTime;
+                        case SessionTypes.P1:
+                            Driver[i].ActualDriverStatus = Driver[i].DriverStatus.ToString();
+                            break;
+                        case SessionTypes.RACE:
+                        case SessionTypes.RACE_TWO:
+                            Driver[i].ActualDriverStatus = Driver[i].ResultStatus.ToString();
+                            break;
                     }
                 }
                 else
                 {
-                    if (Driver[i].CurrentLapNum == model.LeadLap - 1)
+                    Driver[i].ActualDriverStatus = Driver[i].PitStatus.ToString();
+                }
+
+                // Set Leaderboard Light Descriptions.
+                if (model.CurrentSession == SessionTypes.RACE | model.CurrentSession == SessionTypes.RACE_TWO)
+                {
+                    model.LightOne = "Retired"; //black
+                    model.LightTwo = "In-Pitlane"; //blue
+                    model.LightThree = "Active"; //green
+                    model.LightFour = "N/A"; //orange
+                    model.LightFive = "DSQ"; //red
+                    model.LightSix = "Finished"; //white
+                    model.LightSeven = "In-This-Lap"; //yellow
+                }
+                else
+                {
+                    model.LightOne = "Inactive";
+                    model.LightTwo = "N/A";
+                    model.LightThree = "Flying Lap";
+                    model.LightFour = "In-Lap";
+                    model.LightFive = "DSQ";
+                    model.LightSix = "In-Garage";
+                    model.LightSeven = "Out-Lap";
+                }
+
+                // BEST S1
+                if (Driver[i].BestS1 == TimeSpan.Zero | Driver[i].LastS1 < Driver[i].BestS1)
+                {
+                    Driver[i].BestS1 = Driver[i].LastS1;
+                }
+
+                // BEST S2
+                if (Driver[i].BestS2 == TimeSpan.Zero | Driver[i].LastS2 < Driver[i].BestS2)
+                {
+                    Driver[i].BestS2 = Driver[i].LastS2;
+                }
+
+                // Set driver's delta to fastest lap of the session.
+                if (Driver[i].BestLapTime != TimeSpan.Zero)
+                {
+                    Driver[i].BestLapDelta = model.SessionFastestLap - Driver[i].BestLapTime;
+                }
+
+                // Set lead lap, and current/fastest laptime.
+                if (model.CurrentSession == SessionTypes.RACE | model.CurrentSession == SessionTypes.RACE_TWO)
+                {
+                    Driver[i].PositionChange = (sbyte)(Driver[i].GridPosition - Driver[i].CarPosition); // Calculate position change from starting position.
+
+                    if (Driver[i].CarPosition == 1)
                     {
-                        if(Driver[i].CurrentLapTime < TimeSpan.FromSeconds(1))
-                        {
-                            Driver[i].RaceIntervalLeader = model.LeadLapTime - Driver[i].CurrentLapTime;
-                        }
+                        model.SessionFastestLap = Driver[i].BestLapTime; // Fastest lap of the session.
+                        model.LeadLap = Driver[i].CurrentLapNum + 1; // Lead lap of the race.
+                        model.LeadLapTime = Driver[i].CurrentLapTime; // Current lap time for lead driver.
+                    }
+                    else if (Driver[i].CurrentLapNum == model.LeadLap - 1 && Driver[i].CurrentLapTime < TimeSpan.FromSeconds(1))
+                    {
+                        Driver[i].RaceIntervalLeader = model.LeadLapTime - Driver[i].CurrentLapTime; // If car is not leading, set interval to leader.
                     }
                 }
 
-                // INTERVAL
-                //if (currCar.currentLapNum == nextCar.currentLapNum)
-                {
-                    //Driver[i].RaceInterval = TimeSpan.FromMilliseconds( nextCar.currentLapTimeInMS - currCar.currentLapTimeInMS );
-                }
-
-                // BEST LAPTIME DELTA
-                if (Driver[i].CurrentLapNum > 0)
-                {
-                    Driver[i].BestLapDelta = Driver[i].BestLapTime - model.SessionFastestLap;
-                }
-
-                // SELECTED DELTA
+                // Set which delta to show on the leaderboard.
                 switch (model.CurrentSession)
                 {
                     default:
                         Driver[i].SelectedDelta = Driver[i].BestLapDelta;
                         break;
-                    case "R A C E":
-                    case "Race Two":
-                        Driver[i].SelectedDelta = Driver[i].RaceIntervalLeader;
+                    case SessionTypes.RACE:
+                    case SessionTypes.RACE_TWO:
+                        //Driver[i].SelectedDelta = Driver[i].RaceIntervalLeader; // Interval to Leader.
+                        Driver[i].SelectedDelta = Driver[i].RaceInterval; // Interval to Next Car.
                         break;
                 }
 
-                // LAST SECTOR TIMES
-                Driver[i].LastS1 = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
-                Driver[i].LastS2 = TimeSpan.FromMilliseconds(lapData.sector2TimeInMS);
-
-                // LAST S3 <- CALCULATED IN DRIVER MODEL
-
-                // BEST S1
-                if (Driver[i].LastS1 != TimeSpan.FromMilliseconds(0))
+                // Which sector time to display? <---------- CAN THIS BE IN A UTIL?
+                switch (Driver[i].ActualDriverStatus)
                 {
-                    if (Driver[i].BestS1 == TimeSpan.FromMilliseconds(0))
-                    {
-                        Driver[i].BestS1 = Driver[i].LastS1;
-                    }
-                    else if (Driver[i].LastS1 < Driver[i].BestS1)
-                    {
-                        Driver[i].BestS1 = Driver[i].LastS1;
-                    }
+                    case "In_Garage":
+                    case "Finished":
+                        Driver[i].S1Display = Driver[i].BestS1;
+                        Driver[i].S2Display = Driver[i].BestS2;
+                        Driver[i].S3Display = Driver[i].BestS3;
+                        break;
+                    case "Out_Lap":
+                    case "In_Lap":
+                    case "Flying_Lap":
+                    case "Active":
+                    case "In_This_Lap":
+                    case "In_Pit_Lane":
+                        Driver[i].S1Display = Driver[i].LastS1;
+                        Driver[i].S2Display = Driver[i].LastS2;
+                        Driver[i].S3Display = Driver[i].LastS3;
+                        break;
+                    default:
+                        Driver[i].S1Display = TimeSpan.Zero;
+                        Driver[i].S2Display = TimeSpan.Zero;
+                        Driver[i].S3Display = TimeSpan.Zero;
+                        break;
                 }
+            }
 
-                // BEST S2
-                if (Driver[i].LastS2 != TimeSpan.FromMilliseconds(0))
+            for (int i = 0; i < DeltaArr.Count(); i++)
+            {
+                // Calculate Gap Between Drivers.
+                if (Driver[i].CarPosition != 0 && Driver[i].CarPosition != 1) // Cant' compute delta for the lead driver.
                 {
-                    if (Driver[i].BestS2 == TimeSpan.FromMilliseconds(0))
-                    {
-                        Driver[i].BestS2 = Driver[i].LastS2;
-                    }
-                    else if (Driver[i].LastS2 < Driver[i].BestS2)
-                    {
-                        Driver[i].BestS2 = Driver[i].LastS2;
-                    }
+                    var carAhead = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 1); // 0 + 1 = Position 1 // Car Ahead
+                    var carBehind = IndexingUtils.GetByRealPosition(packet.lapData, IndexToPositionArr, i + 2); // 0 + 2 == Position 2 // Car Behind
+
+                    float delta = carAhead.currentLapTimeInMS - carBehind.currentLapTimeInMS;
+
+                    DeltaArr[IndexingUtils.GetRealIndex(IndexToPositionArr, i + 1)] = delta;
+                    Driver[i].RaceInterval = TimeSpan.FromMilliseconds(DeltaArr[i]);
+
+                    // Tests
+                    int ahead = carAhead.carPosition; // actual car position
+                    int bhind = carBehind.carPosition; // car behind // wrong direction.
+                    Driver[i].CarAheadPosition = Driver[ahead].CarPosition;
+                    Driver[i].ThisCarPosition = Driver[bhind].CarPosition;
+
                 }
-
-                // BEST S3 <- CALCULATED IN DRIVER MODEL
-
-                // DRIVER STATUS
-                if(model.SessionType != SessionTypes.RACE && model.SessionType != SessionTypes.RaceTwo)
-                {
-                    switch (Driver[i].DriverStatus)
-                    {
-                        case DriverStatus.InGarage:
-                            Driver[i].DriverStatusSource = "/Core/Images/Lights/black_circle.png";
-                            Driver[i].S1Display = Driver[i].BestS1;
-                            Driver[i].S2Display = Driver[i].BestS2;
-                            Driver[i].S3Display = Driver[i].BestS3;
-                            break;
-                        case DriverStatus.OutLap:
-                            Driver[i].DriverStatusSource = "/Core/Images/Lights/yellow_circle.png";
-                            Driver[i].S1Display = Driver[i].LastS1;
-                            Driver[i].S2Display = Driver[i].LastS2;
-                            Driver[i].S3Display = Driver[i].LastS3;
-                            break;
-                        case DriverStatus.InLap:
-                            Driver[i].DriverStatusSource = "/Core/Images/Lights/red_circle.png";
-                            Driver[i].S1Display = Driver[i].LastS1;
-                            Driver[i].S2Display = Driver[i].LastS2;
-                            Driver[i].S3Display = Driver[i].LastS3;
-                            break;
-                        case DriverStatus.FlyingLap:
-                            Driver[i].DriverStatusSource = "/Core/Images/Lights/Green_circle.png";
-                            Driver[i].S1Display = Driver[i].LastS1;
-                            Driver[i].S2Display = Driver[i].LastS2;
-                            Driver[i].S3Display = Driver[i].LastS3;
-                            break;
-                    }
-                }
-                else // IF RACING
-                {
-                    if (Driver[i].PitStatus != PitStatus.Pitting && Driver[i].PitStatus != PitStatus.InPitArea)
-                    {
-                        Driver[i].ActualDriverStatus = Regex.Replace(Driver[i].ResultStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-
-                        switch (Driver[i].ResultStatus)
-                        {
-                            default:
-                                Driver[i].DriverStatusSource = "/Core/Images/Lights/black_circle.png";
-                                Driver[i].S1Display = TimeSpan.FromSeconds(0);
-                                Driver[i].S2Display = TimeSpan.FromSeconds(0);
-                                Driver[i].S3Display = TimeSpan.FromSeconds(0);
-                                break;
-                            case ResultStatus.Active:
-                                Driver[i].DriverStatusSource = "/Core/Images/Lights/green_circle.png";
-                                Driver[i].S1Display = Driver[i].BestS1;
-                                Driver[i].S2Display = Driver[i].BestS2;
-                                Driver[i].S3Display = Driver[i].BestS3;
-                                break;
-                            case ResultStatus.Finished:
-                                Driver[i].DriverStatusSource = "/Core/Images/Lights/white_circle.png";
-                                Driver[i].S1Display = TimeSpan.FromSeconds(0);
-                                Driver[i].S2Display = TimeSpan.FromSeconds(0);
-                                Driver[i].S3Display = TimeSpan.FromSeconds(0);
-                                break;
-                            case ResultStatus.Disqualified:
-                                Driver[i].DriverStatusSource = "/Core/Images/Lights/red_circle.png";
-                                Driver[i].S1Display = TimeSpan.FromSeconds(0);
-                                Driver[i].S2Display = TimeSpan.FromSeconds(0);
-                                Driver[i].S3Display = TimeSpan.FromSeconds(0);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Driver[i].ActualDriverStatus = Regex.Replace(Driver[i].PitStatus.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
-                        Driver[i].DriverStatusSource = "/Core/Images/Lights/yellow_circle.png";
-                    }
-                }
-
-                model.AverageSoftTime = TimeSpan.FromMilliseconds(CarStatusUtils.GetAverageTireLaptime(packet.lapData));
             }
         }
 
@@ -485,25 +495,6 @@ namespace SlipStream.ViewModels
                 model.NumHardTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Hard);
                 model.NumInterTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Inter);
                 model.NumWetTires = CarStatusUtils.GetActiveTireCount(packet.m_carStatusData, VisualTireCompounds.Wet);
-
-                switch (Driver[i].VisualTireCompound)
-                {
-                    case VisualTireCompounds.Soft:
-                        Driver[i].TireIconSource = "/Core/Images/CustomSoft.png";
-                        break;
-                    case VisualTireCompounds.Medium:
-                        Driver[i].TireIconSource = "/Core/Images/CustomMedium.png";
-                        break;
-                    case VisualTireCompounds.Hard:
-                        Driver[i].TireIconSource = "/Core/Images/CustomHard.png";
-                        break;
-                    case VisualTireCompounds.Inter:
-                        Driver[i].TireIconSource = "/Core/Images/CustomInt.png";
-                        break;
-                    case VisualTireCompounds.Wet:
-                        Driver[i].TireIconSource = "/Core/Images/CustomWet.png";
-                        break;
-                }
             }
         }
 
@@ -519,66 +510,12 @@ namespace SlipStream.ViewModels
                     Driver[i].RRTireWear = carDamageData.m_tyresWear[a];
                     Driver[i].FLTireWear = carDamageData.m_tyresWear[a];
                     Driver[i].FRTireWear = carDamageData.m_tyresWear[a];
-
-                    // TIRE WEAR COLOR
-                    switch (Driver[i].RLTireWear)
-                    {
-                        case < 25f:
-                            Driver[i].RLTireWearColor = "#FF2EB521";
-                            break;
-                        case < 50f:
-                            Driver[i].RLTireWearColor = "#FFDDD803";
-                            break;
-                        case > 50f:
-                            Driver[i].RLTireWearColor = "#FFB10000";
-                            break;
-                    }
-                    // TIRE WEAR COLOR
-                    switch (Driver[i].RRTireWear)
-                    {
-                        case < 25f:
-                            Driver[i].RRTireWearColor = "#FF2EB521";
-                            break;
-                        case < 50f:
-                            Driver[i].RRTireWearColor = "#FFDDD803";
-                            break;
-                        case > 50f:
-                            Driver[i].RRTireWearColor = "#FFB10000";
-                            break;
-                    }
-                    // TIRE WEAR COLOR
-                    switch (Driver[i].FLTireWear)
-                    {
-                        case < 25f:
-                            Driver[i].FLTireWearColor = "#FF2EB521";
-                            break;
-                        case < 50f:
-                            Driver[i].FLTireWearColor = "#FFDDD803";
-                            break;
-                        case > 50f:
-                            Driver[i].FLTireWearColor = "#FFB10000";
-                            break;
-                    }
-                    // TIRE WEAR COLOR
-                    switch (Driver[i].FRTireWear)
-                    {
-                        case < 25f:
-                            Driver[i].FRTireWearColor = "#FF2EB521";
-                            break;
-                        case < 50f:
-                            Driver[i].FRTireWearColor = "#FFDDD803";
-                            break;
-                        case > 50f:
-                            Driver[i].FRTireWearColor = "#FFB10000";
-                            break;
-                    }
                 }
                 Driver[i].TireWear = ((Driver[i].RLTireWear + Driver[i].RRTireWear + Driver[i].FLTireWear + Driver[i].FRTireWear) / 4);
-
             }
         }
 
-        private void UDPC_OnEventDataReceive(PacketEventData packet)
+        private void UDPC_OnEventDataReceive(PacketEventData packet) // CREATE UTIL <------------------------------------------------------------------- !!
         {
             string s = new string(packet.m_eventStringCode);
 
@@ -593,7 +530,7 @@ namespace SlipStream.ViewModels
                     break;
                 case "SEND":
                     model.EventStringCode = "Session End";
-                    model.SessionTimeRemaining = "Session Complete";
+                    model.LeftInSession = "Session Complete";
                     for (int i = 0; i < model.NumOfParticipants; i++)
                     {
                         if (Driver[i].CarPosition == 1)
@@ -624,6 +561,10 @@ namespace SlipStream.ViewModels
                 Driver[i].FinalTireStintsNum = finalData.m_numTyreStints;
                 Driver[i].LastLapTime = Driver[i].TotalRaceTime;
             }
+        }
+
+        private class Dictionary<T>
+        {
         }
     }
 }

@@ -202,9 +202,43 @@
     <None Remove="Core\Images\Tracks\spain.png" />
     <None Remove="Core\Images\Tracks\usa.png" />
     <None Remove="Core\Images\Tracks\vietnam.png" />
+    <None Remove="Core\Images\TrackVectors\abu_dhabi.png" />
+    <None Remove="Core\Images\TrackVectors\australia.png" />
+    <None Remove="Core\Images\TrackVectors\austria.png" />
+    <None Remove="Core\Images\TrackVectors\azerbaijan.png" />
+    <None Remove="Core\Images\TrackVectors\bahrain.png" />
+    <None Remove="Core\Images\TrackVectors\belgium.png" />
+    <None Remove="Core\Images\TrackVectors\brazil.png" />
+    <None Remove="Core\Images\TrackVectors\britain.png" />
+    <None Remove="Core\Images\TrackVectors\canada.png" />
+    <None Remove="Core\Images\TrackVectors\china.jpg" />
+    <None Remove="Core\Images\TrackVectors\france.png" />
+    <None Remove="Core\Images\TrackVectors\germany_nurburgring.png" />
+    <None Remove="Core\Images\TrackVectors\holland.png" />
+    <None Remove="Core\Images\TrackVectors\hungary.png" />
+    <None Remove="Core\Images\TrackVectors\italy_imola.png" />
+    <None Remove="Core\Images\TrackVectors\italy_monza.png" />
+    <None Remove="Core\Images\TrackVectors\japan.png" />
+    <None Remove="Core\Images\TrackVectors\mexico.png" />
+    <None Remove="Core\Images\TrackVectors\monaco.png" />
+    <None Remove="Core\Images\TrackVectors\portugal.png" />
+    <None Remove="Core\Images\TrackVectors\russia.png" />
+    <None Remove="Core\Images\TrackVectors\saudi_arabia.png" />
+    <None Remove="Core\Images\TrackVectors\singapore.png" />
+    <None Remove="Core\Images\TrackVectors\spain.png" />
+    <None Remove="Core\Images\TrackVectors\turkey.png" />
+    <None Remove="Core\Images\TrackVectors\usa_austin.png" />
+    <None Remove="Core\Images\TrackVectors\usa_miami.png" />
+    <None Remove="Core\Images\TrackVectors\vietnam.png" />
     <None Remove="Core\Images\up_arrow.png" />
     <None Remove="Core\Images\warning.png" />
     <None Remove="Core\Images\weather.png" />
+    <None Remove="Core\Images\WeatherIcons\clear.png" />
+    <None Remove="Core\Images\WeatherIcons\heavy_rain.png" />
+    <None Remove="Core\Images\WeatherIcons\light_cloud.png" />
+    <None Remove="Core\Images\WeatherIcons\light_rain.png" />
+    <None Remove="Core\Images\WeatherIcons\overcast.png" />
+    <None Remove="Core\Images\WeatherIcons\storm.png" />
     <None Remove="Core\Images\Weather\clear.png" />
     <None Remove="Core\Images\Weather\cloud.png" />
     <None Remove="Core\Images\Weather\heavy_rain.png" />
@@ -742,6 +776,108 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\SafetyCar\warning.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\abu_dhabi.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\australia.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\austria.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\azerbaijan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\bahrain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\belgium.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\brazil.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\britain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\canada.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\china.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\france.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\germany_nurburgring.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\holland.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\hungary.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\italy_imola.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\italy_monza.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\japan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\mexico.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\monaco.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\portugal.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\russia.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\saudi_arabia.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\singapore.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\spain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\turkey.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\usa_austin.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\usa_miami.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TrackVectors\vietnam.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\WeatherIcons\clear.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\WeatherIcons\heavy_rain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\WeatherIcons\light_cloud.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\WeatherIcons\light_rain.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\WeatherIcons\overcast.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\WeatherIcons\storm.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\Weather\clear.png">

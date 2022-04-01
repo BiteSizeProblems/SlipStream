@@ -12,6 +12,35 @@ namespace SlipStream.Models
     public class SessionModel : ObservableObject
     {
 
+        private int _fastestDriver;
+        public int FastestDriver
+        {
+            get { return _fastestDriver; }
+            set { SetField(ref _fastestDriver, value, nameof(FastestDriver)); }
+        }
+
+        // PLAYER ONLY DATA
+        private uint _pitWindowIdeal;
+        public uint PitWindowIdeal
+        {
+            get { return _pitWindowIdeal; }
+            set { SetField(ref _pitWindowIdeal, value, nameof(PitWindowIdeal)); }
+        }
+
+        private uint _pitWindowLate;
+        public uint PitWindowLate
+        {
+            get { return _pitWindowLate; }
+            set { SetField(ref _pitWindowLate, value, nameof(PitWindowLate)); }
+        }
+
+        private uint _pitRejoin;
+        public uint PitRejoin
+        {
+            get { return _pitRejoin; }
+            set { SetField(ref _pitRejoin, value, nameof(PitRejoin)); }
+        }
+
         // PARTICIPANTS
         private int _totalParticipants;
         public int TotalParticipants
@@ -54,16 +83,20 @@ namespace SlipStream.Models
             set { SetField(ref _minIndex, value, nameof(MinIndex)); }
         }
 
+        private TimeSpan _fastestLastLap;
+        public TimeSpan FastestLastLap
+        {
+            get { return _fastestLastLap; }
+            set { SetField(ref _fastestLastLap, value, nameof(FastestLastLap)); }
+        }
+
         // DRIVER STATISTICAL DATA
 
         private int _NumSoftTires;
         public int NumSoftTires
         {
             get { return _NumSoftTires; }
-            set 
-            { 
-                SetField(ref _NumSoftTires, value, nameof(NumSoftTires)); 
-            }
+            set { SetField(ref _NumSoftTires, value, nameof(NumSoftTires)); }
         }
 
         private int _NumMediumTires;
@@ -103,6 +136,19 @@ namespace SlipStream.Models
             set { SetField(ref _averageSoftTime, value, nameof(AverageSoftTime)); }
         }
 
+        private TimeSpan _averageMediumTime;
+        public TimeSpan AverageMediumTime
+        {
+            get { return _averageMediumTime; }
+            set { SetField(ref _averageMediumTime, value, nameof(AverageMediumTime)); }
+        }
+
+        // Total Laps In Race
+        // Total Time Duration of Session
+
+        // Lead Lap Num
+        // Session Time Left
+
         private int _totalLaps;
         public int TotalLaps
         {
@@ -110,31 +156,45 @@ namespace SlipStream.Models
             set { SetField(ref _totalLaps, value, nameof(TotalLaps)); }
         }
 
-        private string _lapsRemaining;
-        public string LapsRemaining
+        private int _lapsRemaining;
+        public int LapsRemaining
         {
             get { return _lapsRemaining; }
             set { SetField(ref _lapsRemaining, value, nameof(LapsRemaining)); }
         }
 
-        private string _SessionTimeRemaining;
-        public string SessionTimeRemaining
+        private TimeSpan _SessionTimeRemaining;
+        public TimeSpan SessionTimeRemaining
         {
             get { return _SessionTimeRemaining; }
             set { SetField(ref _SessionTimeRemaining, value, nameof(SessionTimeRemaining)); }
         }
 
-        private string _SessionDuration;
-        public string SessionDuration
+        private TimeSpan _SessionDuration;
+        public TimeSpan SessionDuration
         {
             get { return _SessionDuration; }
             set { SetField(ref _SessionDuration, value, nameof(SessionDuration)); }
         }
 
+        private string _raceLapCount;
+        public string RaceLapCount
+        {
+            get { return _raceLapCount; }
+            set { SetField(ref _raceLapCount, value, nameof(RaceLapCount)); }
+        }
+
+        private string _leftInSession;
+        public string LeftInSession
+        {
+            get { return _leftInSession; }
+            set { SetField(ref _leftInSession, value, nameof(LeftInSession)); }
+        }
+
         // TRACK DATA
 
-        private string _circuit;
-        public string Circuit
+        private Tracks _circuit;
+        public Tracks Circuit
         {
             get { return _circuit; }
             set { SetField(ref _circuit, value, nameof(Circuit)); }
@@ -151,101 +211,101 @@ namespace SlipStream.Models
                 switch (Track)
                 {
                     case Tracks.YasMarina:
-                        TrackIcon = "/Core/Images/Tracks/abudhabi.png";
+                        GrandPrix = GrandPrix.ABU_DHABI_GRAND_PRIX;
                         break;
                     case Tracks.RedBullRing:
-                        TrackIcon = "/Core/Images/Tracks/austria.png";
+                        GrandPrix = GrandPrix.AUSTRIAN_GRAND_PRIX;
                         break;
                     case Tracks.BakuCity:
-                        TrackIcon = "/Core/Images/Tracks/azerbaijan.png";
+                        GrandPrix = GrandPrix.AZERBAIJAN_GRAND_PRIX;
                         break;
                     case Tracks.Interlagos:
-                        TrackIcon = "/Core/Images/Tracks/brazil.png";
+                        GrandPrix = GrandPrix.BRAZILIAN_GRAND_PRIX;
                         break;
                     case Tracks.Catalunya:
-                        TrackIcon = "/Core/Images/Tracks/spain.png";
+                        GrandPrix = GrandPrix.SPANISH_GRAND_PRIX;
                         break;
                     case Tracks.Hanoi:
-                        TrackIcon = "/Core/Images/Tracks/vietnam.png";
+                        GrandPrix = GrandPrix.VIETNAM_GRAND_PRIX;
                         break;
                     case Tracks.Hockenheim:
-                        TrackIcon = "/Core/Images/Tracks/germany.png";
+                        GrandPrix = GrandPrix.GERMAN_GRAND_PRIX;
                         break;
                     case Tracks.Hungaroring:
-                        TrackIcon = "/Core/Images/Tracks/hungary.png";
+                        GrandPrix = GrandPrix.HUNGARIAN_GRAND_PRIX;
                         break;
                     case Tracks.Imola:
-                        TrackIcon = "/Core/Images/Tracks/italy_imola.png";
+                        GrandPrix = GrandPrix.ITALIAN_GRAND_PRIX_AT_IMOLA;
                         break;
                     case Tracks.JeddahCorniche:
-                        TrackIcon = "/Core/Images/Tracks/saudiarabia.png";
+                        GrandPrix = GrandPrix.SAUDI_ARABIAN_GRAND_PRIX;
                         break;
                     case Tracks.AlbertPark:
-                        TrackIcon = "/Core/Images/Tracks/australia.png";
+                        GrandPrix = GrandPrix.AUSTRALIAN_GRAND_PRIX;
                         break;
                     case Tracks.AutódromoHermanosRodríguez:
-                        TrackIcon = "/Core/Images/Tracks/mexico.png";
+                        GrandPrix = GrandPrix.MEXICAN_GRAND_PRIX;
                         break;
                     case Tracks.Monaco:
-                        TrackIcon = "/Core/Images/Tracks/monaco.png";
+                        GrandPrix = GrandPrix.MONACO_GRAND_PRIX;
                         break;
                     case Tracks.CircuitGillesVilleneuve:
-                        TrackIcon = "/Core/Images/Tracks/canada.png";
+                        GrandPrix = GrandPrix.CANADIAN_GRAND_PRIX;
                         break;
                     case Tracks.Monza:
-                        TrackIcon = "/Core/Images/Tracks/italy_monza.png";
+                        GrandPrix = GrandPrix.ITALIAN_GRAND_PRIX_AT_MONZA;
                         break;
                     case Tracks.PaulRicard:
-                        TrackIcon = "/Core/Images/Tracks/france.png";
+                        GrandPrix = GrandPrix.FRENCH_GRAND_PRIX;
                         break;
                     case Tracks.AlgarveInternationalCircuit:
-                        TrackIcon = "/Core/Images/Tracks/portugal.png";
+                        GrandPrix = GrandPrix.PORTUGESE_GRAND_PRIX;
                         break;
                     case Tracks.Sakhir:
-                        TrackIcon = "/Core/Images/Tracks/bahrain.png";
+                        GrandPrix = GrandPrix.BAHRAIN_GRAND_PRIX;
                         break;
                     case Tracks.SakhirShort:
-                        TrackIcon = "/Core/Images/Tracks/bahrain_short.png";
+                        GrandPrix = GrandPrix.BAHRAIN_SHORT_GRAND_PRIX;
                         break;
                     case Tracks.ShanghaiInternational:
-                        TrackIcon = "/Core/Images/Tracks/china.png";
+                        GrandPrix = GrandPrix.CHINESE_GRAND_PRIX;
                         break;
                     case Tracks.Silverstone:
-                        TrackIcon = "/Core/Images/Tracks/britain.png";
+                        GrandPrix = GrandPrix.BRITISH_GRAND_PRIX;
                         break;
                     case Tracks.MarinaBay:
-                        TrackIcon = "/Core/Images/Tracks/singapore.png";
+                        GrandPrix = GrandPrix.SINGAPORE_GRAND_PRIX;
                         break;
                     case Tracks.SochiAutodrom:
-                        TrackIcon = "/Core/Images/Tracks/russia.png";
+                        GrandPrix = GrandPrix.RUSSIAN_GRAND_PRIX;
                         break;
                     case Tracks.SpaFrancorchamps:
-                        TrackIcon = "/Core/Images/Tracks/belgium.png";
+                        GrandPrix = GrandPrix.BELGIAN_GRAND_PRIX;
                         break;
                     case Tracks.Suzuka:
-                        TrackIcon = "/Core/Images/Tracks/japan.png";
+                        GrandPrix = GrandPrix.JAPANESE_GRAND_PRIX;
                         break;
                     case Tracks.SuzukaShort:
-                        TrackIcon = "/Core/Images/Tracks/japan_short.png";
+                        GrandPrix = GrandPrix.JAPANESE_SHORT_GRAND_PRIX;
                         break;
                     case Tracks.CircuitOfTheAmericas:
-                        TrackIcon = "/Core/Images/Tracks/usa.png";
+                        GrandPrix = GrandPrix.UNITED_STATES_GRAND_PRIX;
                         break;
                     case Tracks.CircuitOfTheAmericasShort:
-                        TrackIcon = "/Core/Images/Tracks/usa_short.png";
+                        GrandPrix = GrandPrix.UNITED_STATES_SHORT_GRAND_PRIX;
                         break;
                     case Tracks.Zandvoort:
-                        TrackIcon = "/Core/Images/Tracks/holland.png";
+                        GrandPrix = GrandPrix.DUTCH_GRAND_PRIX;
                         break;
                 }
             }
         }
 
-        private string _trackIcon;
-        public string TrackIcon
+        private GrandPrix _grandPrix;
+        public GrandPrix GrandPrix
         {
-            get { return _trackIcon; }
-            set { SetField(ref _trackIcon, value, nameof(TrackIcon)); }
+            get { return _grandPrix; }
+            set { SetField(ref _grandPrix, value, nameof(GrandPrix)); }
         }
 
 
@@ -281,25 +341,18 @@ namespace SlipStream.Models
 
         // SESSION DATA
 
-        private string _Formula;
-        public string Formula
+        private Formulas _Formula;
+        public Formulas Formula
         {
             get { return _Formula; }
             set { SetField(ref _Formula, value, nameof(Formula)); }
         }
 
-        private string _CurrentSession;
-        public string CurrentSession
+        private SessionTypes _CurrentSession;
+        public SessionTypes CurrentSession
         {
             get { return _CurrentSession; }
             set { SetField(ref _CurrentSession, value, nameof(CurrentSession)); }
-        }
-
-        private SessionTypes _sessionType;
-        public SessionTypes SessionType
-        {
-            get { return _sessionType; }
-            set { SetField(ref _sessionType, value, nameof(SessionType)); }
         }
 
         private NetworkTypes _networkGame;
@@ -310,8 +363,8 @@ namespace SlipStream.Models
         }
 
         // WEATHER DATA
-        private string _CurrentWeather;
-        public string CurrentWeather
+        private WeatherTypes _CurrentWeather;
+        public WeatherTypes CurrentWeather
         {
             get { return _CurrentWeather; }
             set { SetField(ref _CurrentWeather, value, nameof(CurrentWeather)); }
@@ -333,8 +386,8 @@ namespace SlipStream.Models
         }
 
         // SAFETY & HAZARDS
-        private string _safetyCarStatus;
-        public string SafetyCarStatus
+        private SafetyCarStatus _safetyCarStatus;
+        public SafetyCarStatus SafetyCarStatus
         {
             get { return _safetyCarStatus; }
             set { SetField(ref _safetyCarStatus, value, nameof(SafetyCarStatus)); }
@@ -352,6 +405,57 @@ namespace SlipStream.Models
         {
             get { return _safetyCarIcon; }
             set { SetField(ref _safetyCarIcon, value, nameof(SafetyCarIcon)); }
+        }
+
+        // LEADERBOARD LIGHTS
+
+        private string _lightOne;
+        public string LightOne
+        {
+            get { return _lightOne; }
+            set { SetField(ref _lightOne, value, nameof(LightOne)); }
+        }
+
+        private string _lightTwo;
+        public string LightTwo
+        {
+            get { return _lightTwo; }
+            set { SetField(ref _lightTwo, value, nameof(LightTwo)); }
+        }
+
+        private string _lightThree;
+        public string LightThree
+        {
+            get { return _lightThree; }
+            set { SetField(ref _lightThree, value, nameof(LightThree)); }
+        }
+
+        private string _lightFour;
+        public string LightFour
+        {
+            get { return _lightFour; }
+            set { SetField(ref _lightFour, value, nameof(LightFour)); }
+        }
+
+        private string _lightFive;
+        public string LightFive
+        {
+            get { return _lightFive; }
+            set { SetField(ref _lightFive, value, nameof(LightFive)); }
+        }
+
+        private string _lightSix;
+        public string LightSix
+        {
+            get { return _lightSix; }
+            set { SetField(ref _lightSix, value, nameof(LightSix)); }
+        }
+
+        private string _lightSeven;
+        public string LightSeven
+        {
+            get { return _lightSeven; }
+            set { SetField(ref _lightSeven, value, nameof(LightSeven)); }
         }
     }
 }

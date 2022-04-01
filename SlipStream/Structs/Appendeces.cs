@@ -60,10 +60,7 @@ namespace SlipStream.Structs
             SessionHistory
         }
 
-        
-
         // TEAMS
-
         public enum Teams : byte
         {
             MyTeam = 255,
@@ -150,36 +147,36 @@ namespace SlipStream.Structs
         public enum GrandPrix : sbyte
         {
             Unknown = -1,
-            Australian = 0,
-            French = 1,
-            Chinese = 2,
-            Bahrain = 3,
-            Spanish = 4,
-            Monaco = 5,
-            Canadian = 6,
-            British = 7,
-            German = 8,
-            Hungarian = 9,
-            Belgian = 10,
-            ItalianMonza = 11,
-            Singapore = 12,
-            Japanese = 13,
-            AbuDhabi = 14,
-            UnitedStates = 15,
-            Brazilian = 16,
-            Austrian = 17,
-            Russian = 18,
-            Mexican = 19,
-            Azerbaijan = 20,
-            BahrainShort = 21,
-            BritishShort = 22,
-            UnitedStatesShort = 23,
-            JapaneseShort = 24,
-            Vietnam = 25,
-            Dutch = 26,
-            ItalianImola = 27,
-            Portugese = 28,
-            SaudiArabian = 29,
+            AUSTRALIAN_GRAND_PRIX = 0,
+            FRENCH_GRAND_PRIX = 1,
+            CHINESE_GRAND_PRIX = 2,
+            BAHRAIN_GRAND_PRIX = 3,
+            SPANISH_GRAND_PRIX = 4,
+            MONACO_GRAND_PRIX = 5,
+            CANADIAN_GRAND_PRIX = 6,
+            BRITISH_GRAND_PRIX = 7,
+            GERMAN_GRAND_PRIX = 8,
+            HUNGARIAN_GRAND_PRIX = 9,
+            BELGIAN_GRAND_PRIX = 10,
+            ITALIAN_GRAND_PRIX_AT_MONZA = 11,
+            SINGAPORE_GRAND_PRIX = 12,
+            JAPANESE_GRAND_PRIX = 13,
+            ABU_DHABI_GRAND_PRIX = 14,
+            UNITED_STATES_GRAND_PRIX = 15,
+            BRAZILIAN_GRAND_PRIX = 16,
+            AUSTRIAN_GRAND_PRIX = 17,
+            RUSSIAN_GRAND_PRIX = 18,
+            MEXICAN_GRAND_PRIX = 19,
+            AZERBAIJAN_GRAND_PRIX = 20,
+            BAHRAIN_SHORT_GRAND_PRIX = 21,
+            BRITISH_SHORT_GRAND_PRIX = 22,
+            UNITED_STATES_SHORT_GRAND_PRIX = 23,
+            JAPANESE_SHORT_GRAND_PRIX = 24,
+            VIETNAM_GRAND_PRIX = 25,
+            DUTCH_GRAND_PRIX = 26,
+            ITALIAN_GRAND_PRIX_AT_IMOLA = 27,
+            PORTUGESE_GRAND_PRIX = 28,
+            SAUDI_ARABIAN_GRAND_PRIX = 29,
         }
 
         public enum Drivers : byte
@@ -584,6 +581,41 @@ namespace SlipStream.Structs
             red = 4,
         }
 
+        public enum SessionTypes : byte
+        {
+            UNKNOWN,
+            P1,
+            P2,
+            P3,
+            P_SHORT,
+            Q1,
+            Q2,
+            Q3,
+            Q_SHORT,
+            Q_ONESHOT,
+            RACE,
+            RACE_TWO,
+            TIME_TRIAL,
+        }
+
+        public enum DriverStatus : sbyte
+        {
+            Unknown = -1,
+            In_Garage = 0,
+            Flying_Lap = 1,
+            In_Lap = 2,
+            Out_Lap = 3,
+            On_Track = 4,
+        }
+
+        public enum PitStatus : sbyte
+        {
+            Unknown = -1,
+            None = 0,
+            In_This_Lap = 1,
+            In_Pit_Lane = 2,
+        }
+
         public enum ResultStatus : sbyte
         {
             Unknown = -1,
@@ -591,9 +623,9 @@ namespace SlipStream.Structs
             Inactive = 1,
             Active = 2,
             Finished = 3,
-            DidNotFinish = 4,
-            Disqualified = 5,
-            NotClassified = 6,
+            DNF = 4,
+            DSQ = 5,
+            Not_Classified = 6,
             Retired = 7,
         }
 
@@ -662,29 +694,14 @@ namespace SlipStream.Structs
             Storm,
         }
 
-        public enum SessionTypes : byte
-        {
-            Unknown,
-            P1,
-            P2,
-            P3,
-            PShort,
-            Q1,
-            Q2,
-            Q3,
-            QShort,
-            QOneShot,
-            RACE,
-            RaceTwo,
-            TimeTrial,
-        }
+        
 
         public enum Formulas : byte
         {
-            F1Realistic,
-            F1Classic,
+            F1_Realistic,
+            F1_Classic,
             F2,
-            F1Equal,
+            F1_Equal,
         }
 
         public enum SafetyCarStatus : byte
@@ -716,13 +733,7 @@ namespace SlipStream.Structs
             Line_3D
         }
 
-        public enum PitStatus : sbyte
-        {
-            Unknown = -1,
-            None = 0,
-            Pitting = 1,
-            InPitArea = 2,
-        }
+        
 
         public enum Sectors : sbyte
         {
@@ -732,15 +743,7 @@ namespace SlipStream.Structs
             Sector3 = 2,
         }
 
-        public enum DriverStatus : sbyte
-        {
-            Unknown = -1,
-            InGarage = 0,
-            FlyingLap = 1,
-            InLap = 2,
-            OutLap = 3,
-            OnTrack = 4,
-        }
+        
 
         public enum EventTypes : byte
         {
@@ -764,18 +767,18 @@ namespace SlipStream.Structs
             ButtonStatus,
         }
 
-        public enum TelemetrySettings
+        public enum TelemetrySettings : byte
         {
             Restricted,
             Public,
         }
 
-        public enum ErsDeployMode
+        public enum ErsDeployMode : byte
         {
             None = 0,
             Medium = 1,
             HotLap = 2,
-            Overtake = 3
+            Overtake = 3,
         }
 
         public enum TractionControlSettings : byte
@@ -807,7 +810,7 @@ namespace SlipStream.Structs
             Spectating,
         }
 
-        public enum TemperatureChanges
+        public enum TemperatureChanges : byte
         {
             Up,
             Down,

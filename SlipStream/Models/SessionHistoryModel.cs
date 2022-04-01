@@ -59,8 +59,8 @@ namespace SlipStream.Models
 
         // Lap History Data
 
-        private uint _lapTime;
-        public uint LapTime
+        private TimeSpan _lapTime;
+        public TimeSpan LapTime
         {
             get { return _lapTime; }
             set { SetField(ref _lapTime, value, nameof(LapTime)); }

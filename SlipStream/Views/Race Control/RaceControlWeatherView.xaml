@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views"
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1400">
 
+    <UserControl.Resources>
+        <converters:WeatherTypeToImageConverter x:Key="WeatherToImageConverter"/>
+    </UserControl.Resources>
+    
     <Border Style="{StaticResource DisplayBoxTheme}">
 
         <Grid>
@@ -59,12 +64,12 @@
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding SessionType}" Header="SESSION" Width="200" SortDirection="Ascending"/>
-                    <DataGridTextColumn Binding="{Binding TimeOffset}" Header="+/-" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding TimeOffset}" Header="+ / -" Width="200"/>
                     <DataGridTextColumn Binding="{Binding Weather}" Header="WEATHER" Width="200"/>
                     <DataGridTemplateColumn Width="125">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding WeatherHistoryIcon}" Margin="10" Height="25" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <Image Source="{Binding Weather, Converter={StaticResource WeatherToImageConverter}}" Margin="10" Height="25" RenderOptions.BitmapScalingMode="HighQuality"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

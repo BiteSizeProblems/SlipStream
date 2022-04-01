@@ -7,13 +7,14 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Media;
 using static SlipStream.Structs.Appendeces;
 
 namespace SlipStream.Models
 {
     // MODEL 
-    public class DriverModel : ObservableObject                         // 22 SIZE ARRAYS ONLY!
+    public class DriverModel : ObservableObject                     // 22 SIZE ARRAYS ONLY!
     {
         // Args CTOR
         public DriverModel(int c, Drivers d, Teams t, int r)
@@ -59,6 +60,87 @@ namespace SlipStream.Models
             get { return _maxIndex; }
             set { SetField(ref _maxIndex, value, nameof(MaxIndex)); }
         }
+
+        private int _thisCarPosition;
+        public int ThisCarPosition
+        {
+            get { return _thisCarPosition; }
+            set { SetField(ref _thisCarPosition, value, nameof(ThisCarPosition)); }
+        }
+
+        private int _carAheadPosition;
+        public int CarAheadPosition
+        {
+            get { return _carAheadPosition; }
+            set { SetField(ref _carAheadPosition, value, nameof(CarAheadPosition)); }
+        }
+
+        // SESSION HISTORY
+
+        private Array _lapHistory;
+        public Array LapHistory
+        {
+            get { return _lapHistory; }
+            set { SetField(ref _lapHistory, value, nameof(LapHistory)); }
+        }
+
+        // RANKING
+        private int _lastLapRank;
+        public int LastLapRank
+        {
+            get { return _lastLapRank; }
+            set { SetField(ref _lastLapRank, value, nameof(LastLapRank)); }
+        }
+
+        private int _lastS1Rank;
+        public int LastS1Rank
+        {
+            get { return _lastS1Rank; }
+            set { SetField(ref _lastS1Rank, value, nameof(LastS1Rank)); }
+        }
+
+        private int _lastS2Rank;
+        public int LastS2Rank
+        {
+            get { return _lastS2Rank; }
+            set { SetField(ref _lastS2Rank, value, nameof(LastS2Rank)); }
+        }
+
+        private int _lastS3Rank;
+        public int LastS3Rank
+        {
+            get { return _lastS3Rank; }
+            set { SetField(ref _lastS3Rank, value, nameof(LastS3Rank)); }
+        }
+
+        private int _fastestLapRank;
+        public int FastestLapRank
+        {
+            get { return _fastestLapRank; }
+            set { SetField(ref _fastestLapRank, value, nameof(FastestLapRank)); }
+        }
+
+        private int _fastestS1Rank;
+        public int FastestS1Rank
+        {
+            get { return _fastestS1Rank; }
+            set { SetField(ref _fastestS1Rank, value, nameof(FastestS1Rank)); }
+        }
+
+        private int _fastestS2Rank;
+        public int FastestS2Rank
+        {
+            get { return _fastestS2Rank; }
+            set { SetField(ref _fastestS2Rank, value, nameof(FastestS2Rank)); }
+        }
+
+        private int _fastestS3Rank;
+        public int FastestS3Rank
+        {
+            get { return _fastestS3Rank; }
+            set { SetField(ref _fastestS3Rank, value, nameof(FastestS3Rank)); }
+        }
+
 
         // DRIVER INFO
 
@@ -167,12 +249,12 @@ namespace SlipStream.Models
             {
                 SetField(ref lastLapTime, value, nameof(LastLapTime));
 
-                if(LastS1 != TimeSpan.FromSeconds(0) && LastS2 != TimeSpan.FromSeconds(0) && LastLapTime != TimeSpan.FromSeconds(0) && DriverStatus != DriverStatus.InGarage)
+                if(LastS1 != TimeSpan.FromSeconds(0) && LastS2 != TimeSpan.FromSeconds(0) && LastLapTime != TimeSpan.FromSeconds(0) && DriverStatus != DriverStatus.In_Garage)
                 {
                     LastS3 = LastLapTime - (LastS1 + LastS2);
                 }
 
-                if (CurrentLapNum < 1)
+                if (BestLapTime == TimeSpan.Zero)
                 {
                     BestLapTime = LastLapTime;
                     BestS3 = LastS3;
@@ -293,14 +375,7 @@ namespace SlipStream.Models
         }
 
         // CAR / DRIVER STATUS
-        private string _driverStatusSource;
-        public string DriverStatusSource
-        {
-            get { return _driverStatusSource; }
-            set { SetField(ref _driverStatusSource, value, nameof(DriverStatusSource)); }
-        }
-
-        private DriverStatus driverStatus;
+        private DriverStatus driverStatus; // 
         public DriverStatus DriverStatus
         {
             get { return driverStatus; }
@@ -352,28 +427,6 @@ namespace SlipStream.Models
         }
 
         // PIT STOP DATA
-
-        private uint _pitWindowIdeal;
-        public uint PitWindowIdeal
-        {
-            get { return _pitWindowIdeal; }
-            set { SetField(ref _pitWindowIdeal, value, nameof(PitWindowIdeal)); }
-        }
-
-        private uint _pitWindowLate;
-        public uint PitWindowLate
-        {
-            get { return _pitWindowLate; }
-            set { SetField(ref _pitWindowLate, value, nameof(PitWindowLate)); }
-        }
-
-        private uint _pitRejoin;
-        public uint PitRejoin
-        {
-            get { return _pitRejoin; }
-            set { SetField(ref _pitRejoin, value, nameof(PitRejoin)); }
-        }
-
         private PitStatus _pitStatus;
         public PitStatus PitStatus
         {

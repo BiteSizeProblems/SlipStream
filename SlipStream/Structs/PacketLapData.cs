@@ -17,7 +17,7 @@ namespace SlipStream.Structs
         public float safetyCarDelta;            // Delta in seconds for safety car
         public byte carPosition;             // Car race position
         public byte currentLapNum;       // Current lap number
-        public byte pitStatus;               // 0 = none, 1 = pitting, 2 = in pit area
+        public PitStatus pitStatus;               // 0 = none, 1 = pitting, 2 = in pit area
         public byte numPitStops;                 // Number of pit stops taken in this race
         public byte sector;                  // 0 = sector1, 1 = sector2, 2 = sector3
         public byte currentLapInvalid;       // Current lap invalid - 0 = valid, 1 = invalid

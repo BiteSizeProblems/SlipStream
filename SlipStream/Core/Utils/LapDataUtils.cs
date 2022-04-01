@@ -49,5 +49,23 @@ namespace SlipStream.Core.Utils
             }
         }
 
+        // GET AVERAGE LAP TIME BY TIRE
+        public static float GetAverageTireLaptime(LapData[] data, int num)
+        {
+            // Count Drivers on tire and calculate average lap time by tire type.
+            int count = 0;
+            float laptime = 0f;
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i].resultStatus == ResultStatus.Active)
+                {
+                    count += 1;
+                    laptime += data[i].lastLapTimeInMS;
+                }
+            }
+            var average = laptime / num;
+            return average;
+        }
     }
 }

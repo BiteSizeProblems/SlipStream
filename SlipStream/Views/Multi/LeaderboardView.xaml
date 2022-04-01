@@ -4,9 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1400">
 
+    <UserControl.Resources>
+        <converters:EnumToFormattedStringConverter x:Key="EnumToFormattedStringConverter"/>
+        <converters:PositionChangeToImageConverter x:Key="PositionChangeToImageConverter"/>
+        <converters:TeamToColorConverter x:Key="TeamToColorConverter"/>
+        <converters:DriverStatusToImageConverter x:Key="DriverStatusToImageConverter"/>
+    </UserControl.Resources>
+    
+    
     <Border Style="{StaticResource DisplayBoxTheme}">
         <Grid>
             <Grid.RowDefinitions>
@@ -24,18 +33,24 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="{Binding model.Formula}" FontSize="14" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding model.CurrentSession}" Grid.Row="1" Grid.Column="1" 
-                               FontSize="14" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <Image Source="/Core/Images/Misc/f1_logo.png" Margin="5" 
+                           Height="20" VerticalAlignment="Center"
+                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <TextBlock Text="{Binding model.GrandPrix, Converter={StaticResource EnumToFormattedStringConverter}}" Grid.Row="2" Grid.ColumnSpan="3" 
+                               FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding model.CurrentSession, Converter={StaticResource EnumToFormattedStringConverter}}" Grid.Row="1" Grid.Column="1" 
+                               FontSize="16" VerticalAlignment="Center" 
+                               Padding="10,0" Foreground="Red"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="LIVE TIMING" FontSize="20" HorizontalAlignment="Center"/>
+                    <TextBlock Text="LIVE TIMING" FontSize="20" HorizontalAlignment="Center" 
+                               Foreground="RED" FontWeight="Bold"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding model.Circuit}" Grid.Row="2" Grid.ColumnSpan="3" 
-                               FontSize="14" FontWeight="Bold"/>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" 
+                            VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding model.LeftInSession}" FontSize="16" FontWeight="Medium"/>
                 </StackPanel>
             </Grid>
             
@@ -69,24 +84,26 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding CarPosition}" IsReadOnly="True" Header="POS" Width="50"/>
+                        <DataGridTextColumn Binding="{Binding CarAheadPosition}" IsReadOnly="True" Header="Ah" Width="50"/>
+                        <DataGridTextColumn Binding="{Binding ThisCarPosition}" IsReadOnly="True" Header="This" Width="50"/>
                         <DataGridTemplateColumn Header="+ / -" Width="50">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding PositionChangeIcon}" Margin="15" Height="15" 
+                                    <Image Source="{Binding PositionChange, Converter={StaticResource PositionChangeToImageConverter}}" Margin="15" Height="15" 
                                            RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding raceNumber}" Header="CAR" IsReadOnly="True" Width="50"/>
-                        <DataGridTextColumn Binding="{Binding DriverName}" Header="DRIVER" Width="150"/>
+                        <DataGridTextColumn Binding="{Binding PositionChange}" IsReadOnly="True" Width="50"/>
+                        <DataGridTextColumn Binding="{Binding DriverName, Converter={StaticResource EnumToFormattedStringConverter}}" Header="DRIVER" Width="150"/>
                         <DataGridTemplateColumn Width="Auto" CellStyle="{StaticResource ColorTheme}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Rectangle Width="10" Margin="5" Fill="{Binding TeamColorIcon, FallbackValue=#ffffff}"/>
+                                    <Rectangle Width="10" Margin="5" Fill="{Binding TeamID, Converter={StaticResource TeamToColorConverter}}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding TeamName}" Header="TEAM" IsReadOnly="True"  Width="125"/>
+                        <DataGridTextColumn Binding="{Binding TeamName, Converter={StaticResource EnumToFormattedStringConverter}}" Header="TEAM" IsReadOnly="True"  Width="125"/>
                         <DataGridTextColumn Binding="{Binding LastLapTime, StringFormat=m\\:ss\\.fff }" Width="125" Header="LAST" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding BestLapTime,StringFormat=m\\:ss\\.fff, FallbackValue=--:--.--- }" Width="125" Header="BEST" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding SelectedDelta,StringFormat=ss\\.fff}" Width="100" Header="GAP" IsReadOnly="True"/>
@@ -94,11 +111,11 @@
                         <DataGridTextColumn Binding="{Binding S2Display, StringFormat=ss\\.fff }" Width="100" Header="S2" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding S3Display, StringFormat=ss\\.fff }" Width="100" Header="S3" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="LAPS" IsReadOnly="True" Width="75"/>
-                        <DataGridTextColumn Binding="{Binding TireCompoundShort}" Header="TIRE" IsReadOnly="True" Width="75"/>
+                        <DataGridTextColumn Binding="{Binding TireCompoundShort}" CellStyle="{StaticResource LeaderboardTireCellTheme}" Header="TIRE" IsReadOnly="True" Width="75"/>
                         <DataGridTemplateColumn Header="STATUS" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding DriverStatusSource}" Margin="5" Height="30" 
+                                    <Image Source="{Binding ActualDriverStatus, Converter={StaticResource DriverStatusToImageConverter}}" Margin="5" Height="30" 
                                            RenderOptions.BitmapScalingMode="HighQuality"
                                            HorizontalAlignment="Left"/>
                                 </DataTemplate>
@@ -107,30 +124,32 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
+            
             <Grid Grid.Row="2">
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
-                    <TextBlock Text="LAP: " FontSize="14" FontWeight="Medium"/>
-                    <TextBlock Text="{Binding model.LeadLap, StringFormat={}{0}/}" 
-                               FontSize="14" FontWeight="Medium"/>
-                    <TextBlock Text="{Binding model.SessionDuration, StringFormat={}{0}}" 
-                               FontSize="14" FontWeight="Medium"/>
-                </StackPanel>
+                
                 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/Core/Images/Lights/black_circle.png" Height="25"/>
-                    <TextBlock Text="IN-GARAGE" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
+                    <TextBlock Text="{Binding model.LightOne}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
+                    <Image Source="/Core/Images/Lights/blue_circle.png" Height="25"/>
+                    <TextBlock Text="{Binding model.LightTwo}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
                     <Image Source="/Core/Images/Lights/green_circle.png" Height="25"/>
-                    <TextBlock Text="FLYING LAP" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
+                    <TextBlock Text="{Binding model.LightThree}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
+                    <Image Source="/Core/Images/Lights/orange_circle.png" Height="25"/>
+                    <TextBlock Text="{Binding model.LightFour}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
                     <Image Source="/Core/Images/Lights/red_circle.png" Height="25"/>
-                    <TextBlock Text="IN-LAP" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
+                    <TextBlock Text="{Binding model.LightFive}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
+                    <Image Source="/Core/Images/Lights/white_circle.png" Height="25"/>
+                    <TextBlock Text="{Binding model.LightSix}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
                     <Image Source="/Core/Images/Lights/yellow_circle.png" Height="25"/>
-                    <TextBlock Text="OUT-LAP" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
+                    <TextBlock Text="{Binding model.LightSeven}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>
                 </StackPanel>
 
             </Grid>

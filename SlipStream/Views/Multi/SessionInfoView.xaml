@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
              mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
+    <UserControl.Resources>
+        <converters:GrandPrixToTrackImageConverter x:Key="GrandPrixToTrackImageConverter"/>
+    </UserControl.Resources>
+
     <Border Style="{StaticResource DisplayBoxTheme}">
         
         <Grid>
@@ -14,46 +19,54 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Border Background="#2F4858" CornerRadius="25,25,0,0">
                 <TextBlock Text="SESSION INFO"  Style="{StaticResource DisplayBoxLabelTheme}"/>
             </Border>
 
-            <Image Source="{Binding model.TrackIcon}" Margin="5" Height="100" Grid.Row="1"
-                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                           RenderOptions.BitmapScalingMode="HighQuality"/>
+            
 
             <Grid Grid.Row="2">
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
-                    <TextBlock Text="Network Type: "
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                    <StackPanel>
+                        <TextBlock Text="Network Type: " FontSize="14" FontWeight="Bold"
                                Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                    <TextBlock Text="Total Participants: "
+                        <TextBlock Text="In Lobby: " FontSize="14" FontWeight="Bold"
                                Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                    <TextBlock Text="Drivers: "
+                        <TextBlock Text="Drivers: " FontSize="14" FontWeight="Bold"
                                Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{Binding model.NetworkGame}" FontSize="14"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                        <TextBlock Text="{Binding model.TotalParticipants}" FontSize="14"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                        <TextBlock Text="{Binding model.NumOfActiveCars}" FontSize="14"
+                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                    </StackPanel>
+
                 </StackPanel>
 
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding model.NetworkGame}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                    <TextBlock Text="{Binding model.TotalParticipants}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                    <TextBlock Text="{Binding model.NumOfActiveCars}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                    <Image/>
-                </StackPanel>
+                <Image Source="{Binding model.GrandPrix, Converter={StaticResource GrandPrixToTrackImageConverter}}" 
+                   Margin="5" Height="200" Grid.Column="1" Grid.RowSpan="2"
+                   HorizontalAlignment="Center"
+                   RenderOptions.BitmapScalingMode="HighQuality"/>
 
             </Grid>
-
-
 
         </Grid>
 

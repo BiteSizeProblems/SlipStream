@@ -39,21 +39,31 @@
         <Setter Property="Foreground" Value="MediumAquamarine"/>
         <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
 
+    </Style>
+
+    <Style x:Key="LeaderboardTireCellTheme" TargetType="{x:Type DataGridCell}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="MediumAquamarine"/>
+        <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+
         <Style.Triggers>
-            <DataTrigger Binding="{Binding CarPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="1">
-                <Setter Property="Foreground" Value="Green" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CarPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="2">
-                <Setter Property="Foreground" Value="Black" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CarPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="3">
+            <DataTrigger Binding="{Binding TireCompoundShort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="S">
                 <Setter Property="Foreground" Value="Red" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TireCompoundShort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="M">
+                <Setter Property="Foreground" Value="Yellow" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TireCompoundShort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="H">
+                <Setter Property="Foreground" Value="LightGray" />
             </DataTrigger>
         </Style.Triggers>
 
     </Style>
-    
-    
+
+
 
     <!--// SMALL LEADERBOARD //-->
 

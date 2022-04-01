@@ -30,24 +30,6 @@ namespace SlipStream.Core.Utils
             return count;
         }
 
-        // GET AVERAGE LAP TIME BY TIRE
-        public static float GetAverageTireLaptime(LapData[] lapdata)
-        {
-            // Count Drivers on tire and calculate average lap time by tire type.
-            int count = 0;
-            float time = 0;
-
-            for (int i = 0; i < lapdata.Length; i++)
-            {
-                if (lapdata[i].resultStatus == ResultStatus.Active)
-                {
-                    count += 1;
-                    time += lapdata[i].lastLapTimeInMS / count;
-                }
-            }
-            return time;
-        }
-
         /// <summary>
         /// Get how many cars are on each tire
         /// </summary>

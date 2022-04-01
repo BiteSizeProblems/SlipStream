@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <converters:SafetyCarStringToImageConverter x:Key="SCStringToImageConverter"/>
+    </UserControl.Resources>
+
     <Border Style="{StaticResource MultiViewBorderTheme}">
 
         <Grid Margin="10">
@@ -25,7 +31,7 @@
             
             <StackPanel Orientation="Horizontal" Grid.Column="2">
 
-                <Image Source="{Binding model.SafetyCarIcon}" Margin="2" 
+                <Image Source="{Binding model.SafetyCarStatus, Converter={StaticResource SCStringToImageConverter}}" Margin="2" 
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
                 <Image Source="/Core/Images/SafetyCar/safety_car.png" Margin="2" 
