@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
              xmlns:multi="clr-namespace:SlipStream.Views.Multi"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="500">
+             Height="Auto" d:DesignWidth="500">
+
+    <UserControl.Resources>
+        <converters:EnumToFormattedStringConverter x:Key="EnumToFormattedString"/>
+    </UserControl.Resources>
     
     <Border Style="{StaticResource DisplayBoxTheme}">
 
@@ -14,36 +19,28 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Border Background="#2F4858" CornerRadius="25,25,0,0">
+            <Border Background="#FF193549">
                 <TextBlock Text="NOTIFICATIONS" Style="{StaticResource DisplayBoxLabelTheme}"/>
             </Border>
 
-
             <StackPanel Grid.Row="1">
 
-                <multi:SafetyCarView Height="75" Width="Auto" Margin="15" Padding="5"/>
+                <multi:SafetyCarView Height="75" Width="Auto" 
+                                     Margin="15" Padding="5"/>
 
-                <multi:WeatherView Height="75" Width="Auto" Margin="15" Padding="5"/>
+                <multi:WeatherView Height="75" Width="Auto" 
+                                   Margin="15" Padding="5"
+                                   Grid.Column="1"/>
 
-                <multi:EventView Height="75" Width="Auto" Margin="15" Padding="5"/>
+                <multi:EventView Height="75" Width="Auto" 
+                                 Margin="15" Padding="5"
+                                 Grid.Row="1" Grid.ColumnSpan="2"/>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="1">
-
-                    </StackPanel>
-
-                </Grid>
             </StackPanel>
 
         </Grid>
-
     </Border>
 </UserControl>

@@ -15,10 +15,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Core\Fonts\Formula1-Black.ttf" />
-    <None Remove="Core\Fonts\Formula1-Bold.ttf" />
-    <None Remove="Core\Fonts\Formula1-Regular.ttf" />
-    <None Remove="Core\Fonts\Formula1-Wide.ttf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Black.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Bold.ttf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Heavy.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Light.ttf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Medium.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Regular.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Semibold.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Thin.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIDisplay-Ultralight.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-Bold.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-BoldG1.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-BoldG2.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-BoldG3.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-BoldItalicG1.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-BoldItalicG2.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-BoldItalicG3.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-Heavy.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-HeavyItalic.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-Italic.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-ItalicG1.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-ItalicG2.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-ItalicG3.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-Light.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-LightItalic.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-Medium.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-MediumItalic.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-Regular.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-RegularG1.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-RegularG2.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-RegularG3.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-Semibold.otf" />
+    <None Remove="Core\Fonts\SanFrancisco\SFUIText-SemiboldItalic.otf" />
     <None Remove="Core\Images\background_stock.jpg" />
     <None Remove="Core\Images\black_circle.png" />
     <None Remove="Core\Images\blue_circle.png" />
@@ -135,17 +163,22 @@
     <None Remove="Core\Images\Leaderboard\green_arrow.png" />
     <None Remove="Core\Images\Leaderboard\red_arrow.png" />
     <None Remove="Core\Images\MediumTire.png" />
+    <None Remove="Core\Images\Menu\color_dash.png" />
+    <None Remove="Core\Images\Menu\color_strat.png" />
     <None Remove="Core\Images\Menu\dashboard.png" />
     <None Remove="Core\Images\Menu\dynamic.png" />
     <None Remove="Core\Images\Menu\finish.png" />
     <None Remove="Core\Images\Menu\finish_flag.png" />
     <None Remove="Core\Images\Menu\home.png" />
+    <None Remove="Core\Images\Menu\information.png" />
     <None Remove="Core\Images\Menu\relative.png" />
     <None Remove="Core\Images\Menu\steering_wheel.png" />
     <None Remove="Core\Images\Menu\stopwatch.png" />
     <None Remove="Core\Images\Menu\strategy.png" />
     <None Remove="Core\Images\Menu\weather.png" />
+    <None Remove="Core\Images\Menu\weather_app.png" />
     <None Remove="Core\Images\Menu\wrench.png" />
+    <None Remove="Core\Images\Misc\car_sideview.png" />
     <None Remove="Core\Images\Misc\f1_logo.png" />
     <None Remove="Core\Images\Misc\f1_logo_white.png" />
     <None Remove="Core\Images\orange_circle.png" />
@@ -157,6 +190,17 @@
     <None Remove="Core\Images\steering-wheel.png" />
     <None Remove="Core\Images\steering_wheel.png" />
     <None Remove="Core\Images\strategy.png" />
+    <None Remove="Core\Images\TeamIcons\alfa_romeo.png" />
+    <None Remove="Core\Images\TeamIcons\alpha_tauri.png" />
+    <None Remove="Core\Images\TeamIcons\alpine.png" />
+    <None Remove="Core\Images\TeamIcons\aston_martin.png" />
+    <None Remove="Core\Images\TeamIcons\ferrari.jpg" />
+    <None Remove="Core\Images\TeamIcons\ferrari.png" />
+    <None Remove="Core\Images\TeamIcons\haas.png" />
+    <None Remove="Core\Images\TeamIcons\mclaren.png" />
+    <None Remove="Core\Images\TeamIcons\mercedes.png" />
+    <None Remove="Core\Images\TeamIcons\red_bull.png" />
+    <None Remove="Core\Images\TeamIcons\williams.png" />
     <None Remove="Core\Images\timer_50px.png" />
     <None Remove="Core\Images\TrackIcons\abudhabi.svg" />
     <None Remove="Core\Images\TrackIcons\australia.svg" />
@@ -275,6 +319,102 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Fonts\Formula1-Wide.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Black.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Heavy.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Medium.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Regular.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Semibold.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Thin.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIDisplay-Ultralight.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-Bold.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-BoldG1.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-BoldG2.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-BoldG3.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-BoldItalicG1.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-BoldItalicG2.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-BoldItalicG3.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-Heavy.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-HeavyItalic.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-Italic.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-ItalicG1.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-ItalicG2.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-ItalicG3.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-Light.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-LightItalic.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-Medium.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-MediumItalic.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-Regular.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-RegularG1.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-RegularG2.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-RegularG3.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-Semibold.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Fonts\SanFrancisco\SFUIText-SemiboldItalic.otf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\Flags\American.png">
@@ -538,6 +678,18 @@
     <Resource Include="Core\Images\Flags\Welsh.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Core\Images\Menu\color_dash.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\color_strat.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\information.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Menu\weather_app.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Core\Images\Misc\background_stock.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -545,6 +697,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\Lights\blue_circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\Misc\car_sideview.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\Misc\f1_logo.png">
@@ -560,6 +715,36 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\Misc\crew.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\alfa_romeo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\alpha_tauri.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\alpine.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\aston_martin.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\ferrari.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\haas.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\mclaren.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\mercedes.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\red_bull.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Core\Images\TeamIcons\williams.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Core\Images\TireIcons\CustomHard.png">

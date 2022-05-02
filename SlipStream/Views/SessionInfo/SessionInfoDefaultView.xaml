@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="SlipStream.Views.SessionInfoDefaultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SlipStream.Views"
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <converters:GrandPrixToTrackImageConverter x:Key="GrandPrixToTrackImageConverter"/>
+        <converters:WeatherTypeToImageConverter x:Key="WeatherToImageConverter"/>
+        <converters:EnumToFormattedStringConverter x:Key="EnumToFormattedStringConverter"/>
+    </UserControl.Resources>
+
+    <Border Background="Transparent" CornerRadius="25"
+            BorderThickness="0" BorderBrush="Transparent">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="450"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Session Info" Margin="20,0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" FontSize="30" 
+                       FontWeight="Bold" Grid.ColumnSpan="3" Style="{StaticResource F1LabelTheme}"/>
+
+            <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1">
+
+                <StackPanel>
+
+                    <TextBlock Text="Lobby Roster" Padding="10" HorizontalAlignment="Stretch" Style="{StaticResource F1LabelTheme}"
+                               TextAlignment="Center" Background="#FF193549"/>
+                    
+                    <DataGrid Background="Transparent" RowBackground="Transparent"
+                      Name="CompactLeaderboard" ItemsSource="{Binding Path=Driver}"
+                      GridLinesVisibility="None" IsReadOnly="True"
+                      AutoGenerateColumns="False" Padding="5" HeadersVisibility="Column"
+                      BorderBrush="Transparent" RowHeight="30"
+                      CanUserAddRows="False" CanUserDeleteRows="False" 
+                      CanUserResizeRows="False" CanUserResizeColumns="False" SelectionUnit="Cell"
+                      CellStyle="{StaticResource SmallLeaderboardCellTheme}"
+                      ColumnHeaderStyle="{StaticResource SmallLeaderboardHeaderTheme}">
+
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CarPosition}"  Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding CarPosition}" Header="POS" Width="40"/>
+                            <DataGridTextColumn Binding="{Binding DriverName}" Header="DRIVER" Width="150"/>
+                        </DataGrid.Columns>
+
+                        <DataGrid.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarTheme}"/>
+                            <Style TargetType="Thumb" BasedOn="{StaticResource ScrollBarThumbTheme}"/>
+                        </DataGrid.Resources>
+
+                    </DataGrid>
+
+                </StackPanel>
+
+            </Border>
+
+            <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1" Grid.Column="1">
+                
+                <StackPanel>
+
+                    <TextBlock Padding="5,10" FontSize="14" HorizontalAlignment="Stretch" Background="#FF193549" TextAlignment="Center" Style="{StaticResource F1LabelTheme}">
+                        <Run Text="GRAND PRIX: " FontWeight="SemiBold"/>
+                        <Run Text="{Binding model.GrandPrix, Converter={StaticResource EnumToFormattedStringConverter}}"/>
+                    </TextBlock>
+
+                    <Image Source="{Binding model.GrandPrix, Converter={StaticResource GrandPrixToTrackImageConverter}}" 
+                   Height="350" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Margin="25"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="10">
+
+                            <TextBlock Text="Session Info: " Padding="5,10" Style="{StaticResource F1LabelTheme}"/>
+
+                            <TextBlock Padding="5,10" FontSize="12" Background="#FF193549">
+                                <Run Text="Formula: " FontWeight="SemiBold"/>
+                                <Run Text="{Binding model.Formula, Converter={StaticResource EnumToFormattedStringConverter}}"/>
+                            </TextBlock>
+
+                            <TextBlock Padding="5,10" FontSize="12">
+                                <Run Text="Current Session: "/>
+                                <Run Text="{Binding model.CurrentSession, Converter={StaticResource EnumToFormattedStringConverter}}"/>
+                            </TextBlock>
+
+                            <TextBlock Padding="5,10" FontSize="12" Background="#FF193549">
+                                <Run Text="Track-Length: "/>
+                                <Run Text="{Binding model.CurrentSession, Converter={StaticResource EnumToFormattedStringConverter}}"/>
+                            </TextBlock>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="10">
+
+                            <TextBlock Text="Lobby Info: " Padding="5,10" Style="{StaticResource F1LabelTheme}"/>
+
+                            <TextBlock Padding="5,10" FontSize="12" Background="#FF193549">
+                                <Run Text="Network: " FontWeight="SemiBold"/>
+                                <Run Text="{Binding model.NetworkGame}"/>
+                            </TextBlock>
+
+                            <TextBlock Padding="5,10" FontSize="12">
+                                <Run Text="Active in Lobby: " FontWeight="SemiBold"/>
+                                <Run Text="{Binding model.TotalParticipants}"/>
+                            </TextBlock>
+
+                            <TextBlock Padding="5,10" FontSize="12" Background="#FF193549">
+                                <Run Text="Drivers: " FontWeight="SemiBold"/>
+                                <Run Text="{Binding model.NumOfActiveCars}"/>
+                            </TextBlock>
+
+                        </StackPanel>
+
+
+                    </Grid>
+                    
+                </StackPanel>
+                
+            </Border>
+
+            <Border Style="{StaticResource DisplayBoxTheme}" Grid.Row="1" Grid.Column="2">
+
+                <StackPanel>
+
+                    <TextBlock Text="Weather Forecast" Padding="10" HorizontalAlignment="Stretch" TextAlignment="Center"
+                               Background="#FF193549" Style="{StaticResource F1LabelTheme}"/>
+
+                    <DataGrid Background="Transparent" ItemsSource="{Binding Path=W_Model}"
+                  RowBackground="Transparent" BorderBrush="Transparent" RowHeight="80" ColumnHeaderHeight="55"
+                  Name="W_ForecastDataGrid" GridLinesVisibility="None" IsReadOnly="True"
+                  AutoGenerateColumns="False" Padding="5" HeadersVisibility="Column"
+                    CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False"
+                              ColumnHeaderStyle="{StaticResource SmallLeaderboardHeaderTheme}"
+                    CanUserResizeRows="False" SelectionUnit="CellOrRowHeader" CellStyle="{StaticResource SmallLeaderboardCellTheme}">
+
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsCurrentSession}"  Value="false">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+
+                        
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding IsCurrentSession}" Header=" Session " Visibility="Collapsed"/>
+                            <DataGridTextColumn Binding="{Binding TimeOffset, StringFormat={}+ {0} min}" Header=" + / - " Width="70"/>
+
+                            <DataGridTemplateColumn Header="WEATHER" Width="75">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Weather, Converter={StaticResource WeatherToImageConverter}}" Height="25" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Binding="{Binding TrackTemperature}" Header="TRACK TEMP" Width="90"/>
+                            <DataGridTextColumn Binding="{Binding AirTemperature}" Header="AIR TEMP" Width="80"/>
+                            <DataGridTextColumn Binding="{Binding RainPercentage}" Header="PRECIP" Width="80"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </StackPanel>
+
+            </Border>
+
+
+
+        </Grid>
+    </Border>
+</UserControl>

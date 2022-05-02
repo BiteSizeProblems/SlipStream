@@ -19,7 +19,7 @@
 
         <Image Source="/Core/Images/Misc/background_stock.jpg" 
                    RenderOptions.BitmapScalingMode="HighQuality"
-                   StretchDirection="Both"/>
+                   Stretch="UniformToFill" OpacityMask="White"/>
         
         <Border Margin="5" CornerRadius="25,25,0,0" Background="#7F193549">
             
@@ -28,21 +28,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"/>
                     <RowDefinition/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
                 <Border Grid.Column="1" CornerRadius="10,10,0,0" MouseDown="Border_MouseDown">
-                    <Grid  HorizontalAlignment="Stretch" Background="#7F193549">
+                    <Grid  HorizontalAlignment="Stretch" Background="#D8758F8D">
 
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="SLIPSTREAM" FontSize="18" FontWeight="Bold" 
-                            Margin="10,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <Label Content="~ RACING, MADE SIMPLE" FontSize="14"
-                            HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="SLIPSTREAM ~ RACING, MADE SIMPLE" Style="{StaticResource F1LabelTheme}"
+                            Margin="5,0" TextAlignment="Left" VerticalAlignment="Center" FontSize="10" FontWeight="Regular"/>
+                            
+                            <Button BorderThickness="0" 
+                                    Background="Transparent" 
+                                    Width="30"
+                                    Margin="1" Click="DiscordButton_Click">
+                                <Image Source="/Core/Images/Menu/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Button>
                         </StackPanel>
                         
 
@@ -67,21 +68,20 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.RowSpan="12" Background="#7F193549" BorderThickness="0,0,1,0" BorderBrush="MediumAquamarine">
+                <Border Grid.Row="2" CornerRadius="25,25,0,0" Width="1000"
+                        Background="#FF758F8D" BorderThickness="2,2,2,0" BorderBrush="#FF243736">
 
-                    <StackPanel Margin="5,50" VerticalAlignment="Center">
-
-                        
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
 
                         <!--// Main Menu //-->
 
-                        <Menu Height="Auto" Margin="5,10" Background="Transparent">
+                        <Menu Height="Auto" Margin="1" Background="Transparent">
 
                             <Menu.ItemsPanel>
 
                                 <ItemsPanelTemplate>
 
-                                    <VirtualizingStackPanel Orientation="Vertical"/>
+                                    <VirtualizingStackPanel Orientation="Horizontal"/>
 
                                 </ItemsPanelTemplate>
 
@@ -89,12 +89,25 @@
 
                             <!--// Main Menu - Home //-->
 
-                            <MenuItem Template="{StaticResource Menu_Template}" 
+                            <MenuItem Template="{StaticResource Menu_Template}" Margin="5,0"
                                   Command="{Binding HomeViewCommand}">
 
                                 <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/Menu/home.png"/>
+                                    <Image Source="/Core/Images/Menu/home.png" Height="30"/>
+
+                                </MenuItem.Icon>
+
+                            </MenuItem>
+
+                            <!--// Main Menu - Session Info //-->
+
+                            <MenuItem Template="{StaticResource Menu_Template}" Margin="5,0"
+                                  Command="{Binding SessionInfoViewCommand}">
+
+                                <MenuItem.Icon>
+
+                                    <Image Source="/Core/Images/Menu/information.png" Height="30"/>
 
                                 </MenuItem.Icon>
 
@@ -102,12 +115,12 @@
 
                             <!--// Main Menu - Leaderboard //-->
 
-                            <MenuItem Template="{StaticResource Menu_Template}" 
+                            <MenuItem Template="{StaticResource Menu_Template}" Margin="5,0"
                                   Command="{Binding LeaderboardViewCommand}">
 
                                 <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/Menu/relative.png"/>
+                                    <Image Source="/Core/Images/Menu/relative.png" Height="30"/>
 
                                 </MenuItem.Icon>
 
@@ -115,11 +128,11 @@
 
                             <!--// Main Menu - Driver //-->
 
-                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}">
+                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}" Margin="5,0">
 
                                 <MenuItem.Icon>
 
-                                    <Image Source="/Core/Images/Menu/steering-wheel.png"/>
+                                    <Image Source="/Core/Images/Menu/steering-wheel.png" Height="30"/>
 
                                 </MenuItem.Icon>
 
@@ -130,8 +143,7 @@
 
                                     <MenuItem.Icon>
 
-                                        <Image Source="/Core/Images/Menu/dashboard.png"
-                                   Stretch="None" Width="5" Height="5"/>
+                                        <Image Source="/Core/Images/Menu/color_dash.png"/>
 
                                     </MenuItem.Icon>
 
@@ -144,8 +156,7 @@
 
                                     <MenuItem.Icon>
 
-                                        <Image Source="/Core/Images/Menu/strategy.png"
-                                   Stretch="None" />
+                                        <Image Source="/Core/Images/Menu/color_strat.png"/>
 
                                     </MenuItem.Icon>
 
@@ -155,7 +166,7 @@
 
                             <!--// Main Menu - Engineer //-->
 
-                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}">
+                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}" Margin="5,0">
 
                                 <MenuItem.Icon>
 
@@ -170,8 +181,7 @@
 
                                     <MenuItem.Icon>
 
-                                        <Image Source="/Core/Images/Menu/dashboard.png"
-                                   Stretch="None" />
+                                        <Image Source="/Core/Images/Menu/color_dash.png"/>
 
                                     </MenuItem.Icon>
 
@@ -184,48 +194,7 @@
 
                                     <MenuItem.Icon>
 
-                                        <Image Source="/Core/Images/Menu/strategy.png"
-                                   Stretch="None" />
-
-                                    </MenuItem.Icon>
-
-                                </MenuItem>
-
-                            </MenuItem>
-
-                            <!--// Main Menu - Race Control //-->
-
-                            <MenuItem Template="{StaticResource Menu_SubMenu_Template}">
-
-                                <MenuItem.Icon>
-
-                                    <Image Source="/Core/Images/Menu/finish_flag.png"/>
-
-                                </MenuItem.Icon>
-
-                                <!--// Driver Submenu - Dashboard //-->
-
-                                <MenuItem Header="Dashboard"
-                              Template="{StaticResource Item_Template}" Command="{Binding RaceControlDefaultViewCommand}">
-
-                                    <MenuItem.Icon>
-
-                                        <Image Source="/Core/Images/Menu/dashboard.png"
-                                   Stretch="None" />
-
-                                    </MenuItem.Icon>
-
-                                </MenuItem>
-
-                                <!--// Driver Submenu - Strategy //-->
-
-                                <MenuItem Header="Weather"
-                              Template="{StaticResource Item_Template}" Command="{Binding RaceControlWeatherViewCommand}">
-
-                                    <MenuItem.Icon>
-
-                                        <Image Source="/Core/Images/Menu/weather.png"
-                                   Stretch="None" />
+                                        <Image Source="/Core/Images/Menu/color_strat.png"/>
 
                                     </MenuItem.Icon>
 
@@ -235,13 +204,9 @@
 
                         </Menu>
 
-                        <Button BorderThickness="0" 
-                        Background="Transparent" 
-                        Width="45"
-                        Margin="0,0,0,0" Click="DiscordButton_Click"
-                        >
-                            <Image Source="/Core/Images/Menu/discord.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </Button>
+                        
+
+                        
 
                     </StackPanel>
 
@@ -251,7 +216,7 @@
                 x:Name="ShellContent"
                 Content="{Binding CurrentView}"
                 Grid.Column="1"
-                Grid.Row="2"
+                Grid.Row="1"
                 Margin="5"/>
             </Grid>
         </Border>

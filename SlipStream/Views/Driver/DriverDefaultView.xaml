@@ -14,7 +14,6 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -23,15 +22,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <multi:CompactLeaderboardView Grid.RowSpan="2"/>
+            <multi:CompactLeaderboardView/>
 
-            <multi:DriverSelectionView Grid.Column="1"/>
-
-            <multi:DriverSummaryView Grid.Column="1" Grid.Row="1"/>
-
-            <multi:SessionInfoView Grid.Column="2"/>
-
-            <multi:NotificationView Grid.Column="2" Grid.Row="1"/>
+            <multi:NotificationView Grid.Column="1"/>
+            
+            <multi:DriverSummaryView Grid.Column="2"/>
 
         </Grid>
 

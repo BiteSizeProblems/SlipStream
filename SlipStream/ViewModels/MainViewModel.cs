@@ -21,7 +21,11 @@ namespace SlipStream.ViewModels
         public RelayCommand HomeViewCommand { get; set; }
         public HomeView HV { get; set; }
 
-            // LEADERBOARD VIEW
+        // SESSION INFO VIEW
+        public RelayCommand SessionInfoViewCommand { get; set; }
+        public SessionInfoDefaultView SIDV { get; set; }
+
+        // LEADERBOARD VIEW
         public RelayCommand LeaderboardViewCommand { get; set; }
         public LeaderboardView LV { get; set; }
 
@@ -38,13 +42,6 @@ namespace SlipStream.ViewModels
 
         public RelayCommand EngineerStrategyViewCommand { get; set; }
         public EngineerStrategyView ESV { get; set; }
-
-            // RACE CONTROL VIEWS
-        public RelayCommand RaceControlDefaultViewCommand { get; set; }
-        public RaceControlDefaultView RCDV { get; set; }
-
-        public RelayCommand RaceControlWeatherViewCommand { get; set; }
-        public RaceControlWeatherView RCWV { get; set; }
 
         private object _currentView;
         public object CurrentView
@@ -63,6 +60,8 @@ namespace SlipStream.ViewModels
 
             HV = new HomeView();
 
+            SIDV = new SessionInfoDefaultView();
+
             LV = new LeaderboardView();
 
             DDV = new DriverDefaultView();
@@ -70,9 +69,6 @@ namespace SlipStream.ViewModels
 
             EDV = new EngineerDefaultView();
             ESV = new EngineerStrategyView();
-
-            RCDV = new RaceControlDefaultView();
-            RCWV = new RaceControlWeatherView();
 
             // SET CURRENT VIEW
 
@@ -85,10 +81,16 @@ namespace SlipStream.ViewModels
                 CurrentView = HV;
             });
 
+            SessionInfoViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = SIDV;
+                SIDV.DataContext = DataVM;
+            });
+
             LeaderboardViewCommand = new RelayCommand(o =>
             {
                 CurrentView = LV;
-                //LV.DataContext = DataVM;
+                LV.DataContext = DataVM;
             });
 
             // MENU MULTI-VIEW COMMANDS
@@ -115,19 +117,6 @@ namespace SlipStream.ViewModels
             {
                 CurrentView = ESV;
                 ESV.DataContext = DataVM;
-            });
-
-
-            RaceControlDefaultViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = RCDV;
-                RCDV.DataContext = DataVM;
-            });
-
-            RaceControlWeatherViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = RCWV;
-                RCWV.DataContext = DataVM;
             });
 
         }

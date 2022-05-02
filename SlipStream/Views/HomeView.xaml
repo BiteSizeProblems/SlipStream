@@ -5,76 +5,103 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views" 
              xmlns:viewmodels="clr-namespace:SlipStream.ViewModels"
-             
              mc:Ignorable="d" 
              d:DesignHeight="980" d:DesignWidth="1820">
     <Border>
         <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
 
-            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}">
-                <TextBlock Text="SLIPSTREAM" Style="{StaticResource DisplayBoxLabelTheme}"/>
-            </Border>
-
-            <Border Grid.Row="1" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}" Padding="15">
 
                 <StackPanel>
 
-                    <Border CornerRadius="25,25,0,0">
-                        <TextBlock Text="SETTING UP?" Style="{StaticResource DisplayBoxLabelTheme}"/>
+                    <Border CornerRadius="10" Background="#FF193549" Margin="5">
+                        <TextBlock Text="SLIPSTREAM" TextAlignment="Center"
+                               Style="{StaticResource LargeF1LabelTheme}"/>
                     </Border>
+                        
 
-                    <TextBlock
+                    <Border Margin="25,10,25,5" >
+                        <StackPanel HorizontalAlignment="Stretch" >
+
+                            <Border CornerRadius="10" Background="#FF193549" Padding="5" Margin="20,20,20,10">
+                                <TextBlock Text="QUICK GUIDE" TextAlignment="Center" Style="{StaticResource F1LabelTheme}" />
+                            </Border>
+
+                            <TextBlock
                             Text="In the settings screen for Formula One 2021, select 'Telemetry Settings'"
                             Padding="20,10,20,10" TextWrapping="Wrap"/>
 
-                    <TextBlock
-                            Text="Adjust your seetings to match the following:"
+                            <TextBlock
+                            Text="Adjust your settings to match the following:"
                             Padding="20,10,20,10" TextWrapping="Wrap"/>
 
-                    <TextBlock
-                            Text="UDP Telemetry: On"
+                            <TextBlock
+                            Text="- UDP Telemetry: On"
                             Padding="20,10,20,10" TextWrapping="Wrap"/>
 
-                    <TextBlock
-                            Text="Broadcast Mode: On"
+                            <TextBlock
+                            Text="- Broadcast Mode: On"
                             Padding="20,10,20,10" TextWrapping="Wrap"/>
 
-                    <TextBlock
-                            Text="Data Restrictions: None"
+                            <TextBlock
+                            Text="- UDP Port: None"
                             Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                            <TextBlock
+                            Text="- UDP Send Rate: 30hz"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                            <TextBlock
+                            Text="- UDP Format: 2021"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                            <TextBlock
+                            Text="- Data Restrictions: None"
+                            Padding="20,10,20,10" TextWrapping="Wrap"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="25,20,25,5" >
+
+                        <StackPanel HorizontalAlignment="Stretch">
+
+                            <Border CornerRadius="10" Background="#FF193549" Padding="5" Margin="20,0,20,10">
+                                <TextBlock Text="FEATURES" Style="{StaticResource F1LabelTheme}" HorizontalAlignment="Center"/>
+                            </Border>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Core/Images/Menu/information.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                                <TextBlock Text="FOR A SESSION OVERVIEW" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Core/Images/Menu/relative.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                                <TextBlock Text="FOR LIVE TIMING" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Core/Images/Menu/steering-wheel.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                                <TextBlock Text="FOR DRIVERS" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Core/Images/Menu/wrench.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
+                                <TextBlock Text="FOR ENGINEERS" 
+                               Padding="20,10,20,10" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </Border>
 
                 </StackPanel>
+                
             </Border>
 
-            <Border Grid.Row="2" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}">
-                <StackPanel>
-                    
-                    <TextBlock Text="TO GET STARTED... SELECT:" Style="{StaticResource DisplayBoxLabelTheme}"/>
-
-                    <Image Source="/Core/Images/Menu/relative.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
-                    <TextBlock Text="FOR LIVE TIMING" 
-                               Padding="20,10,20,10" TextWrapping="Wrap"/>
-
-                    <Image Source="/Core/Images/Menu/steering-wheel.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
-                    <TextBlock Text="FOR DRIVERS" 
-                               Padding="20,10,20,10" TextWrapping="Wrap"/>
-
-                    <Image Source="/Core/Images/Menu/wrench.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
-                    <TextBlock Text="FOR ENGINEERS" 
-                               Padding="20,10,20,10" TextWrapping="Wrap"/>
-
-                    <Image Source="/Core/Images/Menu/finish_flag.png" HorizontalAlignment="Left" Margin="15,0" Height="25"/>
-                    <TextBlock Text="FOR RACE CONTROL AND COMMENTATORS" 
-                               Padding="20,10,20,10" TextWrapping="Wrap"/>
-                </StackPanel>
-            </Border>
-            
         </Grid>
     </Border>
 </UserControl>

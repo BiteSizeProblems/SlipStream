@@ -4,10 +4,10 @@
     <Style x:Key="MultiViewBorderTheme" TargetType="Border">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Margin" Value="5"/>
-        <Setter Property="BorderBrush" Value="MediumAquamarine"/>
+        <Setter Property="BorderBrush" Value="White"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="10"/>
-        <Setter Property="Background" Value="#FF1B303D"/>
+        <Setter Property="Background" Value="#FF193549"/>
     </Style>
 
 

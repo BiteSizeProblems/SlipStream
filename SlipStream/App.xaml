@@ -25,23 +25,23 @@
                 <ResourceDictionary Source="./Core/Themes/DisplayBoxTheme.xaml"/>
                 <ResourceDictionary Source="./Core/Themes/MultiViewBorderTheme.xaml"/>
                 <ResourceDictionary Source="./Core/Themes/LeaderboardTheme.xaml"/>
+                <ResourceDictionary Source="./Core/Themes/TextThemes.xaml"/>
 
                 <!--// ALL APP DEFAULTS //-->
                 <ResourceDictionary>
 
-                    <FontFamily x:Key="Formula1 Display">/Core/Fonts/#Formula1 Display</FontFamily>
+                    <FontFamily x:Key="SanFransiscoStyle">/Core/Fonts/SanFrancisco/#SFUIDisplay</FontFamily>
+                    <FontFamily x:Key="Formula1FontStyle">/Core/Fonts/#Formula1 Display</FontFamily>
 
                     <Style TargetType="TextBlock">
-                        <Setter Property="TextBlock.FontFamily" Value="{StaticResource Formula1 Display}"/>
+                        <Setter Property="TextElement.FontFamily" Value="{StaticResource SanFransiscoStyle}"/>
                         <Setter Property="Foreground" Value="White"/>
-                    </Style>
-
-                    <Style x:Key="LabelStyle" TargetType="Label">
-                        <Setter Property="FontSize" Value="30"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="OverridesDefaultStyle" Value="False"/>
                     </Style>
 
                 </ResourceDictionary>
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

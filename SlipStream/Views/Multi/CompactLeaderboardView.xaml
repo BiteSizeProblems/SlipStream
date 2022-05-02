@@ -15,7 +15,7 @@
         <converters:DriverStatusToImageConverter x:Key="DriverStatusToImageConverter"/>
     </UserControl.Resources>
 
-    <Border Style="{StaticResource DisplayBoxTheme}" Grid.RowSpan="2">
+    <Border Style="{StaticResource DisplayBoxTheme}" Grid.RowSpan="2" CornerRadius="25">
 
         <Grid>
 
@@ -24,7 +24,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border Background="#FF1B2E3A" CornerRadius="25,25,0,0" 
+            <Border Background="#FF193549" CornerRadius="25,25,0,0" 
                     Grid.ColumnSpan="2">
 
                 <Grid>
@@ -47,18 +47,17 @@
                            HorizontalAlignment="Center"/>
 
                     <TextBlock Text="{Binding model.CurrentSession, Converter={StaticResource EnumToFormattedStringConverter}, FallbackValue=RACE_TWO}" 
-                               Grid.Column="1" FontSize="26" FontWeight="Bold" 
-                               Margin="5" Foreground="Red"
+                               Grid.Column="1"  Margin="5" Foreground="Red" 
+                               Style="{StaticResource F1LabelTheme}"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
                     <TextBlock Text="{Binding model.LeftInSession, FallbackValue=1:00:00}" 
-                               FontSize="16" FontWeight="Medium" VerticalAlignment="Center" 
-                               Margin="10,0" Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+                               FontSize="20" FontWeight="Medium" VerticalAlignment="Center" 
+                               Grid.Row="1" TextAlignment="Center" Grid.ColumnSpan="2"/>
 
                     <TextBlock Text="{Binding model.GrandPrix, Converter={StaticResource EnumToFormattedStringConverter}, FallbackValue=COUNTRY_GRAND_PRIX}" 
-                               Grid.Row="2" Grid.ColumnSpan="3" 
-                               HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"
-                               VerticalAlignment="Center"/>
+                               Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource F1LabelTheme}"
+                               TextAlignment="Center" FontSize="14" VerticalAlignment="Center"/>
 
                 </Grid>
 

@@ -1,14 +1,6 @@
 ﻿using SlipStream.Core;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Media;
 using static SlipStream.Structs.Appendeces;
 
 namespace SlipStream.Models
@@ -27,7 +19,7 @@ namespace SlipStream.Models
 
         // Create a observable collection of DriverModel
         public ObservableCollection<DriverModel> Driver { get; set; }
-        private object _driverLock = new object();
+        private object _driverLock = new();
 
         // NoArgs CTOR
         public DriverModel()
@@ -36,7 +28,7 @@ namespace SlipStream.Models
             this.TeamID = Teams.Unknown;
         }
 
-        // SETTINGS
+        // GAME SETTINGS
 
         private TelemetrySettings _uDPSetting;
         public TelemetrySettings UDPSetting
@@ -75,15 +67,7 @@ namespace SlipStream.Models
             set { SetField(ref _carAheadPosition, value, nameof(CarAheadPosition)); }
         }
 
-        private float _currentLapTimeFloat;
-        public float CurrentLapTimeFloat
-        {
-            get { return _currentLapTimeFloat; }
-            set { SetField(ref _currentLapTimeFloat, value, nameof(CurrentLapTimeFloat)); }
-        }
-
         // Motion Data
-
         private float _totalDistance;
         public float TotalDistance
         {
@@ -93,12 +77,15 @@ namespace SlipStream.Models
 
         // SESSION HISTORY
 
-        private Array _lapHistory;
-        public Array LapHistory
-        {
-            get { return _lapHistory; }
-            set { SetField(ref _lapHistory, value, nameof(LapHistory)); }
-        }
+        public byte[] AllLapValid = new byte[100];
+        public float[] AllLaptimes = new float[100];
+        public float[] AllS1Times = new float[100];
+        public float[] AllS2Times = new float[100];
+        public float[] AllS3Times = new float[100];
+
+        public string[] EndLap = new string[8];
+        public string[] TireActual = new string[8];
+        public VisualTireCompounds[] TireVisual = new VisualTireCompounds[8];
 
         // RANKING
         private int _lastLapRank;
@@ -212,20 +199,6 @@ namespace SlipStream.Models
             set { SetField(ref _teamName, value, nameof(TeamName)); }
         }
 
-        private string _teamColorIcon;
-        public string TeamColorIcon
-        {
-            get{ return this._teamColorIcon; }
-            set
-            {
-                if (value != this._teamColorIcon)
-                {
-                    this._teamColorIcon = value;
-                    this.OnPropertyChanged("TeamColorIcon");
-                }
-            }
-        }
-
         // CAR INFO
         private int _raceNumber;
         public int raceNumber
@@ -261,33 +234,42 @@ namespace SlipStream.Models
         public TimeSpan LastLapTime
         {
             get { return lastLapTime; }
-            set
-            {
-                SetField(ref lastLapTime, value, nameof(LastLapTime));
-
-                if(LastS1 != TimeSpan.FromSeconds(0) && LastS2 != TimeSpan.FromSeconds(0) && LastLapTime != TimeSpan.FromSeconds(0) && DriverStatus != DriverStatus.In_Garage)
-                {
-                    LastS3 = LastLapTime - (LastS1 + LastS2);
-                }
-
-                if (BestLapTime == TimeSpan.Zero)
-                {
-                    BestLapTime = LastLapTime;
-                    BestS3 = LastS3;
-                }
-                else if (LastLapTime < BestLapTime)
-                {
-                    BestLapTime = value;
-                    BestS3 = LastS3;
-                }
-            }
+            set { SetField(ref lastLapTime, value, nameof(LastLapTime)); }
         }
 
-        private TimeSpan bestLapTime;
+        private TimeSpan _bestLapTime;
         public TimeSpan BestLapTime
         {
-            get { return bestLapTime; }
-            set { SetField(ref bestLapTime, value, nameof(BestLapTime)); }
+            get { return _bestLapTime; }
+            set { SetField(ref _bestLapTime, value, nameof(BestLapTime)); }
+        }
+
+        private Boolean _hasFastestLap;
+        public Boolean HasFastestLap
+        {
+            get { return _hasFastestLap; }
+            set { SetField(ref _hasFastestLap, value, nameof(HasFastestLap)); }
+        }
+
+        private Boolean _hasFastestS1;
+        public Boolean HasFastestS1
+        {
+            get { return _hasFastestS1; }
+            set { SetField(ref _hasFastestS1, value, nameof(HasFastestS1)); }
+        }
+
+        private Boolean _hasFastestS2;
+        public Boolean HasFastestS2
+        {
+            get { return _hasFastestS2; }
+            set { SetField(ref _hasFastestS2, value, nameof(HasFastestS2)); }
+        }
+
+        private Boolean _hasFastestS3;
+        public Boolean HasFastestS3
+        {
+            get { return _hasFastestS3; }
+            set { SetField(ref _hasFastestS3, value, nameof(HasFastestS3)); }
         }
 
         // LAST SECTOR TIMES
@@ -309,7 +291,7 @@ namespace SlipStream.Models
         public TimeSpan LastS3
         {
             get { return _lastS3; }
-            set {SetField(ref _lastS3, value, nameof(LastS3));}
+            set { SetField(ref _lastS3, value, nameof(LastS3)); }
         }
 
         // BEST SECTOR TIMES
@@ -382,16 +364,8 @@ namespace SlipStream.Models
             set { SetField(ref _raceIntervalLeader, value, nameof(RaceIntervalLeader)); }
         }
 
-            // DELTA DISPLAYED
-        private TimeSpan _selectedDelta;  // Gap / Interval selected by user.
-        public TimeSpan SelectedDelta
-        {
-            get { return _selectedDelta; }
-            set { SetField(ref _selectedDelta, value, nameof(SelectedDelta)); }
-        }
-
         // CAR / DRIVER STATUS
-        private DriverStatus driverStatus; // 
+        private DriverStatus driverStatus;
         public DriverStatus DriverStatus
         {
             get { return driverStatus; }
@@ -435,13 +409,6 @@ namespace SlipStream.Models
             set { SetField(ref _positionChange, value, nameof(PositionChange)); }
         }
 
-        private string _positionChangeIcon;
-        public string PositionChangeIcon
-        {
-            get { return _positionChangeIcon; }
-            set { SetField(ref _positionChangeIcon, value, nameof(PositionChangeIcon)); }
-        }
-
         // PIT STOP DATA
         private PitStatus _pitStatus;
         public PitStatus PitStatus
@@ -450,14 +417,21 @@ namespace SlipStream.Models
             set { SetField(ref _pitStatus, value, nameof(PitStatus)); }
         }
 
-        // TIRE DATA
-
-        private uint _endLap;
-        public uint EndLap
+        private int _numPitstops;
+        public int NumPitstops
         {
-            get { return _endLap; }
-            set { SetField(ref _endLap, value, nameof(EndLap)); }
+            get { return _numPitstops; }
+            set { SetField(ref _numPitstops, value, nameof(NumPitstops)); }
         }
+
+        private TimeSpan _pitstopTrafficGap;
+        public TimeSpan PitstopTrafficGap
+        {
+            get { return _pitstopTrafficGap; }
+            set { SetField(ref _pitstopTrafficGap, value, nameof(PitstopTrafficGap)); }
+        }
+
+        // TIRE DATA
 
         private TyreCompounds _tireActualCompound;
         public TyreCompounds TireActualCompound
@@ -474,8 +448,7 @@ namespace SlipStream.Models
             { 
                 SetField(ref visualTireCompound, value, nameof(VisualTireCompound));
 
-                // TIRE SHORT
-                switch (VisualTireCompound)
+                switch (VisualTireCompound) // Tire Compound - Shortened
                 {
                     case VisualTireCompounds.Soft:
                         TireCompoundShort = "S";
@@ -508,13 +481,6 @@ namespace SlipStream.Models
         {
             get { return _tireAge; }
             set { SetField(ref _tireAge, value, nameof(TireAge)); }
-        }
-
-        private string _tireIconSource;
-        public string TireIconSource
-        {
-            get { return _tireIconSource; }
-            set { SetField(ref _tireIconSource, value, nameof(TireIconSource)); }
         }
 
         // ENGINE & ERS DATA
@@ -577,32 +543,6 @@ namespace SlipStream.Models
         {
             get { return _tireWear; }
             set { SetField(ref _tireWear, value, nameof(TireWear)); }
-        }
-
-        // TIRE WEAR COLORS
-        private string _rlTireWearColor;
-        public string RLTireWearColor
-        {
-            get { return _rlTireWearColor; }
-            set { SetField(ref _rlTireWearColor, value, nameof(RLTireWearColor)); }
-        }
-        private string _rrTireWearColor;
-        public string RRTireWearColor
-        {
-            get { return _rrTireWearColor; }
-            set { SetField(ref _rrTireWearColor, value, nameof(RRTireWearColor)); }
-        }
-        private string _flTireWearColor;
-        public string FLTireWearColor
-        {
-            get { return _flTireWearColor; }
-            set { SetField(ref _flTireWearColor, value, nameof(FLTireWearColor)); }
-        }
-        private string _frTireWearColor;
-        public string FRTireWearColor
-        {
-            get { return _frTireWearColor; }
-            set { SetField(ref _frTireWearColor, value, nameof(FRTireWearColor)); }
         }
 
         // SESSION HISTORY PACKET

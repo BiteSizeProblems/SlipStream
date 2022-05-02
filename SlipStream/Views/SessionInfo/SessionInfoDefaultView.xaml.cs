@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +16,11 @@ using System.Windows.Shapes;
 namespace SlipStream.Views
 {
     /// <summary>
-    /// Interaction logic for RaceControlDefaultView.xaml
+    /// Interaction logic for SessionInfoDefaultView.xaml
     /// </summary>
-    public partial class RaceControlDefaultView : UserControl
+    public partial class SessionInfoDefaultView : UserControl
     {
-
-        public RaceControlDefaultView()
+        public SessionInfoDefaultView()
         {
             InitializeComponent();
         }

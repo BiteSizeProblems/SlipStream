@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
+             xmlns:themes="clr-namespace:SlipStream.Themes"
              xmlns:converters="clr-namespace:SlipStream.Core.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1400">
@@ -13,6 +14,7 @@
         <converters:PositionChangeToImageConverter x:Key="PositionChangeToImageConverter"/>
         <converters:TeamToColorConverter x:Key="TeamToColorConverter"/>
         <converters:DriverStatusToImageConverter x:Key="DriverStatusToImageConverter"/>
+        <converters:TeamToLogoConverter x:Key="TeamToLogoConverter"/>
     </UserControl.Resources>
     
     
@@ -28,7 +30,7 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
@@ -37,35 +39,42 @@
                            Height="20" VerticalAlignment="Center"
                            RenderOptions.BitmapScalingMode="HighQuality"/>
                     <TextBlock Text="{Binding model.GrandPrix, Converter={StaticResource EnumToFormattedStringConverter}}" Grid.Row="2" Grid.ColumnSpan="3" 
-                               FontSize="16" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding model.CurrentSession, Converter={StaticResource EnumToFormattedStringConverter}}" Grid.Row="1" Grid.Column="1" 
-                               FontSize="16" VerticalAlignment="Center" 
-                               Padding="10,0" Foreground="Red"/>
+                               FontSize="16" VerticalAlignment="Center" Style="{StaticResource F1LabelTheme}"/>
+                    <TextBlock x:Name="LeaderboardSessionTextBlock"
+                        Text="{Binding model.CurrentSession, Converter={StaticResource EnumToFormattedStringConverter}, FallbackValue= RACE}" Grid.Row="1" Grid.Column="1" 
+                        VerticalAlignment="Center" Style="{StaticResource F1LabelTheme}"
+                        Padding="10,0" Foreground="Red"/>
+                    <TextBlock Text="{Binding model.LeftInSession, FallbackValue= 37/42}" Grid.Row="1" Grid.Column="1" 
+                        FontSize="16" VerticalAlignment="Center" 
+                        Padding="10,0"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="LIVE TIMING" FontSize="20" HorizontalAlignment="Center" 
-                               Foreground="RED" FontWeight="Bold"/>
+                    <TextBlock Text="LIVE TIMING" HorizontalAlignment="Center" FontSize="24" Foreground="red"
+                               Style="{StaticResource F1LabelTheme}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal" 
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Name="DeltaButton"
                             VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding model.LeftInSession}" FontSize="16" FontWeight="Medium"/>
+                    <TextBlock Text="INTERVAL DELTA:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <themes:ToggleButton x:Name="GapToggleButton" Toggled="{Binding ToggledValue}" 
+                                         Click="VisibilityButtonInstance_Click" />
                 </StackPanel>
             </Grid>
             
-
             <Border Grid.Row="1">
+
                 <DataGrid 
-                    Background="Transparent" BorderBrush="Transparent"
+                    Background="#FF090934" BorderBrush="#FF193549" BorderThickness="5"
                     RowBackground="Transparent" Name="Leaderboard" 
                     ItemsSource="{Binding Path=Driver}" GridLinesVisibility="None"
-                  AutoGenerateColumns="False" Padding="15" HeadersVisibility="Column"
-                    CanUserAddRows="False" CanUserDeleteRows="False" 
-                    CanUserResizeRows="False" SelectionUnit="CellOrRowHeader" CanUserResizeColumns="False"
+                  AutoGenerateColumns="False" Margin="25" HeadersVisibility="Column" 
+                    AlternatingRowBackground="#FF193549" CanUserResizeColumns="False"
+                    CanUserAddRows="False" CanUserDeleteRows="False"
+                    CanUserResizeRows="False" SelectionUnit="CellOrRowHeader" 
                     CellStyle="{StaticResource LeaderboardCellTheme}"
                     ColumnHeaderStyle="{StaticResource LeaderboardHeaderTheme}">
-                    
+
 
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="DataGridRow">
@@ -83,42 +92,56 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding CarPosition}" IsReadOnly="True" Header="POS" Width="50"/>
-                        <DataGridTemplateColumn Header="+ / -" Width="50">
+                        <DataGridTextColumn Binding="{Binding CarPosition}" IsReadOnly="True" Header="POS" Width="Auto"/>
+                        <DataGridTemplateColumn Header="+ / -" Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding PositionChange, Converter={StaticResource PositionChangeToImageConverter}}" Margin="15" Height="15" 
+                                    <Image Source="{Binding PositionChange, Converter={StaticResource PositionChangeToImageConverter}}" Height="15" 
                                            RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Binding="{Binding PositionChange}" IsReadOnly="True" Width="50"/>
-                        <DataGridTextColumn Binding="{Binding DriverName, Converter={StaticResource EnumToFormattedStringConverter}}" Header="DRIVER" Width="150"/>
+                        <DataGridTextColumn Binding="{Binding DriverName, Converter={StaticResource EnumToFormattedStringConverter}}" Header="DRIVER" Width="Auto"/>
                         <DataGridTemplateColumn Width="Auto" CellStyle="{StaticResource ColorTheme}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Rectangle Width="10" Margin="5" Fill="{Binding TeamID, Converter={StaticResource TeamToColorConverter}}"/>
+                                    <Rectangle Width="5" Margin="5" Fill="{Binding TeamID, Converter={StaticResource TeamToColorConverter}}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding TeamName, Converter={StaticResource EnumToFormattedStringConverter}}" Header="TEAM" IsReadOnly="True"  Width="125"/>
-                        <DataGridTextColumn Binding="{Binding LastLapTime, StringFormat=m\\:ss\\.fff }" Width="125" Header="LAST" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding BestLapTime,StringFormat=m\\:ss\\.fff, FallbackValue=--:--.--- }" Width="125" Header="BEST" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding SelectedDelta,StringFormat=ss\\.fff}" Width="100" Header="GAP" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding S1Display, StringFormat=ss\\.fff }" Width="100" Header="S1" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding S2Display, StringFormat=ss\\.fff }" Width="100" Header="S2" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding S3Display, StringFormat=ss\\.fff }" Width="100" Header="S3" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="LAPS" IsReadOnly="True" Width="75"/>
-                        <DataGridTextColumn Binding="{Binding TireCompoundShort}" CellStyle="{StaticResource LeaderboardTireCellTheme}" Header="TIRE" IsReadOnly="True" Width="75"/>
-                        <DataGridTemplateColumn Header="STATUS" Width="100">
+                        <DataGridTemplateColumn Width="75">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding ActualDriverStatus, Converter={StaticResource DriverStatusToImageConverter}}" Margin="5" Height="30" 
-                                           RenderOptions.BitmapScalingMode="HighQuality"
-                                           HorizontalAlignment="Left"/>
+                                    <Border Height="30" Width="30" Background="White" CornerRadius="15">
+                                        <Image Source="{Binding TeamID, Converter={StaticResource TeamToLogoConverter}}" Height="15" 
+                                           RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Center"/>
+                                    </Border>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding LastLapTime, StringFormat=m\\:ss\\.fff }" Width="Auto" Header="LAST" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding BestLapTime,StringFormat=m\\:ss\\.fff}" CellStyle="{StaticResource LeaderboardFastestLapCellTheme}" Width="Auto" Header="BEST" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding BestLapDelta,StringFormat=ss\\.fff}" Width="Auto" Header="GAP" IsReadOnly="True" Visibility="Collapsed"/>
+                        <DataGridTextColumn Binding="{Binding RaceInterval,StringFormat=ss\\.fff}" Width="Auto" Header="INTERVAL" IsReadOnly="True" Visibility="Collapsed"/>
+                        <DataGridTextColumn Binding="{Binding RaceIntervalLeader,StringFormat=ss\\.fff}" Width="Auto" Header="LEADER" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding S1Display, StringFormat=ss\\.fff }" CellStyle="{StaticResource LeaderboardFastestS1CellTheme}" Width="Auto" Header="S1" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding S2Display, StringFormat=ss\\.fff }" CellStyle="{StaticResource LeaderboardFastestS2CellTheme}" Width="Auto" Header="S2" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding S3Display, StringFormat=ss\\.fff }" CellStyle="{StaticResource LeaderboardFastestS3CellTheme}" Width="Auto" Header="S3" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding CurrentLapNum}" Header="LAPS" IsReadOnly="True" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding NumPitstops}" Header="STOPS" IsReadOnly="True" Width="Auto" Visibility="Collapsed"/>
+                        <DataGridTextColumn Binding="{Binding TireCompoundShort}" CellStyle="{StaticResource LeaderboardTireCellTheme}" Header="TIRE" IsReadOnly="True" Width="Auto"/>
+                        <DataGridTemplateColumn Header="STATUS" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border>
+                                        <Image Source="{Binding ActualDriverStatus, Converter={StaticResource DriverStatusToImageConverter}}" Height="20" Width="20"
+                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding HasFastestLap}" Header="HasFastestLap" Visibility="Collapsed"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -131,8 +154,6 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                
-                
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/Core/Images/Lights/black_circle.png" Height="25"/>
                     <TextBlock Text="{Binding model.LightOne}" VerticalAlignment="Center" Padding="15,0,45,0" FontSize="14" FontWeight="Medium"/>

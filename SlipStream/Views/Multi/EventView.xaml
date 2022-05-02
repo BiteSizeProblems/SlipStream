@@ -19,7 +19,7 @@
                        FontSize="14" FontWeight="Bold"/>
 
             <TextBlock Text="{Binding model.EventStringCode}"
-                       Grid.Row="1" Foreground="MediumAquamarine"
+                       Grid.Row="1"
                        VerticalAlignment="Center" FontSize="14"
                        Grid.Column="1" Margin="10,0,0,0"/>
 

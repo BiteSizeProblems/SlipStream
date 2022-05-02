@@ -25,31 +25,38 @@ namespace SlipStream.Core.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string val = value.ToString();
-
-            switch (val)
+            if (value != null)
             {
-                case "Flying_Lap":
-                case "Active":
-                    return greenPath;
-                case "In_Lap":
-                    return orangePath;
-                case "Out_Lap":
-                case "In_This_Lap":
-                    return yellowPath;
-                case "In_Pit_Lane":
-                    return bluePath;
-                case "In_Garage":
-                case "Finished":
-                    return whitePath;
-                case "Inactive":
-                case "DNF":
-                case "Retired":
-                    return blackPath;
-                case "DSQ":
-                    return redPath;
-                default:
-                    return unknownPath;
+                string val = value.ToString();
+
+                switch (val)
+                {
+                    case "Flying_Lap":
+                    case "Active":
+                        return greenPath;
+                    case "In_Lap":
+                        return orangePath;
+                    case "Out_Lap":
+                    case "In_This_Lap":
+                        return yellowPath;
+                    case "In_Pit_Lane":
+                        return bluePath;
+                    case "In_Garage":
+                    case "Finished":
+                        return whitePath;
+                    case "Inactive":
+                    case "DNF":
+                    case "Retired":
+                        return blackPath;
+                    case "DSQ":
+                        return redPath;
+                    default:
+                        return unknownPath;
+                }
+            }
+            else
+            {
+                return unknownPath;
             }
         }
 

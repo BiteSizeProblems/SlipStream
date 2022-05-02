@@ -32,13 +32,6 @@ namespace SlipStream.Models
             set { SetField(ref _weather, value, nameof(Weather)); }
         }
 
-        private string _weatherHistoryIcon;
-        public string WeatherHistoryIcon
-        {
-            get { return _weatherHistoryIcon; }
-            set { SetField(ref _weatherHistoryIcon, value, nameof(WeatherHistoryIcon)); }
-        }
-
         private string _trackTemperature;
         public string TrackTemperature
         {
@@ -58,6 +51,13 @@ namespace SlipStream.Models
         {
             get { return _rainPercentage; }
             set { SetField(ref _rainPercentage, value, nameof(RainPercentage)); }
+        }
+
+        private Boolean _isCurrentSession;
+        public Boolean IsCurrentSession
+        {
+            get { return _isCurrentSession; }
+            set { SetField(ref _isCurrentSession, value, nameof(IsCurrentSession)); }
         }
     }
 }

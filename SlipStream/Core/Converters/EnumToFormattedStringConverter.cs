@@ -18,9 +18,8 @@ namespace SlipStream.Core.Converters
             }
             else
             {
-                return value.ToString();
-                //object result = value.ToString().Replace('_', ' ');
-                //return result;
+                object result = value.ToString().Replace('_', ' ');
+                return result;
             }
         }
 

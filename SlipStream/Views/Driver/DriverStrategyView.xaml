@@ -11,144 +11,192 @@
 
     <UserControl.Resources>
         <converters:TireWearToColorConverter x:Key="TireWearToColorConverter"/>
+        <converters:PitRejoinGapToImageConverter x:Key="PitRejoinGapToImageConverter"/>
     </UserControl.Resources>
 
-    <Border Style="{StaticResource DisplayBoxTheme}" Margin="10,0,10,0">
-        <Grid>
+    <Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="DRIVER: Strategy" Margin="20,0" FontSize="28" VerticalAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-            
+        <TextBlock Text="Driver: Strategy" Margin="20,0" FontSize="28" VerticalAlignment="Center" Style="{StaticResource F1LabelTheme}"/>
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <Border Grid.Row="1" Style="{StaticResource DisplayBoxTheme}">
 
-                <StackPanel Width="150" Margin="10">
+            <StackPanel Grid.Row="1">
 
-                    <TextBlock Height="125" Margin="0,15"/>
+                <TextBlock Text="PITSTOP" FontSize="50" FontWeight="Bold" Background="#FF193549"
+                               VerticalAlignment="Center" TextAlignment="Center" Padding="20" Style="{StaticResource F1LabelTheme}"/>
 
-                    <TextBlock Height="75" Margin="0,10" Text="DRIVERS PER TIRE" TextWrapping="Wrap" 
-                               FontSize="28" TextAlignment="Right" HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Stretch" />
+                <Grid Height="550">
 
-                    <TextBlock Text="{Binding CurrentSelectedDriver.DriverName, FallbackValue=Lewis Hamilton}" 
-                               Padding="5" FontSize="18" TextAlignment="Center" TextWrapping="Wrap"/>
+                    <StackPanel VerticalAlignment="Center">
 
-                    <TextBlock Text="S" FontSize="60" HorizontalAlignment="Center" Foreground="Red"/>
+                        <Border VerticalAlignment="Center" CornerRadius="250" 
+                            Padding="10">
+                            <Image Source="{Binding model.GapToCarAheadOnRejoin , Converter={StaticResource PitRejoinGapToImageConverter}}" Height="75" Margin="10"/>
+                        </Border>
 
-                    <TextBlock Text="{Binding CurrentSelectedDriver.TireWear, StringFormat={}{0:F1}% , FallbackValue=--/--}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
+                        <TextBlock Text="{Binding model.PitRejoin, FallbackValue=8th}" FontSize="40" TextWrapping="Wrap"
+                               VerticalAlignment="Center" TextAlignment="Center" Padding="10"/>
 
-                    <TextBlock Text="+" FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
+                        <Border VerticalAlignment="Center" CornerRadius="250" 
+                            Padding="10">
+                            <Image Source="{Binding model.GapToCarBehindOnRejoin , Converter={StaticResource PitRejoinGapToImageConverter}}" Height="75" Margin="10"/>
+                        </Border>
 
-                    <TextBlock Text="{Binding CurrentSelectedDriver.TireWear, StringFormat={}{0:F1}% , FallbackValue=--/--}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="0,10"/>
+                    </StackPanel>
 
+                </Grid>
+
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource DisplayBoxTheme}">
+            <StackPanel>
+
+                <TextBlock Text="AVERAGES" VerticalAlignment="Center" FontSize="50"  Style="{StaticResource F1LabelTheme}"
+                                   Padding="20" FontWeight="Bold"
+                                   TextAlignment="Center" Background="#FF193549"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <TextBlock Text="Tire" Foreground="Red" FontSize="20" Padding="10" Width="75" TextWrapping="Wrap"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="# On Track" Foreground="Red" FontSize="20" Padding="10" TextWrapping="Wrap"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Width="150"/>
+                    <TextBlock Text="Lap Time" FontSize="20" HorizontalAlignment="Center" TextAlignment="Left"
+                                   Padding="10" VerticalAlignment="Center" Width="200" Foreground="Red"/>
+                    <TextBlock Text="Total Wear" FontSize="20" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"
+                               Padding="0,10" VerticalAlignment="Center" Width="150" Foreground="Red"/>
+                    <TextBlock Text="" FontSize="20" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"
+                               Padding="0,10" VerticalAlignment="Center" Width="50" Foreground="Red"/>
+                    <TextBlock Text="Per Lap" FontSize="20" HorizontalAlignment="Center" TextAlignment="Left" TextWrapping="Wrap"
+                               Padding="0,10" VerticalAlignment="Center" Width="150" Foreground="Red"/>
                 </StackPanel>
 
-                <StackPanel Width="175" Margin="20,10">
-                    <Grid>
-                        <Ellipse Height="125" Width="125" Margin="15"
-                 StrokeThickness="10" Stroke="Red"/>
-
-                        <TextBlock Text="S" Foreground="Red" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Grid>
-
-                    <Grid>
-                        <ProgressBar Height="50" Value="{Binding model.NumSoftTires}" Margin="0,20"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <TextBlock Text="S" Foreground="Red" FontSize="30" Padding="10" Width="75"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                    <Grid Margin="0" Width="150">
+                        <ProgressBar Height="40" Value="{Binding model.NumSoftTires}"
                                  Background="Transparent" Minimum="0" Maximum="{Binding model.NumOfActiveCars}"/>
-
                         <TextBlock Text="{Binding model.NumSoftTires, FallbackValue=0}"
-                               FontSize="40" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
+                               FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
-
-
-                    <TextBlock Text="{Binding model.AverageSoftTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00}"
-                               FontSize="20" HorizontalAlignment="Center" Margin="10"/>
-
+                    <TextBlock Text="{Binding model.AverageSoftTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="200"/>
+                    <TextBlock Text="{Binding model.AverageSoftWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                    <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center" Width="50"/>
+                    <TextBlock Text="{Binding model.AverageSoftWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                 </StackPanel>
 
-                <StackPanel Width="175" Margin="20,10">
-                    <Grid>
-                        <Ellipse Height="125" Width="125" Margin="15"
-                 StrokeThickness="10" Stroke="yellow"/>
-
-                        <TextBlock Text="M" Foreground="Yellow" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Grid>
-
-                    <Grid>
-                        <ProgressBar Height="50" Value="{Binding model.NumMediumTires}"  Margin="0,20"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <TextBlock Text="M" Foreground="Yellow" FontSize="30" Padding="10" Width="75"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                    <Grid Margin="0" Width="150">
+                        <ProgressBar Height="40" Value="{Binding model.NumMediumTires}"
                                  Background="Transparent" Minimum="0" Maximum="{Binding model.NumOfActiveCars}"/>
-
                         <TextBlock Text="{Binding model.NumMediumTires, FallbackValue=0}"
-                               FontSize="40" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
+                               FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
+                    <TextBlock Text="{Binding model.AverageMediumTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                                       Width="200"/>
+                    <TextBlock Text="{Binding model.AverageMediumWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                    <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding model.AverageMediumWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
 
-                    <TextBlock Text="{Binding model.AverageMediumTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00}"
-                               FontSize="20" HorizontalAlignment="Center" Margin="10"/>
 
                 </StackPanel>
 
-                <StackPanel Width="175" Margin="20,10">
-                    <Grid>
-                        <Ellipse Height="125" Width="125" Margin="15"
-                 StrokeThickness="10" Stroke="LightGray"/>
-
-                        <TextBlock Text="H" Foreground="LightGray" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Grid>
-
-                    <Grid>
-                        <ProgressBar Height="50" Value="{Binding model.NumHardTires}"  Margin="0,20"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <TextBlock Text="H" Foreground="LightGray" FontSize="30" Padding="10" Width="75"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                    <Grid Margin="0" Width="150">
+                        <ProgressBar Height="40" Value="{Binding model.NumHardTires}"
                                  Background="Transparent" Minimum="0" Maximum="{Binding model.NumOfActiveCars}"/>
-
                         <TextBlock Text="{Binding model.NumHardTires, FallbackValue=0}"
-                               FontSize="40" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
+                               FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
+                    <TextBlock Text="{Binding model.AverageHardTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                                       Width="200"/>
+                    <TextBlock Text="{Binding model.AverageHardWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
 
+                    <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding model.AverageHardWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                 </StackPanel>
 
-                <StackPanel Width="175" Margin="20,10">
-                    <Grid>
-                        <Ellipse Height="125" Width="125" Margin="15"
-                 StrokeThickness="10" Stroke="MediumAquamarine"/>
-
-                        <TextBlock Text="I" Foreground="MediumAquamarine" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Grid>
-
-                    <Grid>
-                        <ProgressBar Height="50" Value="{Binding model.NumInterTires}"  Margin="0,20"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <TextBlock Text="I" Foreground="SeaGreen" FontSize="30" Padding="10" Width="75"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                    <Grid Margin="0" Width="150">
+                        <ProgressBar Height="40" Value="{Binding model.NumInterTires}"
                                  Background="Transparent" Minimum="0" Maximum="{Binding model.NumOfActiveCars}"/>
-
                         <TextBlock Text="{Binding model.NumInterTires, FallbackValue=0}"
-                               FontSize="40" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
+                               FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
-
+                    <TextBlock Text="{Binding model.AverageInterTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                                       Width="200"/>
+                    <TextBlock Text="{Binding model.AverageInterWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                    <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding model.AverageInterWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                 </StackPanel>
 
-                <StackPanel Width="175" Margin="20,10">
-                    <Grid>
-                        <Ellipse Height="125" Width="125" Margin="15"
-                 StrokeThickness="10" Stroke="Green"/>
-
-                        <TextBlock Text="W" Foreground="Green" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    
-                    </Grid>
-
-                    <Grid>
-                        <ProgressBar Height="50" Value="{Binding model.NumWetTires}"  Margin="0,20"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <TextBlock Text="W" Foreground="DarkGreen" FontSize="30" Padding="10" Width="75"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                    <Grid Margin="0" Width="150">
+                        <ProgressBar Height="40" Value="{Binding model.NumWetTires}"
                                  Background="Transparent" Minimum="0" Maximum="{Binding model.NumOfActiveCars}"/>
-
                         <TextBlock Text="{Binding model.NumWetTires, FallbackValue=0}"
-                               FontSize="40" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
+                               FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
-                    
+                    <TextBlock Text="{Binding model.AverageWetTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                                       Width="200"/>
+                    <TextBlock Text="{Binding model.AverageWetWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                    <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding model.AverageInterWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <TextBlock Text="ALL" Foreground="MediumPurple" FontSize="30" Padding="10" Width="75"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                    <Grid Margin="0" Width="150">
+                    </Grid>
+                    <TextBlock Text="{Binding model.AverageLapTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                                       Width="200"/>
+                    <TextBlock Text="{Binding model.AverageTireWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
+                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                    <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding model.AverageWetWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                 </StackPanel>
 
             </StackPanel>
-        </Grid>
-    </Border>
+
+        </Border>
+
+            
+    </Grid>
 </UserControl>

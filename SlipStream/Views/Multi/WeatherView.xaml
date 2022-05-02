@@ -10,8 +10,9 @@
 
     <UserControl.Resources>
         <converters:WeatherTypeToImageConverter x:Key="WeatherToImageConverter"/>
+        <converters:EnumToFormattedStringConverter x:Key="EnumToFormattedString"/>
     </UserControl.Resources>
-    
+
     <Border Style="{StaticResource MultiViewBorderTheme}">
 
         <Grid Margin="10">
@@ -25,10 +26,10 @@
                        VerticalAlignment="Center"
                        FontSize="14" HorizontalAlignment="Right"/>
             
-            <TextBlock Text="{Binding model.CurrentWeather}"
+            <TextBlock Text="{Binding model.CurrentWeather, Converter={StaticResource EnumToFormattedString}}"
                        VerticalAlignment="Center" Grid.Column="1"
                        FontSize="14" HorizontalAlignment="Left"
-                       Margin="12,0,0,0" Foreground="MediumAquamarine"/>
+                       Margin="12,0,0,0"/>
 
             <Image Source="{Binding model.CurrentWeather, Converter={StaticResource WeatherToImageConverter}}" 
                    Margin="2" Grid.Column="2"

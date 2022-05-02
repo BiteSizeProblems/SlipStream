@@ -3,11 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="400">
+             d:DesignHeight="400" d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <converters:EnumToFormattedStringConverter x:Key="EnumToFormattedString"/>
+        <converters:TeamToLogoConverter x:Key="TeamToIcon"/>
+    </UserControl.Resources>
     
-    <Border Style="{StaticResource DisplayBoxTheme}" Background="#BF1B303D">
+    <Border Style="{StaticResource DisplayBoxTheme}">
 
         <Grid>
 
@@ -16,28 +22,34 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border Background="#2F4858" CornerRadius="25,25,0,0">
-                <TextBlock Text="DRIVER SELECTION" Style="{StaticResource DisplayBoxLabelTheme}"/>
+            <Border Background="#FF193549">
+                <TextBlock Text="Driver Selection" Style="{StaticResource DisplayBoxLabelTheme}"/>
             </Border>
-
 
             <StackPanel Grid.Row="1">
 
                 <Slider Value="{Binding SelectedIndex}" Maximum="{Binding model.MaxIndex}" 
                                         VerticalContentAlignment="Center" VerticalAlignment="Center"
-                                        Padding="10" Height="50" Margin="10" Style="{StaticResource SliderTheme}"/>
+                                        Padding="5" Margin="25" Style="{StaticResource SliderTheme}"/>
 
-                <TextBlock Text="{Binding CurrentSelectedDriver.DriverName}" Padding="5"
-                                           FontSize="28" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding CurrentSelectedDriver.DriverName}" Padding="5,0,5,5"
+                                           FontSize="24" HorizontalAlignment="Center"/>
 
-                <TextBlock Text="{Binding CurrentSelectedDriver.CarPosition}"  Padding="10"
-                                           FontSize="20" HorizontalAlignment="Center" Foreground="MediumAquamarine"/>
+                <TextBlock Text="Position: " Padding="10" FontSize="18" HorizontalAlignment="Center">
+                    <Run Text="{Binding CurrentSelectedDriver.CarPosition}"/>
+                </TextBlock>
 
-                <TextBlock Text="{Binding CurrentSelectedDriver.TeamName}"  Padding="10"
-                                           FontSize="20" HorizontalAlignment="Center" Foreground="MediumAquamarine"/>
+                <Border Background="White" HorizontalAlignment="Center" CornerRadius="25">
+                    <Image Source="{Binding CurrentSelectedDriver.TeamID, Converter={StaticResource TeamToIcon}}"
+                       Height="50" Width="50" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Margin="8"/>
+                </Border>
+                
 
-                <TextBlock Text="{Binding CurrentSelectedDriver.ActualDriverStatus}"  Padding="10"
-                                           FontSize="20" HorizontalAlignment="Center" Foreground="MediumAquamarine"/>
+                <TextBlock Text="{Binding CurrentSelectedDriver.ActualDriverStatus, Converter={StaticResource EnumToFormattedString}}"  Padding="10"
+                                           FontSize="18" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="{Binding CurrentSelectedDriver.TireCompoundShort}"  Padding="5"
+                                           FontSize="18" HorizontalAlignment="Center"/>
 
             </StackPanel>
 

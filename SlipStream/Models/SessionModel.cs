@@ -41,6 +41,36 @@ namespace SlipStream.Models
             set { SetField(ref _pitRejoin, value, nameof(PitRejoin)); }
         }
 
+        public float[] AllPitlaneTimes = new float[22];
+
+        private TimeSpan _averageTimeInPitlane;
+        public TimeSpan AverageTimeInPitlane
+        {
+            get { return _averageTimeInPitlane; }
+            set { SetField(ref _averageTimeInPitlane, value, nameof(AverageTimeInPitlane)); }
+        }
+
+        private int _numDriversStopped;
+        public int NumDriversStopped
+        {
+            get { return _numDriversStopped; }
+            set { SetField(ref _numDriversStopped, value, nameof(NumDriversStopped)); }
+        }
+
+        private TimeSpan _gapToCarAheadOnRejoin;
+        public TimeSpan GapToCarAheadOnRejoin
+        {
+            get { return _gapToCarAheadOnRejoin; }
+            set { SetField(ref _gapToCarAheadOnRejoin, value, nameof(GapToCarAheadOnRejoin)); }
+        }
+
+        private TimeSpan gapToCarBehindOnRejoin;
+        public TimeSpan GapToCarBehindOnRejoin
+        {
+            get { return gapToCarBehindOnRejoin; }
+            set { SetField(ref gapToCarBehindOnRejoin, value, nameof(GapToCarBehindOnRejoin)); }
+        }
+
         // PARTICIPANTS
         private int _totalParticipants;
         public int TotalParticipants
@@ -49,8 +79,8 @@ namespace SlipStream.Models
             set 
             { 
                 SetField(ref _totalParticipants, value, nameof(TotalParticipants));
-                MaxIndex = TotalParticipants - 1;
-                MinIndex = 0;
+                //MaxIndex = TotalParticipants - 1;
+                //MinIndex = 0;
             }
         }
 
@@ -58,7 +88,12 @@ namespace SlipStream.Models
         public int NumOfActiveCars
         {
             get { return _NumOfActiveCars; }
-            set { SetField(ref _NumOfActiveCars, value, nameof(NumOfActiveCars)); }
+            set 
+            { 
+                SetField(ref _NumOfActiveCars, value, nameof(NumOfActiveCars));
+                MaxIndex = NumOfActiveCars - 1;
+                MinIndex = 0;
+            }
         }
 
         private int _NumOfParticipants;
@@ -81,13 +116,6 @@ namespace SlipStream.Models
         {
             get { return _minIndex; }
             set { SetField(ref _minIndex, value, nameof(MinIndex)); }
-        }
-
-        private TimeSpan _fastestLastLap;
-        public TimeSpan FastestLastLap
-        {
-            get { return _fastestLastLap; }
-            set { SetField(ref _fastestLastLap, value, nameof(FastestLastLap)); }
         }
 
         // DRIVER STATISTICAL DATA
@@ -127,7 +155,14 @@ namespace SlipStream.Models
             set { SetField(ref _NumWetTires, value, nameof(NumWetTires)); }
         }
 
-        // LAP & TIME DATA
+        // AVERAGE LAP TIMES
+
+        private TimeSpan _averageLapTime;
+        public TimeSpan AverageLapTime
+        {
+            get { return _averageLapTime; }
+            set { SetField(ref _averageLapTime, value, nameof(AverageLapTime)); }
+        }
 
         private TimeSpan _averageSoftTime;
         public TimeSpan AverageSoftTime
@@ -141,6 +176,106 @@ namespace SlipStream.Models
         {
             get { return _averageMediumTime; }
             set { SetField(ref _averageMediumTime, value, nameof(AverageMediumTime)); }
+        }
+
+        private TimeSpan _averageHardTime;
+        public TimeSpan AverageHardTime
+        {
+            get { return _averageHardTime; }
+            set { SetField(ref _averageHardTime, value, nameof(AverageHardTime)); }
+        }
+
+        private TimeSpan _averageInterTime;
+        public TimeSpan AverageInterTime
+        {
+            get { return _averageInterTime; }
+            set { SetField(ref _averageInterTime, value, nameof(AverageInterTime)); }
+        }
+
+        private TimeSpan _averageWetTime;
+        public TimeSpan AverageWetTime
+        {
+            get { return _averageWetTime; }
+            set { SetField(ref _averageWetTime, value, nameof(AverageWetTime)); }
+        }
+
+        // AVERAGE TIRE WEAR
+
+        private float _averageTireWear;
+        public float AverageTireWear
+        {
+            get { return _averageTireWear; }
+            set { SetField(ref _averageTireWear, value, nameof(AverageTireWear)); }
+        }
+
+        private float _averageSoftWear;
+        public float AverageSoftWear
+        {
+            get { return _averageSoftWear; }
+            set { SetField(ref _averageSoftWear, value, nameof(AverageSoftWear)); }
+        }
+
+        private float _averageSoftWearRate;
+        public float AverageSoftWearRate
+        {
+            get { return _averageSoftWearRate; }
+            set { SetField(ref _averageSoftWearRate, value, nameof(AverageSoftWearRate)); }
+        }
+
+        private float _averageMediumWear;
+        public float AverageMediumWear
+        {
+            get { return _averageMediumWear; }
+            set { SetField(ref _averageMediumWear, value, nameof(AverageMediumWear)); }
+        }
+
+        private float _averageMediumWearRate;
+        public float AverageMediumWearRate
+        {
+            get { return _averageMediumWearRate; }
+            set { SetField(ref _averageMediumWearRate, value, nameof(AverageMediumWearRate)); }
+        }
+
+        private float _averageHardWear;
+        public float AverageHardWear
+        {
+            get { return _averageHardWear; }
+            set { SetField(ref _averageHardWear, value, nameof(AverageHardWear)); }
+        }
+
+        private float _averageHardWearRate;
+        public float AverageHardWearRate
+        {
+            get { return _averageHardWearRate; }
+            set { SetField(ref _averageHardWearRate, value, nameof(AverageHardWearRate)); }
+        }
+
+        private float _averageInterWear;
+        public float AverageInterWear
+        {
+            get { return _averageInterWear; }
+            set { SetField(ref _averageInterWear, value, nameof(AverageInterWear)); }
+        }
+
+        private float _averageInterWearRate;
+        public float AverageInterWearRate
+        {
+            get { return _averageInterWearRate; }
+            set { SetField(ref _averageInterWearRate, value, nameof(AverageInterWearRate)); }
+        }
+
+        private float _averageWetWear;
+        public float AverageWetWear
+        {
+            get { return _averageWetWear; }
+            set { SetField(ref _averageWetWear, value, nameof(AverageWetWear)); }
+        }
+
+        private float _averageWetWearRate;
+        public float AverageWetWearRate
+        {
+            get { return _averageWetWearRate; }
+            set { SetField(ref _averageWetWearRate, value, nameof(AverageWetWearRate)); }
         }
 
         // Total Laps In Race
@@ -325,18 +460,41 @@ namespace SlipStream.Models
             set { SetField(ref _leadLapTime, value, nameof(LeadLapTime)); }
         }
 
-        private TimeSpan sessionFastestLap;
-        public TimeSpan SessionFastestLap
+        public TimeSpan[] AllFastestLaptimes = new TimeSpan[22];
+
+        private TimeSpan _fastestLap;
+        public TimeSpan FastestLap
         {
-            get { return sessionFastestLap; }
-            set { SetField(ref sessionFastestLap, value, nameof(SessionFastestLap)); }
+            get { return _fastestLap; }
+            set { SetField(ref _fastestLap, value, nameof(FastestLap)); }
         }
 
-        private string sessionFastestLapID;
-        public string SessionFastestLapID
+        private TimeSpan _fastestS1;
+        public TimeSpan FastestS1
         {
-            get { return sessionFastestLapID; }
-            set { SetField(ref sessionFastestLapID, value, nameof(SessionFastestLapID)); }
+            get { return _fastestS1; }
+            set { SetField(ref _fastestS1, value, nameof(FastestS1)); }
+        }
+
+        private TimeSpan _fastestS2;
+        public TimeSpan FastestS2
+        {
+            get { return _fastestS2; }
+            set { SetField(ref _fastestS2, value, nameof(FastestS2)); }
+        }
+
+        private TimeSpan _fastestS3;
+        public TimeSpan FastestS3
+        {
+            get { return _fastestS3; }
+            set { SetField(ref _fastestS3, value, nameof(FastestS3)); }
+        }
+
+        private TimeSpan _fastestLastLap;
+        public TimeSpan FastestLastLap
+        {
+            get { return _fastestLastLap; }
+            set { SetField(ref _fastestLastLap, value, nameof(FastestLastLap)); }
         }
 
         // SESSION DATA
@@ -355,6 +513,13 @@ namespace SlipStream.Models
             set { SetField(ref _CurrentSession, value, nameof(CurrentSession)); }
         }
 
+        private Boolean _isRace;
+        public Boolean IsRace
+        {
+            get { return _isRace; }
+            set { SetField(ref _isRace, value, nameof(IsRace)); }
+        }
+
         private NetworkTypes _networkGame;
         public NetworkTypes NetworkGame
         {
@@ -368,13 +533,6 @@ namespace SlipStream.Models
         {
             get { return _CurrentWeather; }
             set { SetField(ref _CurrentWeather, value, nameof(CurrentWeather)); }
-        }
-
-        private string _CurrentWeatherIcon;
-        public string CurrentWeatherIcon
-        {
-            get { return _CurrentWeatherIcon; }
-            set { SetField(ref _CurrentWeatherIcon, value, nameof(CurrentWeatherIcon)); }
         }
 
         // EVENT STRING CODES
@@ -398,13 +556,6 @@ namespace SlipStream.Models
         {
             get { return _safetyCarColor; }
             set { SetField(ref _safetyCarColor, value, nameof(SafetyCarColor)); }
-        }
-
-        private string _safetyCarIcon;
-        public string SafetyCarIcon
-        {
-            get { return _safetyCarIcon; }
-            set { SetField(ref _safetyCarIcon, value, nameof(SafetyCarIcon)); }
         }
 
         // LEADERBOARD LIGHTS
