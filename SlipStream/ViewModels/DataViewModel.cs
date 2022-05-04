@@ -9,6 +9,10 @@ using System.Windows.Data;
 using System.Threading;
 using static SlipStream.Structs.Appendeces;
 using System.Diagnostics;
+using System.Data;
+using OfficeOpenXml;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace SlipStream.ViewModels
 {
@@ -113,7 +117,10 @@ namespace SlipStream.ViewModels
             averagesTimer = new Timer(GetAverageLapTimes, null, 0, 3000);
             pitstopStrategyTimer = new Timer(GetPitStrategy, null, 0, 1000);
             mediumTimer = new Timer(GetLapTimeRanking, null, 0, 2000);
+
         }
+
+        
 
         private void StoreSessionData(PacketSessionData packet)
         {
@@ -135,6 +142,8 @@ namespace SlipStream.ViewModels
         private void UDPC_OnEventDataReceive(PacketEventData packet)
         {
             string s = new(packet.m_eventStringCode);
+
+            
 
             // EVENT STRING CODES
             switch (s)

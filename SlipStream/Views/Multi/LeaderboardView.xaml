@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SlipStream.Views.Multi"
              xmlns:themes="clr-namespace:SlipStream.Themes"
-             xmlns:converters="clr-namespace:SlipStream.Core.Converters"
+             xmlns:converters="clr-namespace:SlipStream.Core.Converters" xmlns:grid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1400">
 
@@ -54,12 +54,24 @@
                                Style="{StaticResource F1LabelTheme}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal" Name="DeltaButton"
-                            VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <TextBlock Text="INTERVAL DELTA:" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <themes:ToggleButton x:Name="GapToggleButton" Toggled="{Binding ToggledValue}" 
+                <StackPanel Orientation="Horizontal" Grid.Column="2"  HorizontalAlignment="Right">
+
+                    <Border Width="75" Margin="15,5" BorderBrush="White" BorderThickness="1" CornerRadius="5" Background="#FF193549">
+                        <Button Background="Transparent" Margin="5" BorderThickness="0" Click="ModelToExcel">
+                            <TextBlock Text="EXPORT" Foreground="White" FontWeight="Bold" Padding="5"/>
+                        </Button>
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal" Name="DeltaButton"
+                            VerticalAlignment="Center">
+
+                        <TextBlock Text="INTERVAL DELTA:" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <themes:ToggleButton x:Name="GapToggleButton" Toggled="{Binding ToggledValue}" 
                                          Click="VisibilityButtonInstance_Click" />
+                    </StackPanel>
+                    
                 </StackPanel>
+                
             </Grid>
             
             <Border Grid.Row="1">

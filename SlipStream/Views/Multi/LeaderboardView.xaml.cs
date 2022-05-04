@@ -1,20 +1,15 @@
 ﻿using SlipStream.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using static SlipStream.Structs.Appendeces;
+using System.IO;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using SlipStream.Models;
+using OfficeOpenXml;
+using System.Collections.ObjectModel;
+using System.Drawing;
 
 namespace SlipStream.Views.Multi
 {
@@ -53,7 +48,6 @@ namespace SlipStream.Views.Multi
 
                 DeltaButton.Visibility = Visibility.Collapsed;
             }
-
         }
 
         private void VisibilityButtonInstance_Click(object sender, RoutedEventArgs e)
@@ -68,6 +62,96 @@ namespace SlipStream.Views.Multi
                 Leaderboard.Columns[10].Visibility = Visibility.Visible;
                 Leaderboard.Columns[9].Visibility = Visibility.Collapsed;
             }
+        }
+
+        public static async Task ModelToExcel()
+        {
+            var DataVM = DataViewModel.GetInstance();
+            var driver = DataVM.Driver;
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            var file = new FileInfo(@"C:\Users\alexa\OneDrive\Documents\SlipstreamExport.xlsx");
+
+            await SaveExcelFile(driver, file);
+        }
+
+        private static async Task SaveExcelFile(ObservableCollection<DriverModel> driver, FileInfo file)
+        {
+            DeleteIfExists(file);
+
+            using var package = new ExcelPackage(file);
+
+            // Create a new worksheet
+            var ws = package.Workbook.Worksheets.Add("FinalClassification");
+
+            // Format Column Data Types
+            //ws.Column(0).Style.Numberformat = 
+
+            // Select & Filter
+            var range = ws.Cells["A1"].LoadFromCollection(driver, true);
+
+            ws.DeleteColumn(71, 9);
+            ws.DeleteColumn(68);
+            ws.DeleteColumn(61);
+            ws.DeleteColumn(58, 2);
+            ws.DeleteColumn(54, 3);
+            ws.DeleteColumn(52);
+            ws.DeleteColumn(48, 2);
+            ws.DeleteColumn(37, 6);
+            ws.DeleteColumn(19, 8);
+            ws.DeleteColumn(16);
+            ws.DeleteColumn(12, 3);
+            ws.DeleteColumn(3,3);
+
+            //ws.DeleteColumn(3, 3);
+            //ws.DeleteColumn(12, 3);
+            //ws.DeleteColumn(16);
+            //ws.DeleteColumn(19, 8);
+            //ws.DeleteColumn(37, 6);
+            //ws.DeleteColumn(48, 2);
+            //ws.DeleteColumn(52);
+            //ws.DeleteColumn(54, 3);
+            //ws.DeleteColumn(58, 2);
+            //ws.DeleteColumn(61);
+            //ws.DeleteColumn(68);
+            //ws.DeleteColumn(71, 9);
+
+            range.AutoFilter = true;
+            var colPosition = ws.AutoFilter.Columns.AddValueFilterColumn(0);
+            
+            // Style & Format all cells
+            ws.Cells["A2:CF23"].Sort(x => x.SortBy.Column(0));
+
+            ws.Cells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+            ws.Cells["D2:D25"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+
+            ws.Cells.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+
+            //ws.Columns.BestFit = true;
+
+            ws.Cells.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells.Style.Fill.BackgroundColor.SetColor(Color.White);
+
+            // Style Header
+            ws.Row(1).Style.Font.Bold = true;
+            ws.Row(1).Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
+            await package.SaveAsync();
+        }
+
+        private static void DeleteIfExists(FileInfo file)
+        {
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+        }
+
+        private void ModelToExcel(object sender, RoutedEventArgs e)
+        {
+            ModelToExcel();
         }
     }
 }
