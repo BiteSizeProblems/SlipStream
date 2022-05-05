@@ -216,6 +216,13 @@ namespace SlipStream.Models
 
         // LAP / SECTOR DATA, TIMES & GAPS
 
+        private Sectors _currentSector;
+        public Sectors CurrentSector
+        {
+            get { return _currentSector; }
+            set { SetField(ref _currentSector, value, nameof(CurrentSector)); }
+        }
+
         private int currentLapNum;
         public int CurrentLapNum
         {
@@ -292,6 +299,35 @@ namespace SlipStream.Models
         {
             get { return _lastS3; }
             set { SetField(ref _lastS3, value, nameof(LastS3)); }
+        }
+
+        // ACTIVE LAST SECTOR TIMES
+        private TimeSpan _activeLastLap;
+        public TimeSpan ActiveLastLap
+        {
+            get { return _activeLastLap; }
+            set { SetField(ref _activeLastLap, value, nameof(ActiveLastLap)); }
+        }
+
+        private TimeSpan _activeLastS1;
+        public TimeSpan ActiveLastS1
+        {
+            get { return _activeLastS1; }
+            set { SetField(ref _activeLastS1, value, nameof(ActiveLastS1)); }
+        }
+
+        private TimeSpan _activeLastS2;
+        public TimeSpan ActiveLastS2
+        {
+            get { return _activeLastS2; }
+            set { SetField(ref _activeLastS2, value, nameof(ActiveLastS2)); }
+        }
+
+        private TimeSpan _activeLastS3;
+        public TimeSpan ActiveLastS3
+        {
+            get { return _activeLastS3; }
+            set { SetField(ref _activeLastS3, value, nameof(ActiveLastS3)); }
         }
 
         // BEST SECTOR TIMES
@@ -676,6 +712,20 @@ namespace SlipStream.Models
         {
             get { return _finalTireStintsNum; }
             set { SetField(ref _finalTireStintsNum, value, nameof(FinalTireStintsNum)); }
+        }
+
+        private int _pendingPoints;
+        public int PendingPoints
+        {
+            get { return _pendingPoints; }
+            set { SetField(ref _pendingPoints, value, nameof(PendingPoints)); }
+        }
+
+        private int _pointsReceived;
+        public int PointsReceived
+        {
+            get { return _pointsReceived; }
+            set { SetField(ref _pointsReceived, value, nameof(PointsReceived)); }
         }
     }
 }

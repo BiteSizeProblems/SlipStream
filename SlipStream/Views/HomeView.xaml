@@ -44,7 +44,7 @@
                             Padding="20,10,20,10" TextWrapping="Wrap"/>
 
                             <TextBlock
-                            Text="- UDP Port: None"
+                            Text="- UDP Port: 20777"
                             Padding="20,10,20,10" TextWrapping="Wrap"/>
 
                             <TextBlock

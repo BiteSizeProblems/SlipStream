@@ -19,6 +19,13 @@ namespace SlipStream.Models
             set { SetField(ref _fastestDriver, value, nameof(FastestDriver)); }
         }
 
+        private bool _isSpectating;
+        public bool IsSpectating
+        {
+            get { return _isSpectating; }
+            set { SetField(ref _isSpectating, value, nameof(IsSpectating)); }
+        }
+
         // PLAYER ONLY DATA
         private uint _pitWindowIdeal;
         public uint PitWindowIdeal

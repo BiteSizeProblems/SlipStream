@@ -19,7 +19,7 @@ namespace SlipStream.Structs
         public byte currentLapNum;       // Current lap number
         public PitStatus pitStatus;               // 0 = none, 1 = pitting, 2 = in pit area
         public byte numPitStops;                 // Number of pit stops taken in this race
-        public byte sector;                  // 0 = sector1, 1 = sector2, 2 = sector3
+        public Sectors sector;                  // 0 = sector1, 1 = sector2, 2 = sector3
         public byte currentLapInvalid;       // Current lap invalid - 0 = valid, 1 = invalid
         public byte penalties;               // Accumulated time penalties in seconds to be added
         public byte warnings;                  // Accumulated number of warnings issued

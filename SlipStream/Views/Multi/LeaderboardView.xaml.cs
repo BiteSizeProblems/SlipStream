@@ -32,19 +32,27 @@ namespace SlipStream.Views.Multi
 
             if (DataVM.model.CurrentSession == SessionTypes.RACE | DataVM.model.CurrentSession == SessionTypes.RACE_TWO)
             {
-                Leaderboard.Columns[8].Visibility = Visibility.Collapsed;
-                Leaderboard.Columns[13].Visibility = Visibility.Collapsed;
-                Leaderboard.Columns[14].Visibility = Visibility.Visible;
+                Leaderboard.Columns[8].Visibility = Visibility.Collapsed; // Best Lap Time Delta
+                Leaderboard.Columns[14].Visibility = Visibility.Collapsed; // Laps Completed
+                Leaderboard.Columns[15].Visibility = Visibility.Visible; // # of Stops
+                Leaderboard.Columns[19].Visibility = Visibility.Visible; // PTS
+
+                Leaderboard.Columns[13].Width = 85;
+                Leaderboard.Columns[14].Width = 85;
+                Leaderboard.Columns[15].Width = 85;
+                Leaderboard.Columns[16].Width = 100; // Tire Column Width
+                Leaderboard.Columns[17].Width = 100;
             }
             else
             {
-                Leaderboard.Columns[1].Visibility = Visibility.Collapsed;
-                Leaderboard.Columns[2].Visibility = Visibility.Collapsed;
-                Leaderboard.Columns[8].Visibility = Visibility.Visible;
-                Leaderboard.Columns[9].Visibility = Visibility.Collapsed;
-                Leaderboard.Columns[10].Visibility = Visibility.Collapsed;
-                Leaderboard.Columns[13].Visibility = Visibility.Visible;
-                Leaderboard.Columns[14].Visibility = Visibility.Collapsed;
+                Leaderboard.Columns[1].Visibility = Visibility.Collapsed; // Position Gain Icon
+                Leaderboard.Columns[2].Visibility = Visibility.Collapsed; // Position Gain #
+                Leaderboard.Columns[8].Visibility = Visibility.Visible; // Best Lap Time Delta
+                Leaderboard.Columns[9].Visibility = Visibility.Collapsed; // Race Interval
+                Leaderboard.Columns[10].Visibility = Visibility.Collapsed; // Race Interval LEADER
+                Leaderboard.Columns[14].Visibility = Visibility.Visible; // Laps Completed
+                Leaderboard.Columns[15].Visibility = Visibility.Collapsed; // # of Stops
+                Leaderboard.Columns[19].Visibility = Visibility.Collapsed; // PTS
 
                 DeltaButton.Visibility = Visibility.Collapsed;
             }
@@ -68,41 +76,44 @@ namespace SlipStream.Views.Multi
         {
             var DataVM = DataViewModel.GetInstance();
             var driver = DataVM.Driver;
+            var session = DataVM.SessionModel;
 
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
             var file = new FileInfo(@"C:\Users\alexa\OneDrive\Documents\SlipstreamExport.xlsx");
 
-            await SaveExcelFile(driver, file);
+            await SaveExcelFile(driver, session, file);
         }
 
-        private static async Task SaveExcelFile(ObservableCollection<DriverModel> driver, FileInfo file)
+        private static async Task SaveExcelFile(ObservableCollection<DriverModel> driver, ObservableCollection<SessionModel> session, FileInfo file)
         {
             DeleteIfExists(file);
 
             using var package = new ExcelPackage(file);
 
-            // Create a new worksheet
-            var ws = package.Workbook.Worksheets.Add("FinalClassification");
+            // Create new worksheets
+            var ws = package.Workbook.Worksheets.Add("SessionData");
+            //var ws_session = package.Workbook.Worksheets.Add("SessionInfo");
 
             // Format Column Data Types
             //ws.Column(0).Style.Numberformat = 
 
             // Select & Filter
             var range = ws.Cells["A1"].LoadFromCollection(driver, true);
+            //var range_session = ws_session.Cells["A1"].LoadFromCollection(session, true);
 
-            ws.DeleteColumn(71, 9);
-            ws.DeleteColumn(68);
-            ws.DeleteColumn(61);
-            ws.DeleteColumn(58, 2);
-            ws.DeleteColumn(54, 3);
-            ws.DeleteColumn(52);
-            ws.DeleteColumn(48, 2);
-            ws.DeleteColumn(37, 6);
-            ws.DeleteColumn(19, 8);
-            ws.DeleteColumn(16);
-            ws.DeleteColumn(12, 3);
-            ws.DeleteColumn(3,3);
+            //ws.DeleteColumn(71, 9);
+            //ws.DeleteColumn(68);
+            //ws.DeleteColumn(61);
+            //ws.DeleteColumn(58, 2);
+            //ws.DeleteColumn(54, 3);
+            //ws.DeleteColumn(52);
+            //ws.DeleteColumn(48, 2);
+            //ws.DeleteColumn(37, 6);
+            //ws.DeleteColumn(19, 8);
+            //ws.DeleteColumn(16);
+            //ws.DeleteColumn(12, 3);
+            //ws.DeleteColumn(3,3);
 
             //ws.DeleteColumn(3, 3);
             //ws.DeleteColumn(12, 3);
@@ -117,9 +128,13 @@ namespace SlipStream.Views.Multi
             //ws.DeleteColumn(68);
             //ws.DeleteColumn(71, 9);
 
+            //ws.Column(9).Style.Numberformat.Format = "21";
+
             range.AutoFilter = true;
             var colPosition = ws.AutoFilter.Columns.AddValueFilterColumn(0);
-            
+
+            //ws.Columns.AutoFit();
+
             // Style & Format all cells
             ws.Cells["A2:CF23"].Sort(x => x.SortBy.Column(0));
 
@@ -137,6 +152,8 @@ namespace SlipStream.Views.Multi
             // Style Header
             ws.Row(1).Style.Font.Bold = true;
             ws.Row(1).Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
+            // Format Session Sheet
 
             await package.SaveAsync();
         }

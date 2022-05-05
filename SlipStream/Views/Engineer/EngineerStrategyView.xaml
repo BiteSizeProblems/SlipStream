@@ -56,58 +56,58 @@
                                 <Border Margin="0,15,0,15" Padding="0,10,0,10" Background="#FF193549" CornerRadius="5" Style="{StaticResource DisplayBoxLabelBorderTheme}">
                                     <TextBlock Text="PERFORMANCE: " HorizontalAlignment="Center"/>
                                 </Border>
-                                
 
-                                <TextBlock Text="Fastest Lap: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
+
+                                <TextBlock Text="Fastest Lap: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Right">
                                     <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
                                         StringFormat=m\\:ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Fastest S1: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
-                                    <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
+                                <TextBlock Text="Fastest S1: " Margin="5,0"
+                               Padding="15" TextAlignment="Right">
+                                    <Run Text="{Binding CurrentSelectedDriver.BestS1, 
                                         StringFormat=ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Fastest S2: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
-                                    <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
+                                <TextBlock Text="Fastest S2: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Right">
+                                    <Run Text="{Binding CurrentSelectedDriver.BestS2, 
                                         StringFormat=ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Fastest S3: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
-                                    <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
+                                <TextBlock Text="Fastest S3: " Margin="5,0"
+                               Padding="15" TextAlignment="Right">
+                                    <Run Text="{Binding CurrentSelectedDriver.BestS3, 
                                         StringFormat=ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Last Lap: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
-                                    <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
+                                <TextBlock Text="Last Lap: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Right">
+                                    <Run Text="{Binding CurrentSelectedDriver.LastLapTime, 
                                         StringFormat=m\\:ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Last S1: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
-                                    <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
+                                <TextBlock Text="Last S1: " Margin="5,0"
+                               Padding="15" TextAlignment="Right">
+                                    <Run Text="{Binding CurrentSelectedDriver.LastS1, 
                                         StringFormat=ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Last S2: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
-                                    <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
+                                <TextBlock Text="Last S2: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Right">
+                                    <Run Text="{Binding CurrentSelectedDriver.LastS2, 
                                         StringFormat=ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Last S3: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
-                                    <Run Text="{Binding CurrentSelectedDriver.BestLapTime, 
+                                <TextBlock Text="Last S3: " Margin="5,0"
+                               Padding="15" TextAlignment="Right">
+                                    <Run Text="{Binding CurrentSelectedDriver.LastS3, 
                                         StringFormat=ss\\.fff }" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="UDP Setting: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
+                                <TextBlock Text="UDP Setting: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Right">
                                     <Run Text="{Binding CurrentSelectedDriver.UDPSetting}" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
@@ -116,32 +116,32 @@
                             <StackPanel Margin="10,10,0,0" Grid.Column="1">
 
                                 <Border Margin="0,15,0,15" Padding="0,10,0,10" Background="#FF193549" CornerRadius="5" Style="{StaticResource DisplayBoxLabelBorderTheme}">
-                                    <TextBlock Text="PROGRESS: " HorizontalAlignment="Center"/>
+                                    <TextBlock Text="PROGRESS: " TextAlignment="Center"/>
                                 </Border>
-                               
 
-                                <TextBlock Text="# of Laps: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
+
+                                <TextBlock Text="# of Laps: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Left">
                                     <Run Text="{Binding CurrentSelectedDriver.CurrentLapNum}" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Warnings: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
+                                <TextBlock Text="Warnings: " Margin="5,0"
+                               Padding="15" TextAlignment="Left">
                                     <Run Text="{Binding CurrentSelectedDriver.Warnings}" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="Penalties: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
+                                <TextBlock Text="Penalties: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Left">
                                     <Run Text="{Binding CurrentSelectedDriver.Penalties}" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="ERS Mode: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
+                                <TextBlock Text="ERS Mode: " Margin="5,0"
+                               Padding="15" TextAlignment="Left">
                                     <Run Text="{Binding CurrentSelectedDriver.ErsDeployMode}" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
-                                <TextBlock Text="ERS Remaining: "
-                               Padding="10,25,0,15" HorizontalAlignment="Left">
+                                <TextBlock Text="ERS Remaining: " Background="#FF193549" Margin="5,0"
+                               Padding="15" TextAlignment="Left">
                                     <Run Text="{Binding CurrentSelectedDriver.ErsRemaining, StringFormat={}{0}%}" Foreground="MediumAquamarine"/>
                                 </TextBlock>
 
@@ -188,7 +188,7 @@
                             <TextBlock Text="RANKING" Style="{StaticResource DisplayBoxLabelTheme}"/>
                         </Border>
 
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,15">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="125"/>
@@ -199,53 +199,53 @@
 
                             <StackPanel Grid.Column="0">
 
-                                <TextBlock Text="Fastest Lap: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                <TextBlock Text="Fastest S1: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                <TextBlock Text="Fastest S2: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                <TextBlock Text="Fastest S3: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                                <TextBlock Text="Fastest Lap: " Background="#FF193549" Margin="0,5"
+                               Padding="15,10" TextAlignment="Right"/>
+                                <TextBlock Text="Fastest S1: " Margin="0,5"
+                               Padding="15,10" TextAlignment="Right"/>
+                                <TextBlock Text="Fastest S2: " Background="#FF193549" Margin="0,5"
+                               Padding="15,10" TextAlignment="Right"/>
+                                <TextBlock Text="Fastest S3: " Margin="0,5"
+                               Padding="15,10" TextAlignment="Right"/>
 
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
 
-                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestLapRank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestS1Rank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestS2Rank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestS3Rank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestLapRank}" Background="#FF193549" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestS1Rank}" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestS2Rank}" Background="#FF193549" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.FastestS3Rank}" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
 
                             </StackPanel>
 
                             <StackPanel Grid.Column="2">
 
-                                <TextBlock Text="Last Lap: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                <TextBlock Text="Last S1: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                <TextBlock Text="Last S2: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
-                                <TextBlock Text="Last S3: "
-                               Padding="0,15,0,15" HorizontalAlignment="Right"/>
+                                <TextBlock Text="Last Lap: " Background="#FF193549" Margin="5,5,0,5"
+                               Padding="15,10" TextAlignment="Right"/>
+                                <TextBlock Text="Last S1: " Margin="5,5,0,5"
+                               Padding="15,10" TextAlignment="Right"/>
+                                <TextBlock Text="Last S2: " Background="#FF193549" Margin="5,5,0,5"
+                               Padding="15,10" TextAlignment="Right"/>
+                                <TextBlock Text="Last S3: " Margin="5,5,0,5"
+                               Padding="15,10" TextAlignment="Right"/>
 
                             </StackPanel>
 
                             <StackPanel Grid.Column="3">
 
-                                <TextBlock Text="{Binding CurrentSelectedDriver.LastLapRank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                <TextBlock Text="{Binding CurrentSelectedDriver.LastS1Rank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                <TextBlock Text="{Binding CurrentSelectedDriver.LastS2Rank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
-                                <TextBlock Text="{Binding CurrentSelectedDriver.LastS3Rank}"
-                               Padding="10,15,0,15" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.LastLapRank}" Background="#FF193549" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.LastS1Rank}" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.LastS2Rank}" Background="#FF193549" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
+                                <TextBlock Text="{Binding CurrentSelectedDriver.LastS3Rank}" Margin="0,5"
+                               Padding="15,10" Foreground="MediumAquamarine"/>
 
                             </StackPanel>
 

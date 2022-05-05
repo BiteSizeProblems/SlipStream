@@ -10,9 +10,6 @@ using System.Threading;
 using static SlipStream.Structs.Appendeces;
 using System.Diagnostics;
 using System.Data;
-using OfficeOpenXml;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace SlipStream.ViewModels
 {
@@ -67,6 +64,8 @@ namespace SlipStream.ViewModels
         public PacketCarDamageData latestCarDamagePacket { get; set; }
 
         // Create observable collections of models
+        public ObservableCollection<SessionModel> SessionModel { get; set; }
+        private object _sessionModelLock = new object();
         public ObservableCollection<DriverModel> Driver { get; set; }
         private object _driverLock = new object();
         public ObservableCollection<WeatherModel> W_Model { get; set; }
@@ -75,6 +74,8 @@ namespace SlipStream.ViewModels
         private DataViewModel() : base()
         {
             this.model = new SessionModel();
+
+            SessionModel = new ObservableCollection<SessionModel>();
 
             // SET NEW OBSERVABLE COLLECTIONS
             Driver = new ObservableCollection<DriverModel>();
@@ -120,8 +121,6 @@ namespace SlipStream.ViewModels
 
         }
 
-        
-
         private void StoreSessionData(PacketSessionData packet)
         {
             latestSessionDataPacket = packet;
@@ -143,10 +142,7 @@ namespace SlipStream.ViewModels
         {
             string s = new(packet.m_eventStringCode);
 
-            
-
-            // EVENT STRING CODES
-            switch (s)
+            switch (s) // EVENT STRING CODES
             {
                 case "SSTA":
                     model.EventStringCode = "Session Started";
@@ -168,8 +164,8 @@ namespace SlipStream.ViewModels
 
             if (model.EventStringCode == "Session Started")
             {
-                Driver.Clear();
-                W_Model.Clear();
+                //Driver.Clear();
+                //W_Model.Clear();
             }
         }
 
@@ -400,6 +396,16 @@ namespace SlipStream.ViewModels
             model.SessionTimeRemaining = TimeSpan.FromSeconds(packet.m_sessionTimeLeft);
             model.TotalLaps = packet.m_totalLaps;
 
+            if (packet.m_isSpectating == 1)
+            {
+                model.IsSpectating = true;
+            }
+            else
+            {
+                model.IsSpectating = false;
+            }
+            
+
             model.RaceLapCount = $"{model.LeadLap} / {packet.m_totalLaps}";
 
             if (model.CurrentSession == SessionTypes.RACE | model.CurrentSession == SessionTypes.RACE_TWO)
@@ -466,7 +472,7 @@ namespace SlipStream.ViewModels
             model.NumOfActiveCars = packet.m_numActiveCars;
             model.TotalParticipants = packet.m_participants.Length;
 
-            for (int i = 0; i < packet.m_participants.Length; i++)
+            for (int i = 0; i < 22; i++)
             {
                 var participant = packet.m_participants[i];
 
@@ -477,7 +483,7 @@ namespace SlipStream.ViewModels
                 Driver[i].UDPSetting = participant.m_yourTelemetry;
 
                 // OFFLINE DRIVER NAMES
-                if (model.NetworkGame == NetworkTypes.Offline | Driver[i].AI == 1)
+                if (model.NetworkGame == NetworkTypes.Offline)
                 {
                     Driver[i].DriverName = Regex.Replace(participant.m_driverId.ToString(), "([A-Z])", " $1", RegexOptions.Compiled).Trim();
                 }
@@ -486,7 +492,7 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnLapDataReceive(PacketLapData packet)
         {
-            for (int i = 0; i < model.NumOfActiveCars; i++)
+            for (int i = 0; i < 22; i++)
             {
                 var lapData = packet.lapData[i];
 
@@ -499,6 +505,20 @@ namespace SlipStream.ViewModels
                 Driver[i].DriverStatus = lapData.driverStatus;
                 Driver[i].ResultStatus = lapData.resultStatus;
                 Driver[i].PitStatus = lapData.pitStatus;
+                Driver[i].CurrentSector = lapData.sector;
+
+                Driver[i].ActiveLastLap = TimeSpan.FromMilliseconds(lapData.lastLapTimeInMS);
+                Driver[i].ActiveLastS1 = TimeSpan.FromMilliseconds(lapData.sector1TimeInMS);
+                Driver[i].ActiveLastS2 = TimeSpan.FromMilliseconds(lapData.sector2TimeInMS);
+
+                if (Driver[i].ActiveLastS1 != TimeSpan.Zero && Driver[i].ActiveLastS2 != TimeSpan.Zero && Driver[i].CurrentSector != Sectors.Sector3)
+                {
+                    Driver[i].ActiveLastS3 = Driver[i].ActiveLastLap - (Driver[i].ActiveLastS1 + Driver[i].ActiveLastS2);
+                }
+                else
+                {
+                    Driver[i].ActiveLastS3 = TimeSpan.Zero;
+                }
 
                 if (model.IsRace == true) // Set current lap num
                 {
@@ -556,9 +576,9 @@ namespace SlipStream.ViewModels
                     case "Active":
                     case "In_This_Lap":
                     case "In_Pit_Lane":
-                        Driver[i].S1Display = Driver[i].LastS1;
-                        Driver[i].S2Display = Driver[i].LastS2;
-                        Driver[i].S3Display = Driver[i].LastS3;
+                        Driver[i].S1Display = Driver[i].ActiveLastS1;
+                        Driver[i].S2Display = Driver[i].ActiveLastS2;
+                        Driver[i].S3Display = Driver[i].ActiveLastS3;
                         break;
                     default:
                         Driver[i].S1Display = TimeSpan.Zero;
@@ -571,7 +591,7 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnCarStatusDataReceive(PacketCarStatusData packet)
         {
-            for (int i = 0; i < model.NumOfActiveCars; i++)
+            for (int i = 0; i < 22; i++)
             {
                 var carStatusData = packet.m_carStatusData[i];
 
@@ -592,7 +612,7 @@ namespace SlipStream.ViewModels
 
         private void UDPC_OnCarDamageDataReceive(PacketCarDamageData packet)
         {
-            for (int i = 0; i < model.NumOfActiveCars; i++)
+            for (int i = 0; i < 22; i++)
             {
                 var carDamageData = packet.m_carDamageData[i];
 
@@ -681,8 +701,6 @@ namespace SlipStream.ViewModels
                     {
                         var lapData = lapDataPacket.lapData[i];
 
-                        Debug.WriteLine(lapData.pitLaneTimeInLaneInMS);
-
                         if (lapData.pitLaneTimeInLaneInMS != 0 && lapData.pitLaneTimeInLaneInMS > 15000)
                         {
                             model.AllPitlaneTimes[i] = lapData.pitLaneTimeInLaneInMS;
@@ -703,83 +721,83 @@ namespace SlipStream.ViewModels
                     model.AverageTimeInPitlane = TimeSpan.FromSeconds(21);
                 }
 
-                Debug.WriteLine(model.AverageTimeInPitlane);
-               
-
-                // PITSTOP REJOIN STRATEGY
-                int playerIndex = lapDataPacket.header.playerCarIndex; // Set player's index
-                var playerData = lapDataPacket.lapData[playerIndex]; // Set player data
-
-                LapDataUtils.UpdatePositionArray(lapDataPacket.lapData, ref IndexToPositionArr); // Sort drivers by position
-
-                // Player: 45
-                // Ahead: 23 ( + 22 seconds )
-                // Pitstop: 25
-
-                // 45 - 23 = 22
-                // 22 - 25 = -3 <------ CORRECT!
-
-                // Player: 45
-                // Behind: 17 ( + 28 seconds )
-                // Pitstop: 25
-
-                // 45 - 17 = 28
-                // 28 - 25 = +3 <------ CORRECT!
-
-                // If a lap back <- ( last lap + current lap ) - behind current lap
-
-                int playerRejoinPosition = sessionDataPacket.m_pitStopRejoinPosition;// Set Player's pit rejoin position
-
-                if (playerRejoinPosition > 1) // Can't calculate delta to car ahead if car will rejoin in 1st.
+                if (model.IsSpectating == false)
                 {
-                    int driverAheadOnRejoinPosition = playerRejoinPosition - 1; // Set position of car ahead of driver after pitstop rejoin.
+                    // PITSTOP REJOIN STRATEGY
+                    int playerIndex = lapDataPacket.header.playerCarIndex; // Set player's index
+                    var playerData = lapDataPacket.lapData[playerIndex]; // Set player data
 
-                    var driverAheadData = lapDataPacket.lapData[IndexingUtils.GetRealIndex(IndexToPositionArr, driverAheadOnRejoinPosition)];
+                    LapDataUtils.UpdatePositionArray(lapDataPacket.lapData, ref IndexToPositionArr); // Sort drivers by position
 
-                    if (playerData.currentLapNum == driverAheadData.currentLapNum) // If cars are on the same lap.
+                    // Player: 45
+                    // Ahead: 23 ( + 22 seconds )
+                    // Pitstop: 25
+
+                    // 45 - 23 = 22
+                    // 22 - 25 = -3 <------ CORRECT!
+
+                    // Player: 45
+                    // Behind: 17 ( + 28 seconds )
+                    // Pitstop: 25
+
+                    // 45 - 17 = 28
+                    // 28 - 25 = +3 <------ CORRECT!
+
+                    // If a lap back <- ( last lap + current lap ) - behind current lap
+
+                    int playerRejoinPosition = sessionDataPacket.m_pitStopRejoinPosition;// Set Player's pit rejoin position
+
+                    if (playerRejoinPosition > 1) // Can't calculate delta to car ahead if car will rejoin in 1st.
                     {
-                        var Gap = TimeSpan.FromMilliseconds(playerData.currentLapTimeInMS - driverAheadData.currentLapTimeInMS);
-                        model.GapToCarAheadOnRejoin = Gap - model.AverageTimeInPitlane; // Calculate delta.
-                    }
-                    else if (playerData.currentLapNum == driverAheadData.currentLapNum - 1) // If driver ahead on rejoin is 1 lap behind player.
-                    {
-                        model.GapToCarAheadOnRejoin = TimeSpan.FromMilliseconds((playerData.lastLapTimeInMS + playerData.currentLapTimeInMS) - driverAheadData.currentLapTimeInMS) - model.AverageTimeInPitlane; // Calculate delta.
+                        int driverAheadOnRejoinPosition = playerRejoinPosition - 1; // Set position of car ahead of driver after pitstop rejoin.
+
+                        var driverAheadData = lapDataPacket.lapData[IndexingUtils.GetRealIndex(IndexToPositionArr, driverAheadOnRejoinPosition)];
+
+                        if (playerData.currentLapNum == driverAheadData.currentLapNum) // If cars are on the same lap.
+                        {
+                            var Gap = TimeSpan.FromMilliseconds(playerData.currentLapTimeInMS - driverAheadData.currentLapTimeInMS);
+                            model.GapToCarAheadOnRejoin = Gap - model.AverageTimeInPitlane; // Calculate delta.
+                        }
+                        else if (playerData.currentLapNum == driverAheadData.currentLapNum - 1) // If driver ahead on rejoin is 1 lap behind player.
+                        {
+                            model.GapToCarAheadOnRejoin = TimeSpan.FromMilliseconds((playerData.lastLapTimeInMS + playerData.currentLapTimeInMS) - driverAheadData.currentLapTimeInMS) - model.AverageTimeInPitlane; // Calculate delta.
+                        }
+                        else
+                        {
+                            model.GapToCarBehindOnRejoin = TimeSpan.FromSeconds(0); // Else, no delta
+                        }
                     }
                     else
                     {
-                        model.GapToCarBehindOnRejoin = TimeSpan.FromSeconds(0); // Else, no delta
+                        model.GapToCarAheadOnRejoin = TimeSpan.FromSeconds(0);
                     }
-                }
-                else
-                {
-                    model.GapToCarAheadOnRejoin = TimeSpan.FromSeconds(0);
-                }
 
-                if (playerRejoinPosition != 0 && playerRejoinPosition != model.MaxIndex + 1) // Can't calculate delta to car behind if car will rejoin in last.
-                {
-                    int driverBehindOnRejoinPosition = playerRejoinPosition + 1; // Set position of car behind of driver after pitstop rejoin.
-
-                    var driverBehindData = lapDataPacket.lapData[IndexingUtils.GetRealIndex(IndexToPositionArr, driverBehindOnRejoinPosition)];
-
-                    if (driverBehindData.currentLapNum == playerData.currentLapNum)
+                    if (playerRejoinPosition != 0 && playerRejoinPosition != model.MaxIndex + 1) // Can't calculate delta to car behind if car will rejoin in last.
                     {
-                        model.GapToCarBehindOnRejoin = TimeSpan.FromMilliseconds(playerData.currentLapTimeInMS - driverBehindData.currentLapTimeInMS) - model.AverageTimeInPitlane;
-                    }
-                    else if (driverBehindData.currentLapNum == playerData.currentLapNum - 1)
-                    {
-                        model.GapToCarBehindOnRejoin = TimeSpan.FromMilliseconds((playerData.lastLapTimeInMS + playerData.currentLapTimeInMS) - driverBehindData.currentLapTimeInMS) - model.AverageTimeInPitlane; ;
+                        int driverBehindOnRejoinPosition = playerRejoinPosition + 1; // Set position of car behind of driver after pitstop rejoin.
+
+                        var driverBehindData = lapDataPacket.lapData[IndexingUtils.GetRealIndex(IndexToPositionArr, driverBehindOnRejoinPosition)];
+
+                        if (driverBehindData.currentLapNum == playerData.currentLapNum)
+                        {
+                            model.GapToCarBehindOnRejoin = TimeSpan.FromMilliseconds(playerData.currentLapTimeInMS - driverBehindData.currentLapTimeInMS) - model.AverageTimeInPitlane;
+                        }
+                        else if (driverBehindData.currentLapNum == playerData.currentLapNum - 1)
+                        {
+                            model.GapToCarBehindOnRejoin = TimeSpan.FromMilliseconds((playerData.lastLapTimeInMS + playerData.currentLapTimeInMS) - driverBehindData.currentLapTimeInMS) - model.AverageTimeInPitlane; ;
+                        }
+                        else
+                        {
+                            model.GapToCarBehindOnRejoin = TimeSpan.FromSeconds(0);
+                        }
                     }
                     else
                     {
                         model.GapToCarBehindOnRejoin = TimeSpan.FromSeconds(0);
                     }
-                }
-                else
-                {
-                    model.GapToCarBehindOnRejoin = TimeSpan.FromSeconds(0);
-                }
 
-                //Debug.WriteLine("Gap To Ahead: " + " + " + model.GapToCarAheadOnRejoin + " Gap To Behind: " + " + " + model.GapToCarBehindOnRejoin);
+                    //Debug.WriteLine("Gap To Ahead: " + " + " + model.GapToCarAheadOnRejoin + " Gap To Behind: " + " + " + model.GapToCarBehindOnRejoin);
+                }
             }
         }
 
@@ -1040,6 +1058,7 @@ namespace SlipStream.ViewModels
                 Driver[i].FinalPenaltiesTime = TimeSpan.FromSeconds(finalData.m_penaltiesTime);
                 Driver[i].FinalTireStintsNum = finalData.m_numTyreStints;
                 Driver[i].LastLapTime = Driver[i].TotalRaceTime;
+                Driver[i].PointsReceived = finalData.m_points;
             }
         }
     }

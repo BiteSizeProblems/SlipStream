@@ -14,7 +14,7 @@
     <Style x:Key="DisplayBoxLabelBorderTheme" TargetType="Border">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="BorderBrush" Value="White"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="Background" Value="#FF193549"/>
     </Style>
