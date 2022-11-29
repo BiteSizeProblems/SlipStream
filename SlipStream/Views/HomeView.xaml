@@ -10,21 +10,22 @@
     <Border>
         <Grid Margin="20">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+
             <Border HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}" Padding="15">
 
                 <StackPanel>
-
-                    <Border CornerRadius="10" Background="#FF193549" Margin="5">
-                        <TextBlock Text="SLIPSTREAM" TextAlignment="Center"
-                               Style="{StaticResource LargeF1LabelTheme}"/>
-                    </Border>
-                        
 
                     <Border Margin="25,10,25,5" >
                         <StackPanel HorizontalAlignment="Stretch" >
 
                             <Border CornerRadius="10" Background="#FF193549" Padding="5" Margin="20,20,20,10">
-                                <TextBlock Text="QUICK GUIDE" TextAlignment="Center" Style="{StaticResource F1LabelTheme}" />
+                                <TextBlock Text="QUICK GUIDE" TextAlignment="Center" Foreground="Red"
+                                           Style="{StaticResource F1LabelTheme}" />
                             </Border>
 
                             <TextBlock
@@ -67,7 +68,8 @@
                         <StackPanel HorizontalAlignment="Stretch">
 
                             <Border CornerRadius="10" Background="#FF193549" Padding="5" Margin="20,0,20,10">
-                                <TextBlock Text="FEATURES" Style="{StaticResource F1LabelTheme}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="FEATURES" Style="{StaticResource F1LabelTheme}" 
+                                           HorizontalAlignment="Center" Foreground="Red"/>
                             </Border>
 
                             <StackPanel Orientation="Horizontal">
@@ -100,6 +102,76 @@
 
                 </StackPanel>
                 
+            </Border>
+
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DisplayBoxTheme}" 
+                    Padding="15" Grid.Column="1">
+
+                <StackPanel>
+
+                    <Border Margin="25,10,25,5" >
+                        <StackPanel HorizontalAlignment="Stretch" >
+
+                            <Border CornerRadius="10" Background="#FF193549" Padding="5" Margin="20,20,20,10">
+                                <TextBlock Text="FAQ" TextAlignment="Center" Foreground="Red"
+                                           Style="{StaticResource F1LabelTheme}" />
+                            </Border>
+
+                            <TextBlock
+                            Text="NON-POPULATED VALUES FOR SOME DRIVERS IN AN ONLINE LOBBY"
+                            Padding="20,20,20,10" TextWrapping="Wrap" Foreground="Red"/>
+
+                            <TextBlock
+                            Text="Codemasters let players select whether they would like to 'restrict' sharing of critical data in an online lobby. Because of this, you will not be able to view a handful of values if a player has selected 'Restricted' in 'Data Restrictions'. "
+                            Padding="30,10,30,10" TextWrapping="Wrap" FontWeight="Regular"/>
+
+                            <TextBlock
+                            Text="Additionally, Codemasters have identified warnings and penalties as values that are incorrect or not populated at all. "
+                            Padding="30,10,30,10" TextWrapping="Wrap" FontWeight="Regular"/>
+
+                            <TextBlock
+                            Text="Lastly, some features within the app are still being developed, but should be active shortly."
+                            Padding="30,10,30,10" TextWrapping="Wrap" FontWeight="Regular"/>
+
+                            <TextBlock
+                            Text="THE PITSTOP STRATEGY FEATURE ISN'T WORKING"
+                            Padding="20,20,20,10" TextWrapping="Wrap" Foreground="Red"/>
+
+                            <TextBlock
+                            Text="As mentioned above, some features within the app are still in development."
+                            Padding="30,10,30,10" TextWrapping="Wrap" FontWeight="Regular"/>
+
+                            <TextBlock
+                            Text="WHERE DO I FIND THE EXPORTED SPREADSHEET FROM THE LEADERBOARD?"
+                            Padding="20,20,20,10" TextWrapping="Wrap" Foreground="Red"/>
+
+                            <TextBlock
+                            Text="Make sure to check the 'Documents' and 'Downloads' folders on your device."
+                            Padding="30,10,30,10" TextWrapping="Wrap" FontWeight="Regular"/>
+
+                            <TextBlock
+                            Text="WHY ARE SOME/ALL DRIVERS NAMED 'PLACEHOLDER'?"
+                            Padding="20,20,20,10" TextWrapping="Wrap" Foreground="Red"/>
+
+                            <TextBlock
+                            Text="Codemasters legal team does not allow the transmission of multiplayer account handles through UDP. Some drivers are named 'Placeholder' to make it easy for you to select and change their name manually within a lobby."
+                            Padding="30,10,30,10" TextWrapping="Wrap" FontWeight="Regular"/>
+
+                            <TextBlock
+                            Text="WHERE CAN I GO FOR HELP WTH THE APP?"
+                            Padding="20,20,20,10" TextWrapping="Wrap" Foreground="Red"/>
+
+                            <TextBlock
+                            Text="Check out our discord server! ( Click the button on the top left of the banner )"
+                            Padding="30,10,30,10" TextWrapping="Wrap" FontWeight="Regular"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    
+
+                </StackPanel>
+
             </Border>
 
         </Grid>

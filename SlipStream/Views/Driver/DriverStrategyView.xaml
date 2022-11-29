@@ -33,7 +33,7 @@
             <StackPanel Grid.Row="1">
 
                 <Border Style="{StaticResource DisplayBoxLabelBorderTheme}" Margin="15">
-                    <TextBlock Text="PITSTOP" FontSize="50" FontWeight="Bold"
+                    <TextBlock Text="PITSTOP" FontSize="24" FontWeight="Bold"
                                VerticalAlignment="Center" TextAlignment="Center" Padding="10"/>
                 </Border>
                 
@@ -65,7 +65,7 @@
             <StackPanel>
 
                 <Border Style="{StaticResource DisplayBoxLabelBorderTheme}" Margin="15">
-                    <TextBlock Text="AVERAGES" VerticalAlignment="Center" FontSize="50"  Style="{StaticResource F1LabelTheme}"
+                    <TextBlock Text="AVERAGES" VerticalAlignment="Center" FontSize="24"  Style="{StaticResource F1LabelTheme}"
                                    Padding="10" FontWeight="Bold"
                                    TextAlignment="Center" Background="#FF193549"/>
                 </Border>
@@ -75,7 +75,7 @@
                                    VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
                     <TextBlock Text="# ON-TRACK" Foreground="Red" FontSize="20" Padding="10" TextWrapping="Wrap"
                                    VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Width="150"/>
-                    <TextBlock Text="AV. TIME" FontSize="20" HorizontalAlignment="Center" TextAlignment="Left"
+                    <TextBlock Text="AV. TIME" FontSize="20" TextAlignment="Center"
                                    Padding="10" VerticalAlignment="Center" Width="200" Foreground="Red"/>
                     <TextBlock Text="TOTAL WEAR" FontSize="20" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"
                                Padding="0,10" VerticalAlignment="Center" Width="150" Foreground="Red"/>
@@ -95,9 +95,9 @@
                                FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
                     <TextBlock Text="{Binding model.AverageSoftTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="200"/>
+                               FontSize="20" TextAlignment="Center" Padding="10" VerticalAlignment="Center" Width="200"/>
                     <TextBlock Text="{Binding model.AverageSoftWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                     <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center" Width="50"/>
                     <TextBlock Text="{Binding model.AverageSoftWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
                                FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
@@ -113,10 +113,10 @@
                                FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
                     <TextBlock Text="{Binding model.AverageMediumTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                               FontSize="20" TextAlignment="Center" Padding="10" VerticalAlignment="Center"
                                        Width="200"/>
                     <TextBlock Text="{Binding model.AverageMediumWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                     <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
                     <TextBlock Text="{Binding model.AverageMediumWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
                                FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
@@ -134,10 +134,10 @@
                                FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
                     <TextBlock Text="{Binding model.AverageHardTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                               FontSize="20" TextAlignment="Center" Padding="10" VerticalAlignment="Center"
                                        Width="200"/>
                     <TextBlock Text="{Binding model.AverageHardWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
 
                     <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
                     <TextBlock Text="{Binding model.AverageHardWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
@@ -154,10 +154,10 @@
                                FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
                     <TextBlock Text="{Binding model.AverageInterTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                               FontSize="20" TextAlignment="Center" Padding="10" VerticalAlignment="Center"
                                        Width="200"/>
                     <TextBlock Text="{Binding model.AverageInterWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                     <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
                     <TextBlock Text="{Binding model.AverageInterWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
                                FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
@@ -173,10 +173,10 @@
                                FontSize="28" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center"/>
                     </Grid>
                     <TextBlock Text="{Binding model.AverageWetTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                               FontSize="20" TextAlignment="Center" Padding="10" VerticalAlignment="Center"
                                        Width="200"/>
                     <TextBlock Text="{Binding model.AverageWetWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                     <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
                     <TextBlock Text="{Binding model.AverageInterWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
                                FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
@@ -188,10 +188,10 @@
                     <Grid Margin="0" Width="150">
                     </Grid>
                     <TextBlock Text="{Binding model.AverageLapTime, StringFormat=mm\\:ss\\.fff, FallbackValue=0:00.000}"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center"
+                               FontSize="20" TextAlignment="Center" Padding="10" VerticalAlignment="Center"
                                        Width="200"/>
                     <TextBlock Text="{Binding model.AverageTireWear, StringFormat={}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Center"
-                               FontSize="30" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
+                               FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>
                     <TextBlock Text=" + " FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" TextAlignment="Center"/>
                     <TextBlock Text="{Binding model.AverageWetWearRate, StringFormat= {}{0:F1}%, FallbackValue=0.0%}" TextAlignment="Left"
                                FontSize="20" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center" Width="150"/>

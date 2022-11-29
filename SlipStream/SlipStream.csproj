@@ -318,6 +318,178 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="bin\Debug\net6.0-windows\SlipStream.deps.json" />
+    <Content Include="bin\Debug\net6.0-windows\SlipStream.runtimeconfig.json" />
+    <Content Include="bin\publish\Publish.html" />
+    <Content Include="bin\publish\SlipStream.deps.json" />
+    <Content Include="bin\publish\SlipStream.runtimeconfig.json" />
+    <Content Include="bin\Release\net6.0-windows\SlipStream.deps.json" />
+    <Content Include="bin\Release\net6.0-windows\SlipStream.runtimeconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net6.0-windows\EPPlus.dll" />
+    <None Include="bin\Debug\net6.0-windows\EPPlus.Interfaces.dll" />
+    <None Include="bin\Debug\net6.0-windows\EPPlus.System.Drawing.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.FileExtensions.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Json.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Physical.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.IO.RecyclableMemoryStream.dll" />
+    <None Include="bin\Debug\net6.0-windows\Microsoft.Office.Interop.Excel.dll" />
+    <None Include="bin\Debug\net6.0-windows\ref\SlipStream.dll" />
+    <None Include="bin\Debug\net6.0-windows\SlipStream.dll" />
+    <None Include="bin\Debug\net6.0-windows\SlipStream.exe" />
+    <None Include="bin\Debug\net6.0-windows\SlipStream.pdb" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.Compression.Base.dll" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.Data.WPF.dll" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.Licensing.dll" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.Pdf.Base.dll" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.SfGrid.WPF.dll" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.SfGridConverter.WPF.dll" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.Shared.WPF.dll" />
+    <None Include="bin\Debug\net6.0-windows\Syncfusion.XlsIO.Base.dll" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\EPPlus.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\EPPlus.Interfaces.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\EPPlus.System.Drawing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Launcher.exe.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.Configuration.Abstractions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.Configuration.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.Configuration.FileExtensions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.Configuration.Json.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.FileProviders.Abstractions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.FileProviders.Physical.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.FileSystemGlobbing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Extensions.Primitives.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.IO.RecyclableMemoryStream.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Microsoft.Office.Interop.Excel.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\SlipStream.deps.json.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\SlipStream.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\SlipStream.dll.manifest" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\SlipStream.exe.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\SlipStream.runtimeconfig.json.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.Compression.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.Data.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.Licensing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.Pdf.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.SfGrid.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.SfGridConverter.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.Shared.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_0\Syncfusion.XlsIO.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\EPPlus.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\EPPlus.Interfaces.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\EPPlus.System.Drawing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Launcher.exe.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.Configuration.Abstractions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.Configuration.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.Configuration.FileExtensions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.Configuration.Json.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.FileProviders.Abstractions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.FileProviders.Physical.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.FileSystemGlobbing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Extensions.Primitives.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.IO.RecyclableMemoryStream.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Microsoft.Office.Interop.Excel.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\SlipStream.deps.json.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\SlipStream.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\SlipStream.dll.manifest" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\SlipStream.exe.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\SlipStream.runtimeconfig.json.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.Compression.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.Data.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.Licensing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.Pdf.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.SfGrid.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.SfGridConverter.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.Shared.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_1\Syncfusion.XlsIO.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\EPPlus.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\EPPlus.Interfaces.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\EPPlus.System.Drawing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Launcher.exe.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.Configuration.Abstractions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.Configuration.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.Configuration.FileExtensions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.Configuration.Json.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.FileProviders.Abstractions.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.FileProviders.Physical.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.FileSystemGlobbing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Extensions.Primitives.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.IO.RecyclableMemoryStream.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Microsoft.Office.Interop.Excel.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\SlipStream.deps.json.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\SlipStream.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\SlipStream.dll.manifest" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\SlipStream.exe.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\SlipStream.runtimeconfig.json.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.Compression.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.Data.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.Licensing.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.Pdf.Base.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.SfGrid.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.SfGridConverter.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.Shared.WPF.dll.deploy" />
+    <None Include="bin\publish\Application Files\SlipStream_1_0_0_2\Syncfusion.XlsIO.Base.dll.deploy" />
+    <None Include="bin\publish\EPPlus.dll" />
+    <None Include="bin\publish\EPPlus.Interfaces.dll" />
+    <None Include="bin\publish\EPPlus.System.Drawing.dll" />
+    <None Include="bin\publish\Launcher.exe" />
+    <None Include="bin\publish\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <None Include="bin\publish\Microsoft.Extensions.Configuration.dll" />
+    <None Include="bin\publish\Microsoft.Extensions.Configuration.FileExtensions.dll" />
+    <None Include="bin\publish\Microsoft.Extensions.Configuration.Json.dll" />
+    <None Include="bin\publish\Microsoft.Extensions.FileProviders.Abstractions.dll" />
+    <None Include="bin\publish\Microsoft.Extensions.FileProviders.Physical.dll" />
+    <None Include="bin\publish\Microsoft.Extensions.FileSystemGlobbing.dll" />
+    <None Include="bin\publish\Microsoft.Extensions.Primitives.dll" />
+    <None Include="bin\publish\Microsoft.IO.RecyclableMemoryStream.dll" />
+    <None Include="bin\publish\Microsoft.Office.Interop.Excel.dll" />
+    <None Include="bin\publish\setup.exe" />
+    <None Include="bin\publish\SlipStream.application" />
+    <None Include="bin\publish\SlipStream.dll" />
+    <None Include="bin\publish\SlipStream.exe" />
+    <None Include="bin\publish\SlipStream.pdb" />
+    <None Include="bin\publish\Syncfusion.Compression.Base.dll" />
+    <None Include="bin\publish\Syncfusion.Data.WPF.dll" />
+    <None Include="bin\publish\Syncfusion.Licensing.dll" />
+    <None Include="bin\publish\Syncfusion.Pdf.Base.dll" />
+    <None Include="bin\publish\Syncfusion.SfGrid.WPF.dll" />
+    <None Include="bin\publish\Syncfusion.SfGridConverter.WPF.dll" />
+    <None Include="bin\publish\Syncfusion.Shared.WPF.dll" />
+    <None Include="bin\publish\Syncfusion.XlsIO.Base.dll" />
+    <None Include="bin\Release\net6.0-windows\EPPlus.dll" />
+    <None Include="bin\Release\net6.0-windows\EPPlus.Interfaces.dll" />
+    <None Include="bin\Release\net6.0-windows\EPPlus.System.Drawing.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.Configuration.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.Configuration.FileExtensions.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.Configuration.Json.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.FileProviders.Physical.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Extensions.Primitives.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.IO.RecyclableMemoryStream.dll" />
+    <None Include="bin\Release\net6.0-windows\Microsoft.Office.Interop.Excel.dll" />
+    <None Include="bin\Release\net6.0-windows\SlipStream.application" />
+    <None Include="bin\Release\net6.0-windows\SlipStream.dll" />
+    <None Include="bin\Release\net6.0-windows\SlipStream.dll.manifest" />
+    <None Include="bin\Release\net6.0-windows\SlipStream.exe" />
+    <None Include="bin\Release\net6.0-windows\SlipStream.pdb" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.Compression.Base.dll" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.Data.WPF.dll" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.Licensing.dll" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.Pdf.Base.dll" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.SfGrid.WPF.dll" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.SfGridConverter.WPF.dll" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.Shared.WPF.dll" />
+    <None Include="bin\Release\net6.0-windows\Syncfusion.XlsIO.Base.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Core\Fonts\Formula1-Black.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -1111,6 +1283,10 @@
     <Page Update="Core\Themes\DisplayBoxTheme.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Release\net6.0-windows\ref\" />
   </ItemGroup>
 
 	<Target Name="AfterResolveReferences">

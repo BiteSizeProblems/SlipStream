@@ -31,12 +31,12 @@ namespace SlipStream
         /// Main entry point
         /// </summary>
         // https://stackoverflow.com/questions/1025843/merging-dlls-into-a-single-exe-with-wpf?fbclid=IwAR2vdTCV2W3k9I-p4kJkqBMMbhfw4vfKIoTFEJUBcXzBgcbkRUWOgzt2Ipw
-        [STAThreadAttribute]
-        public static void Main()
-        {
-            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
-            App.Main();
-        }
+        //[STAThreadAttribute]
+        //public static void Mailn()
+        //{
+            //AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+            //App.Main();
+        //}
 
 
         /// <summary>
